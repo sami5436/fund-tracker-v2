@@ -1,0 +1,46 @@
+import type { FundConfig } from './types';
+
+export const FUNDS: FundConfig[] = [
+  {
+    id: 'lgrrx',
+    name: 'LGRRX',
+    fullName: 'Loomis Sayles Large Cap Growth',
+    subtitle: 'Class D',
+    defaultNav: 73.81,
+    navStorageKey: 'fund_nav_lgrrx',
+    totalTop10Weight: 64.57,
+    holdings: [
+      { ticker: 'NVDA',  name: 'NVIDIA',    weight: 10.14 },
+      { ticker: 'META',  name: 'Meta',       weight: 8.54  },
+      { ticker: 'NFLX',  name: 'Netflix',    weight: 8.06  },
+      { ticker: 'TSLA',  name: 'Tesla',      weight: 6.44  },
+      { ticker: 'AMZN',  name: 'Amazon',     weight: 5.93  },
+      { ticker: 'ORCL',  name: 'Oracle',     weight: 5.64  },
+      { ticker: 'GOOGL', name: 'Alphabet',   weight: 5.33  },
+      { ticker: 'V',     name: 'Visa',       weight: 5.13  },
+      { ticker: 'BA',    name: 'Boeing',     weight: 4.74  },
+      { ticker: 'MSFT',  name: 'Microsoft',  weight: 4.63  },
+    ],
+  },
+  {
+    id: 'sp500',
+    name: 'S&P 500',
+    fullName: 'NT Collective S&P500 Index Fund – Lending',
+    subtitle: 'U.S. Equity · Large Blend · 507 holdings',
+    defaultNav: 65.93,
+    navStorageKey: 'fund_nav_sp500',
+    totalTop10Weight: 38.55,
+    holdings: [
+      { ticker: 'NVDA',  name: 'NVIDIA Corp',        weight: 7.91 },
+      { ticker: 'MSFT',  name: 'Microsoft Corp',     weight: 6.69 },
+      { ticker: 'AAPL',  name: 'Apple Inc',          weight: 6.57 },
+      { ticker: 'AMZN',  name: 'Amazon.com',         weight: 3.70 },
+      { ticker: 'META',  name: 'Meta Platforms',     weight: 2.77 },
+      { ticker: 'AVGO',  name: 'Broadcom Inc',       weight: 2.70 },
+      { ticker: 'GOOGL', name: 'Alphabet A',         weight: 2.46 },
+      { ticker: 'TSLA',  name: 'Tesla Inc',          weight: 2.17 },
+      { ticker: 'GOOG',  name: 'Alphabet C',         weight: 1.98 },
+      { ticker: 'BRK-B', name: 'Berkshire B',        weight: 1.60 },
+    ],
+  },
+];
