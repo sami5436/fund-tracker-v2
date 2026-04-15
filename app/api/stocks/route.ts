@@ -17,45 +17,61 @@ interface QuoteData {
 const quoteCache = new Map<string, { data: QuoteData; expiresAt: number }>();
 const CACHE_TTL = 55_000; // 55 seconds
 
+// In-flight deduplication: concurrent requests for the same ticker share one fetch
+const inFlight = new Map<string, Promise<QuoteData>>();
+
 async function fetchQuote(ticker: string): Promise<QuoteData> {
   const cached = quoteCache.get(ticker);
   if (cached && Date.now() < cached.expiresAt) {
     return cached.data;
   }
 
-  const quote = await yahooFinance.quote(ticker);
+  // If already fetching this ticker, return the shared promise
+  const existing = inFlight.get(ticker);
+  if (existing) return existing;
 
-  const price = quote.regularMarketPrice ?? null;
-  const prevClose = quote.regularMarketPreviousClose ?? null;
-  const changePct =
-    price !== null && prevClose !== null && prevClose !== 0
-      ? ((price - prevClose) / prevClose) * 100
-      : null;
+  const promise = (async (): Promise<QuoteData> => {
+    try {
+      const quote = await yahooFinance.quote(ticker);
 
-  let updatedAt: string | null = null;
-  if (quote.regularMarketTime) {
-    updatedAt =
-      quote.regularMarketTime instanceof Date
-        ? quote.regularMarketTime.toISOString()
-        : new Date((quote.regularMarketTime as number) * 1000).toISOString();
-  }
+      const price = quote.regularMarketPrice ?? null;
+      const prevClose = quote.regularMarketPreviousClose ?? null;
+      const changePct =
+        price !== null && prevClose !== null && prevClose !== 0
+          ? ((price - prevClose) / prevClose) * 100
+          : null;
 
-  const data: QuoteData = { ticker, price, prevClose, changePct, updatedAt };
-  quoteCache.set(ticker, { data, expiresAt: Date.now() + CACHE_TTL });
-  return data;
+      let updatedAt: string | null = null;
+      if (quote.regularMarketTime) {
+        updatedAt =
+          quote.regularMarketTime instanceof Date
+            ? quote.regularMarketTime.toISOString()
+            : new Date((quote.regularMarketTime as number) * 1000).toISOString();
+      }
+
+      const data: QuoteData = { ticker, price, prevClose, changePct, updatedAt };
+      quoteCache.set(ticker, { data, expiresAt: Date.now() + CACHE_TTL });
+      return data;
+    } finally {
+      inFlight.delete(ticker);
+    }
+  })();
+
+  inFlight.set(ticker, promise);
+  return promise;
 }
 
-// Fetch tickers sequentially with a small delay to avoid crumb rate limits
-async function fetchSequential(tickers: string[], delayMs = 120): Promise<QuoteData[]> {
+// Fetch tickers sequentially with a delay to avoid Yahoo Finance crumb rate limits
+async function fetchSequential(tickers: string[], delayMs = 400): Promise<QuoteData[]> {
   const results: QuoteData[] = [];
-  for (const ticker of tickers) {
+  for (let i = 0; i < tickers.length; i++) {
     try {
-      results.push(await fetchQuote(ticker));
+      results.push(await fetchQuote(tickers[i]));
     } catch (err) {
-      console.error(`[stocks] ${ticker}:`, (err as Error).message);
-      results.push({ ticker, price: null, prevClose: null, changePct: null, updatedAt: null });
+      console.error(`[stocks] ${tickers[i]}:`, (err as Error).message);
+      results.push({ ticker: tickers[i], price: null, prevClose: null, changePct: null, updatedAt: null });
     }
-    if (delayMs > 0 && tickers.indexOf(ticker) < tickers.length - 1) {
+    if (delayMs > 0 && i < tickers.length - 1) {
       await new Promise((r) => setTimeout(r, delayMs));
     }
   }
