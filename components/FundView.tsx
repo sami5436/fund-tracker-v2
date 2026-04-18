@@ -62,25 +62,16 @@ export default function FundView({ fund }: { fund: FundConfig }) {
     { refreshInterval: 120_000, revalidateOnFocus: false }
   );
 
-  const {
-    data: navRows,
-    mutate: mutateRecords,
-  } = useSWR<NavRow[]>(
+  const { data: navRows, mutate: mutateRecords } = useSWR<NavRow[]>(
     `/api/nav-records?fund_id=${fund.id}`,
     fetcher,
     { revalidateOnFocus: false }
   );
 
-  // nav is driven by the most recent entry in the DB; falls back to defaultNav
   const [nav, setNav] = useState(fund.defaultNav);
-  const [clockTime, setClockTime] = useState('');
-  const [clockDate, setClockDate] = useState('');
 
-  // Sync nav from most recent DB record whenever records load/change
   useEffect(() => {
-    if (navRows && navRows.length > 0) {
-      setNav(Number(navRows[0].actual_nav));
-    }
+    if (navRows && navRows.length > 0) setNav(Number(navRows[0].actual_nav));
   }, [navRows]);
 
   const saveRecord = useCallback(
@@ -112,31 +103,6 @@ export default function FundView({ fund }: { fund: FundConfig }) {
     [fund.id, mutateRecords]
   );
 
-  // Live clock
-  useEffect(() => {
-    function tick() {
-      const now = new Date();
-      setClockTime(
-        now.toLocaleTimeString('en-US', {
-          timeZone: 'America/Chicago',
-          hour: 'numeric',
-          minute: '2-digit',
-          hour12: true,
-        }) + ' CST'
-      );
-      setClockDate(
-        now.toLocaleDateString('en-US', {
-          timeZone: 'America/Chicago',
-          month: 'short',
-          day: 'numeric',
-          year: 'numeric',
-        })
-      );
-    }
-    tick();
-    const id = setInterval(tick, 30_000);
-    return () => clearInterval(id);
-  }, []);
 
   const fundChange = quotes
     ? calculateFundChange(fund.holdings, quotes, fund.totalTop10Weight)
@@ -158,83 +124,68 @@ export default function FundView({ fund }: { fund: FundConfig }) {
   const mostRecentRow = navRows?.[0];
 
   return (
-    <div className="space-y-4">
-      {/* Last Official NAV — auto-fetched from DB */}
+    <div className="space-y-3">
+
+      {/* Official NAV + entry combined */}
+      <div className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
+        <div className="px-4 py-3 flex items-center justify-between">
+          <div>
+            {mostRecentRow ? (
+              <>
+                <span className="text-xl font-bold text-gray-900 tabular-nums">
+                  ${Number(mostRecentRow.actual_nav).toFixed(2)}
+                </span>
+                <span className="text-sm text-gray-400 ml-2">
+                  — last official NAV price from{' '}
+                  {new Date(`${mostRecentRow.date}T12:00:00`).toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </span>
+              </>
+            ) : (
+              <span className="text-sm text-gray-400">No entries yet — log one below</span>
+            )}
+          </div>
+        </div>
+        <div className="px-4 py-3">
+          <ActualNavEntry fundId={fund.id} estimatedNav={estimatedNav} onSave={saveRecord} />
+        </div>
+      </div>
+
+      {/* Estimated NAV */}
       <div className="bg-white rounded-xl border border-gray-200 p-4">
-        <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">
-          Last Official NAV
-        </p>
-        {mostRecentRow ? (
-          <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-gray-900 tabular-nums">
-              ${Number(mostRecentRow.actual_nav).toFixed(2)}
-            </span>
-            <span className="text-xs text-gray-400">{mostRecentRow.date}</span>
-          </div>
-        ) : (
-          <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-gray-400 tabular-nums">
-              ${fund.defaultNav.toFixed(2)}
-            </span>
-            <span className="text-xs text-gray-400">default — no entries yet</span>
-          </div>
-        )}
-      </div>
-
-      {/* End-of-day actual NAV entry */}
-      <ActualNavEntry
-        fundId={fund.id}
-        estimatedNav={estimatedNav}
-        onSave={saveRecord}
-      />
-
-      {/* Primary metric — Estimated NAV */}
-      <div className="bg-white rounded-xl border border-gray-200 p-5">
-        <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">Estimated NAV</p>
-        <p className="text-4xl font-bold text-gray-900 tabular-nums mt-1.5">
-          ${estimatedNav.toFixed(2)}
-        </p>
-        <div
-          className={`flex items-center gap-1.5 mt-2 text-sm font-semibold ${
-            isPositive ? 'text-green-600' : isNegative ? 'text-red-600' : 'text-gray-400'
-          }`}
-        >
-          <span className="text-base">{isPositive ? '▲' : isNegative ? '▼' : '—'}</span>
-          <span>
-            {isPositive ? '+' : ''}
-            {fundChange.toFixed(3)}%
+        <div className="flex items-baseline flex-wrap gap-x-2 gap-y-0.5">
+          <span className="text-4xl font-bold text-gray-900 tabular-nums">
+            ${estimatedNav.toFixed(2)}
           </span>
-          <span className="text-xs font-normal text-gray-400">
-            · top {fund.holdings.length} holdings
+          <span className="text-sm text-gray-400">
+            &mdash; estimated from today&apos;s market, off the last official close{' '}
+            {mostRecentRow
+              ? `($${Number(mostRecentRow.actual_nav).toFixed(2)} on ${new Date(`${mostRecentRow.date}T12:00:00`).toLocaleDateString('en-US', { weekday: 'long' })})`
+              : ''}
           </span>
         </div>
-      </div>
-
-      {/* Secondary metrics */}
-      <div className="grid grid-cols-2 gap-3">
-        <div className="bg-white rounded-xl border border-gray-200 p-4">
-          <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1.5">
-            Official NAV
-          </p>
-          <p className="text-2xl font-bold text-gray-900 tabular-nums">${nav.toFixed(2)}</p>
-        </div>
-        <div className="bg-white rounded-xl border border-gray-200 p-4">
-          <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1.5">
-            As of
-          </p>
-          <p className="text-sm font-semibold text-gray-900">{clockTime}</p>
-          <p className="text-xs text-gray-400 mt-0.5">{clockDate}</p>
+        <div className="flex items-center justify-between mt-1.5">
+          <div
+            className={`flex items-center gap-1.5 text-sm font-semibold ${
+              isPositive ? 'text-green-600' : isNegative ? 'text-red-600' : 'text-gray-400'
+            }`}
+          >
+            <span>{isPositive ? '+' : ''}{fundChange.toFixed(3)}%</span>
+            <span className="text-xs font-normal text-gray-400">
+              · top {fund.holdings.length} holdings
+            </span>
+          </div>
         </div>
       </div>
 
       {/* Refresh */}
       <button
-        onClick={() => {
-          mutate();
-          mutateSeries();
-        }}
+        onClick={() => { mutate(); mutateSeries(); }}
         disabled={isLoading}
-        className="w-full flex items-center justify-center gap-2 min-h-[44px] py-3 border border-gray-200 bg-white rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 active:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
+        className="w-full flex items-center justify-center gap-2 min-h-[44px] py-2.5 border border-gray-200 bg-white rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 active:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
       >
         <RefreshIcon spinning={isLoading} />
         {isLoading ? 'Refreshing…' : 'Refresh Prices'}
@@ -242,14 +193,14 @@ export default function FundView({ fund }: { fund: FundConfig }) {
 
       {/* Holdings table */}
       <div>
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-2">
           <h2 className="text-sm font-semibold text-gray-900">Top 10 Holdings</h2>
           <span className="text-xs text-gray-400 bg-gray-100 px-2.5 py-1 rounded-full">
             {fund.totalTop10Weight}% of fund
           </span>
         </div>
         {isLoading && !quotes ? (
-          <div className="bg-white rounded-xl border border-gray-200 py-10 text-center text-gray-400 text-sm">
+          <div className="bg-white rounded-xl border border-gray-200 py-8 text-center text-gray-400 text-sm">
             Loading prices…
           </div>
         ) : (
@@ -280,7 +231,7 @@ export default function FundView({ fund }: { fund: FundConfig }) {
 
       {/* Estimated vs actual history */}
       <div>
-        <h2 className="text-sm font-semibold text-gray-900 mb-3">Estimated vs Actual NAV</h2>
+        <h2 className="text-sm font-semibold text-gray-900 mb-2">Estimated vs Actual NAV</h2>
         <NavHistory records={navRows} onDelete={deleteRecord} />
       </div>
 

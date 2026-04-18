@@ -1,21 +1,46 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FUNDS } from '@/lib/constants';
 import FundView from '@/components/FundView';
 
 export default function Home() {
   const [activeId, setActiveId] = useState(FUNDS[0].id);
   const activeFund = FUNDS.find((f) => f.id === activeId)!;
+  const [clock, setClock] = useState('');
+
+  useEffect(() => {
+    function tick() {
+      const now = new Date();
+      setClock(
+        now.toLocaleTimeString('en-US', {
+          timeZone: 'America/Chicago',
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: true,
+        }) +
+          ' CST · ' +
+          now.toLocaleDateString('en-US', {
+            timeZone: 'America/Chicago',
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+          })
+      );
+    }
+    tick();
+    const id = setInterval(tick, 30_000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Sticky header + tabs */}
       <div className="sticky top-0 z-10 bg-white border-b border-gray-200">
         <div className="max-w-xl mx-auto px-4">
-          <div className="pt-5 pb-2">
+          <div className="pt-5 pb-2 flex items-baseline justify-between">
             <h1 className="text-xl font-bold text-gray-900">Fund Nowcast</h1>
-            <p className="text-xs text-gray-400 mt-0.5">Real-time NAV estimates</p>
+            {clock && <span className="text-xs text-gray-400 tabular-nums">{clock}</span>}
           </div>
 
           <div className="flex -mb-px">
@@ -44,7 +69,6 @@ export default function Home() {
 
       {/* Main content */}
       <div className="max-w-xl mx-auto px-4 py-4">
-        {/* key prop remounts FundView when switching tabs so SWR fetches fresh data */}
         <FundView key={activeFund.id} fund={activeFund} />
       </div>
     </div>

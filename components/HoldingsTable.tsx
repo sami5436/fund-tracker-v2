@@ -7,8 +7,13 @@ type SortCol = 'ticker' | 'weight' | 'price' | 'changePct';
 
 function SortIcon({ active, dir }: { active: boolean; dir: 'asc' | 'desc' }) {
   return (
-    <span className={`ml-1 text-[10px] ${active ? 'text-gray-600' : 'text-gray-300'}`}>
-      {active ? (dir === 'asc' ? '↑' : '↓') : '↕'}
+    <span className="inline-flex flex-col ml-1 gap-px align-middle">
+      <svg viewBox="0 0 6 4" className={`w-1.5 h-1 ${active && dir === 'asc' ? 'text-gray-600' : 'text-gray-300'}`} fill="currentColor">
+        <path d="M3 0L6 4H0L3 0Z" />
+      </svg>
+      <svg viewBox="0 0 6 4" className={`w-1.5 h-1 ${active && dir === 'desc' ? 'text-gray-600' : 'text-gray-300'}`} fill="currentColor">
+        <path d="M3 4L0 0H6L3 4Z" />
+      </svg>
     </span>
   );
 }

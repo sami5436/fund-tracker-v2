@@ -127,9 +127,12 @@ export default function NavHistory({ records, onDelete }: Props) {
                   <button
                     onClick={() => onDelete(r.date)}
                     className="text-gray-300 hover:text-red-400 transition-colors p-1 -m-1 touch-manipulation"
-                    title="Delete entry"
+                    title="Delete"
                   >
-                    ✕
+                    <svg viewBox="0 0 12 12" className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round">
+                      <line x1="1" y1="1" x2="11" y2="11" />
+                      <line x1="11" y1="1" x2="1" y2="11" />
+                    </svg>
                   </button>
                 </td>
               </tr>
