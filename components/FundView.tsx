@@ -2,10 +2,12 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import useSWR from 'swr';
-import type { FundConfig, StockQuote, HoldingWithData, TickerSeries } from '@/lib/types';
+import type { FundConfig, StockQuote, HoldingWithData, TickerSeries, NavRecord, NavRow } from '@/lib/types';
 import HoldingsTable from './HoldingsTable';
 import InsightsPanel from './InsightsPanel';
 import NavChart from './NavChart';
+import ActualNavEntry from './ActualNavEntry';
+import NavHistory from './NavHistory';
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -24,7 +26,6 @@ function calculateFundChange(
 
   if (!contributions.length) return 0;
   const weightedSum = contributions.reduce((a, b) => a + b, 0);
-  // Scale to full fund assuming unobserved holdings move proportionally
   return (weightedSum / totalWeight) * 100;
 }
 
@@ -61,26 +62,57 @@ export default function FundView({ fund }: { fund: FundConfig }) {
     { refreshInterval: 120_000, revalidateOnFocus: false }
   );
 
-  // Use string state so the input handles partial values like "73."
-  const [navInput, setNavInput] = useState(fund.defaultNav.toFixed(2));
+  const {
+    data: navRows,
+    mutate: mutateRecords,
+  } = useSWR<NavRow[]>(
+    `/api/nav-records?fund_id=${fund.id}`,
+    fetcher,
+    { revalidateOnFocus: false }
+  );
+
+  // nav is driven by the most recent entry in the DB; falls back to defaultNav
   const [nav, setNav] = useState(fund.defaultNav);
-  const [navUpdated, setNavUpdated] = useState<string | null>(null);
   const [clockTime, setClockTime] = useState('');
   const [clockDate, setClockDate] = useState('');
 
-  // Load NAV from localStorage on mount
+  // Sync nav from most recent DB record whenever records load/change
   useEffect(() => {
-    const stored = localStorage.getItem(fund.navStorageKey);
-    if (stored) {
-      const v = parseFloat(stored);
-      if (!isNaN(v) && v > 0) {
-        setNav(v);
-        setNavInput(stored);
-      }
+    if (navRows && navRows.length > 0) {
+      setNav(Number(navRows[0].actual_nav));
     }
-  }, [fund.navStorageKey]);
+  }, [navRows]);
 
-  // Live clock (updates every 30s — sufficient for display)
+  const saveRecord = useCallback(
+    async (record: NavRecord) => {
+      const res = await fetch('/api/nav-records', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fund_id: record.fundId,
+          date: record.date,
+          actual_nav: record.actualNav,
+          estimated_nav: record.estimatedNav,
+        }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error ?? `HTTP ${res.status}`);
+      }
+      await mutateRecords();
+    },
+    [mutateRecords]
+  );
+
+  const deleteRecord = useCallback(
+    async (date: string) => {
+      await fetch(`/api/nav-records?fund_id=${fund.id}&date=${date}`, { method: 'DELETE' });
+      mutateRecords();
+    },
+    [fund.id, mutateRecords]
+  );
+
+  // Live clock
   useEffect(() => {
     function tick() {
       const now = new Date();
@@ -106,29 +138,6 @@ export default function FundView({ fund }: { fund: FundConfig }) {
     return () => clearInterval(id);
   }, []);
 
-  const handleNavChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const raw = e.target.value;
-      setNavInput(raw);
-      const parsed = parseFloat(raw);
-      if (!isNaN(parsed) && parsed > 0) {
-        setNav(parsed);
-        localStorage.setItem(fund.navStorageKey, raw);
-        setNavUpdated(
-          new Date().toLocaleString('en-US', {
-            timeZone: 'America/Chicago',
-            month: 'short',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: '2-digit',
-            hour12: true,
-          })
-        );
-      }
-    },
-    [fund.navStorageKey]
-  );
-
   const fundChange = quotes
     ? calculateFundChange(fund.holdings, quotes, fund.totalTop10Weight)
     : 0;
@@ -146,29 +155,38 @@ export default function FundView({ fund }: { fund: FundConfig }) {
     };
   });
 
+  const mostRecentRow = navRows?.[0];
+
   return (
     <div className="space-y-4">
-      {/* NAV Input */}
+      {/* Last Official NAV — auto-fetched from DB */}
       <div className="bg-white rounded-xl border border-gray-200 p-4">
-        <label className="block text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">
+        <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">
           Last Official NAV
-        </label>
-        <div className="flex items-center gap-1.5">
-          <span className="text-gray-400 font-medium">$</span>
-          <input
-            type="number"
-            step="0.01"
-            min="0"
-            value={navInput}
-            onChange={handleNavChange}
-            className="w-28 border border-gray-200 rounded-lg px-3 py-2 text-gray-900 font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-          {navUpdated && (
-            <span className="text-xs text-gray-400 ml-1">Set {navUpdated}</span>
-          )}
-        </div>
-        <p className="text-xs text-gray-400 mt-2">Updates ~11 PM CST each trading day</p>
+        </p>
+        {mostRecentRow ? (
+          <div className="flex items-baseline gap-2">
+            <span className="text-2xl font-bold text-gray-900 tabular-nums">
+              ${Number(mostRecentRow.actual_nav).toFixed(2)}
+            </span>
+            <span className="text-xs text-gray-400">{mostRecentRow.date}</span>
+          </div>
+        ) : (
+          <div className="flex items-baseline gap-2">
+            <span className="text-2xl font-bold text-gray-400 tabular-nums">
+              ${fund.defaultNav.toFixed(2)}
+            </span>
+            <span className="text-xs text-gray-400">default — no entries yet</span>
+          </div>
+        )}
       </div>
+
+      {/* End-of-day actual NAV entry */}
+      <ActualNavEntry
+        fundId={fund.id}
+        estimatedNav={estimatedNav}
+        onSave={saveRecord}
+      />
 
       {/* Primary metric — Estimated NAV */}
       <div className="bg-white rounded-xl border border-gray-200 p-5">
@@ -209,16 +227,6 @@ export default function FundView({ fund }: { fund: FundConfig }) {
         </div>
       </div>
 
-      {/* Intraday chart */}
-      {series && series.length > 0 && (
-        <NavChart
-          holdings={fund.holdings}
-          series={series}
-          officialNav={nav}
-          totalTop10Weight={fund.totalTop10Weight}
-        />
-      )}
-
       {/* Refresh */}
       <button
         onClick={() => {
@@ -226,7 +234,7 @@ export default function FundView({ fund }: { fund: FundConfig }) {
           mutateSeries();
         }}
         disabled={isLoading}
-        className="w-full flex items-center justify-center gap-2 py-3 border border-gray-200 bg-white rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 active:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full flex items-center justify-center gap-2 min-h-[44px] py-3 border border-gray-200 bg-white rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 active:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
       >
         <RefreshIcon spinning={isLoading} />
         {isLoading ? 'Refreshing…' : 'Refresh Prices'}
@@ -240,7 +248,6 @@ export default function FundView({ fund }: { fund: FundConfig }) {
             {fund.totalTop10Weight}% of fund
           </span>
         </div>
-
         {isLoading && !quotes ? (
           <div className="bg-white rounded-xl border border-gray-200 py-10 text-center text-gray-400 text-sm">
             Loading prices…
@@ -260,6 +267,22 @@ export default function FundView({ fund }: { fund: FundConfig }) {
           totalTop10Weight={fund.totalTop10Weight}
         />
       )}
+
+      {/* Intraday chart */}
+      {series && series.length > 0 && (
+        <NavChart
+          holdings={fund.holdings}
+          series={series}
+          officialNav={nav}
+          totalTop10Weight={fund.totalTop10Weight}
+        />
+      )}
+
+      {/* Estimated vs actual history */}
+      <div>
+        <h2 className="text-sm font-semibold text-gray-900 mb-3">Estimated vs Actual NAV</h2>
+        <NavHistory records={navRows} onDelete={deleteRecord} />
+      </div>
 
       <p className="text-xs text-gray-400 text-center pb-6">
         Estimate only · Not investment advice

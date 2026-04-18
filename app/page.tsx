@@ -23,7 +23,7 @@ export default function Home() {
               <button
                 key={fund.id}
                 onClick={() => setActiveId(fund.id)}
-                className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+                className={`px-4 py-3 min-h-[44px] text-sm font-medium border-b-2 transition-colors touch-manipulation ${
                   activeId === fund.id
                     ? 'border-blue-600 text-blue-600'
                     : 'border-transparent text-gray-500 hover:text-gray-700'

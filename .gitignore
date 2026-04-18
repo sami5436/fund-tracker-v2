@@ -32,3 +32,6 @@ next-env.d.ts
 
 # claude code
 .claude/
+
+# local sql schema
+db/

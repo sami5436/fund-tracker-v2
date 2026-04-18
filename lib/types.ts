@@ -35,3 +35,23 @@ export interface FundConfig {
   defaultNav: number;
   navStorageKey: string;
 }
+
+export interface NavRecord {
+  date: string;       // YYYY-MM-DD
+  actualNav: number;
+  estimatedNav: number;
+  fundId: string;
+}
+
+// Shape returned directly from Supabase (snake_case)
+export interface NavRow {
+  id: number;
+  fund_id: string;
+  date: string;
+  actual_nav: number;
+  estimated_nav: number | null;
+  diff: number | null;
+  diff_pct: number | null;
+  created_at: string;
+  updated_at: string;
+}
