@@ -92,7 +92,7 @@ export default function ActualNavEntry({ fundId, estimatedNav, onSave }: Props) 
         {status === 'saved' && <span className="text-xs text-green-600 font-medium">Saved</span>}
         {status === 'error' && <span className="text-xs text-red-500">{errorMsg}</span>}
       </form>
-      {blockReason && <p className="text-xs text-amber-500 mt-1.5">{blockReason}</p>}
+      {blockReason && <p className="text-xs text-red-500 mt-1.5">{blockReason}</p>}
     </div>
   );
 }

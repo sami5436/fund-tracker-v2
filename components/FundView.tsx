@@ -132,10 +132,10 @@ export default function FundView({ fund }: { fund: FundConfig }) {
           <div>
             {mostRecentRow ? (
               <>
-                <span className="text-xl font-bold text-gray-900 tabular-nums">
+                <span className="text-3xl font-bold text-gray-900 tabular-nums">
                   ${Number(mostRecentRow.actual_nav).toFixed(2)}
                 </span>
-                <span className="text-sm text-gray-400 ml-2">
+                <span className="text-base text-gray-400 ml-2">
                   — last official NAV price from{' '}
                   {new Date(`${mostRecentRow.date}T12:00:00`).toLocaleDateString('en-US', {
                     weekday: 'long',
@@ -145,7 +145,7 @@ export default function FundView({ fund }: { fund: FundConfig }) {
                 </span>
               </>
             ) : (
-              <span className="text-sm text-gray-400">No entries yet — log one below</span>
+              <span className="text-base text-gray-400">No entries yet — log one below</span>
             )}
           </div>
         </div>
@@ -155,26 +155,26 @@ export default function FundView({ fund }: { fund: FundConfig }) {
       </div>
 
       {/* Estimated NAV */}
-      <div className="bg-white rounded-xl border border-gray-200 p-4">
+      <div className="bg-white rounded-xl border-2 border-gray-900 p-4">
         <div className="flex items-baseline flex-wrap gap-x-2 gap-y-0.5">
           <span className="text-4xl font-bold text-gray-900 tabular-nums">
             ${estimatedNav.toFixed(2)}
           </span>
-          <span className="text-sm text-gray-400">
-            &mdash; estimated from today&apos;s market, off the last official close{' '}
+          <span className="text-base text-gray-400">
+            &mdash; estimated from today&apos;s market from {' '}
             {mostRecentRow
-              ? `($${Number(mostRecentRow.actual_nav).toFixed(2)} on ${new Date(`${mostRecentRow.date}T12:00:00`).toLocaleDateString('en-US', { weekday: 'long' })})`
+              ? `$${Number(mostRecentRow.actual_nav).toFixed(2)} on ${new Date(`${mostRecentRow.date}T12:00:00`).toLocaleDateString('en-US', { weekday: 'long' })}`
               : ''}
           </span>
         </div>
         <div className="flex items-center justify-between mt-1.5">
           <div
-            className={`flex items-center gap-1.5 text-sm font-semibold ${
+            className={`flex items-center gap-1.5 text-base font-semibold ${
               isPositive ? 'text-green-600' : isNegative ? 'text-red-600' : 'text-gray-400'
             }`}
           >
             <span>{isPositive ? '+' : ''}{fundChange.toFixed(3)}%</span>
-            <span className="text-xs font-normal text-gray-400">
+            <span className="text-sm font-normal text-gray-400">
               · top {fund.holdings.length} holdings
             </span>
           </div>
