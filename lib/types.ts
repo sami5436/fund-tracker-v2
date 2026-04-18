@@ -18,6 +18,13 @@ export interface HoldingWithData extends Holding {
   updatedAt: string | null;
 }
 
+export interface TickerSeries {
+  ticker: string;
+  prevClose: number | null;
+  timestamps: number[]; // unix seconds
+  closes: (number | null)[];
+}
+
 export interface FundConfig {
   id: string;
   name: string;

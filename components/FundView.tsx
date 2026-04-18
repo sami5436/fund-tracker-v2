@@ -2,9 +2,10 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import useSWR from 'swr';
-import type { FundConfig, StockQuote, HoldingWithData } from '@/lib/types';
+import type { FundConfig, StockQuote, HoldingWithData, TickerSeries } from '@/lib/types';
 import HoldingsTable from './HoldingsTable';
 import InsightsPanel from './InsightsPanel';
+import NavChart from './NavChart';
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -52,6 +53,12 @@ export default function FundView({ fund }: { fund: FundConfig }) {
     `/api/stocks?tickers=${tickers}`,
     fetcher,
     { refreshInterval: 60_000, revalidateOnFocus: false }
+  );
+
+  const { data: series, mutate: mutateSeries } = useSWR<TickerSeries[]>(
+    `/api/stocks/series?tickers=${tickers}`,
+    fetcher,
+    { refreshInterval: 120_000, revalidateOnFocus: false }
   );
 
   // Use string state so the input handles partial values like "73."
@@ -202,26 +209,28 @@ export default function FundView({ fund }: { fund: FundConfig }) {
         </div>
       </div>
 
+      {/* Intraday chart */}
+      {series && series.length > 0 && (
+        <NavChart
+          holdings={fund.holdings}
+          series={series}
+          officialNav={nav}
+          totalTop10Weight={fund.totalTop10Weight}
+        />
+      )}
+
       {/* Refresh */}
       <button
-        onClick={() => mutate()}
+        onClick={() => {
+          mutate();
+          mutateSeries();
+        }}
         disabled={isLoading}
         className="w-full flex items-center justify-center gap-2 py-3 border border-gray-200 bg-white rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 active:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <RefreshIcon spinning={isLoading} />
         {isLoading ? 'Refreshing…' : 'Refresh Prices'}
       </button>
-
-      {/* Insights */}
-      {quotes && (
-        <InsightsPanel
-          holdings={holdingsWithData}
-          fundChange={fundChange}
-          officialNav={nav}
-          estimatedNav={estimatedNav}
-          totalTop10Weight={fund.totalTop10Weight}
-        />
-      )}
 
       {/* Holdings table */}
       <div>
@@ -240,6 +249,17 @@ export default function FundView({ fund }: { fund: FundConfig }) {
           <HoldingsTable holdings={holdingsWithData} />
         )}
       </div>
+
+      {/* Insights */}
+      {quotes && (
+        <InsightsPanel
+          holdings={holdingsWithData}
+          fundChange={fundChange}
+          officialNav={nav}
+          estimatedNav={estimatedNav}
+          totalTop10Weight={fund.totalTop10Weight}
+        />
+      )}
 
       <p className="text-xs text-gray-400 text-center pb-6">
         Estimate only · Not investment advice

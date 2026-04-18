@@ -1,7 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import YahooFinance from 'yahoo-finance2';
-
-const yahooFinance = new YahooFinance();
 
 export const dynamic = 'force-dynamic';
 
@@ -13,43 +10,56 @@ interface QuoteData {
   updatedAt: string | null;
 }
 
-// Server-side cache: prevents hammering Yahoo Finance on every 60s client refresh
-const quoteCache = new Map<string, { data: QuoteData; expiresAt: number }>();
-const CACHE_TTL = 55_000; // 55 seconds
+declare global {
+  // eslint-disable-next-line no-var
+  var _quoteCache: Map<string, { data: QuoteData; expiresAt: number }> | undefined;
+  var _inFlight: Map<string, Promise<QuoteData>> | undefined;
+}
 
-// In-flight deduplication: concurrent requests for the same ticker share one fetch
-const inFlight = new Map<string, Promise<QuoteData>>();
+const quoteCache = (globalThis._quoteCache ??= new Map());
+const inFlight = (globalThis._inFlight ??= new Map());
+const CACHE_TTL = 55_000;
+
+// Uses Yahoo Finance v8 chart API — same endpoint as yfinance (Python), no crumb required
+async function fetchQuoteFromChart(ticker: string): Promise<QuoteData> {
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1m&range=1d`;
+  const res = await fetch(url, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0',
+      'Accept': 'application/json',
+    },
+    next: { revalidate: 0 },
+  });
+
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+  const json = await res.json();
+  const meta = json?.chart?.result?.[0]?.meta;
+  if (!meta) throw new Error('No chart data');
+
+  const price: number | null = meta.regularMarketPrice ?? null;
+  const prevClose: number | null = meta.chartPreviousClose ?? meta.previousClose ?? null;
+  const changePct =
+    price !== null && prevClose !== null && prevClose !== 0
+      ? ((price - prevClose) / prevClose) * 100
+      : null;
+  const updatedAt = meta.regularMarketTime
+    ? new Date(meta.regularMarketTime * 1000).toISOString()
+    : null;
+
+  return { ticker, price, prevClose, changePct, updatedAt };
+}
 
 async function fetchQuote(ticker: string): Promise<QuoteData> {
   const cached = quoteCache.get(ticker);
-  if (cached && Date.now() < cached.expiresAt) {
-    return cached.data;
-  }
+  if (cached && Date.now() < cached.expiresAt) return cached.data;
 
-  // If already fetching this ticker, return the shared promise
   const existing = inFlight.get(ticker);
   if (existing) return existing;
 
   const promise = (async (): Promise<QuoteData> => {
     try {
-      const quote = await yahooFinance.quote(ticker);
-
-      const price = quote.regularMarketPrice ?? null;
-      const prevClose = quote.regularMarketPreviousClose ?? null;
-      const changePct =
-        price !== null && prevClose !== null && prevClose !== 0
-          ? ((price - prevClose) / prevClose) * 100
-          : null;
-
-      let updatedAt: string | null = null;
-      if (quote.regularMarketTime) {
-        updatedAt =
-          quote.regularMarketTime instanceof Date
-            ? quote.regularMarketTime.toISOString()
-            : new Date((quote.regularMarketTime as number) * 1000).toISOString();
-      }
-
-      const data: QuoteData = { ticker, price, prevClose, changePct, updatedAt };
+      const data = await fetchQuoteFromChart(ticker);
       quoteCache.set(ticker, { data, expiresAt: Date.now() + CACHE_TTL });
       return data;
     } finally {
@@ -61,21 +71,17 @@ async function fetchQuote(ticker: string): Promise<QuoteData> {
   return promise;
 }
 
-// Fetch tickers sequentially with a delay to avoid Yahoo Finance crumb rate limits
-async function fetchSequential(tickers: string[], delayMs = 400): Promise<QuoteData[]> {
-  const results: QuoteData[] = [];
-  for (let i = 0; i < tickers.length; i++) {
-    try {
-      results.push(await fetchQuote(tickers[i]));
-    } catch (err) {
-      console.error(`[stocks] ${tickers[i]}:`, (err as Error).message);
-      results.push({ ticker: tickers[i], price: null, prevClose: null, changePct: null, updatedAt: null });
-    }
-    if (delayMs > 0 && i < tickers.length - 1) {
-      await new Promise((r) => setTimeout(r, delayMs));
-    }
-  }
-  return results;
+async function fetchAll(tickers: string[]): Promise<QuoteData[]> {
+  return Promise.all(
+    tickers.map(async (ticker) => {
+      try {
+        return await fetchQuote(ticker);
+      } catch (err) {
+        console.error(`[stocks] ${ticker}:`, (err as Error).message);
+        return { ticker, price: null, prevClose: null, changePct: null, updatedAt: null };
+      }
+    })
+  );
 }
 
 export async function GET(request: NextRequest) {
@@ -89,18 +95,14 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'No tickers provided' }, { status: 400 });
   }
 
-  // Split into cached vs uncached — only stagger-fetch the uncached ones
   const now = Date.now();
   const uncached = tickers.filter((t) => {
     const c = quoteCache.get(t);
     return !c || c.expiresAt <= now;
   });
 
-  if (uncached.length > 0) {
-    await fetchSequential(uncached);
-  }
+  if (uncached.length > 0) await fetchAll(uncached);
 
-  // All tickers now either freshly fetched or served from cache
   const data = tickers.map((ticker) => {
     const cached = quoteCache.get(ticker);
     return cached?.data ?? { ticker, price: null, prevClose: null, changePct: null, updatedAt: null };
