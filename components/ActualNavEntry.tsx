@@ -25,7 +25,7 @@ function marketCloseBlock(date: string): string | null {
     hour: '2-digit',
     minute: '2-digit',
   });
-  if (cstTime < '23:00') return `NAV posts ~11 PM CST (now ${cstTime} CST).`;
+  if (cstTime < '22:00') return `NAV posts ~10 PM CST (now ${cstTime} CST).`;
   return null;
 }
 
