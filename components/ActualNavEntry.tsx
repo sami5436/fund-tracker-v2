@@ -6,11 +6,36 @@ import type { NavRecord } from '@/lib/types';
 interface Props {
   fundId: string;
   estimatedNav: number;
+  estimatedNavV2?: number | null;
   onSave: (record: NavRecord) => Promise<void>;
 }
 
 function todayCST(): string {
   return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Chicago' });
+}
+
+function cstTimeHHMM(): string {
+  return new Date().toLocaleTimeString('en-US', {
+    timeZone: 'America/Chicago',
+    hour12: false,
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+}
+
+// Default to the most recent weekday strictly before today (in CST).
+// All of Thursday → Wednesday; Sat/Sun/Mon → Friday.
+function defaultEntryDate(): string {
+  const todayStr = todayCST();
+  const d = new Date(`${todayStr}T12:00:00`);
+  do {
+    d.setDate(d.getDate() - 1);
+  } while (d.getDay() === 0 || d.getDay() === 6);
+
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
 }
 
 function marketCloseBlock(date: string): string | null {
@@ -19,18 +44,13 @@ function marketCloseBlock(date: string): string | null {
   const day = new Date(`${date}T12:00:00`).getDay();
   if (day === 0 || day === 6) return 'No NAV on weekends.';
   if (date < today) return null;
-  const cstTime = new Date().toLocaleTimeString('en-US', {
-    timeZone: 'America/Chicago',
-    hour12: false,
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+  const cstTime = cstTimeHHMM();
   if (cstTime < '22:00') return `NAV posts ~10 PM CST (now ${cstTime} CST).`;
   return null;
 }
 
-export default function ActualNavEntry({ fundId, estimatedNav, onSave }: Props) {
-  const [date, setDate] = useState(todayCST);
+export default function ActualNavEntry({ fundId, estimatedNav, estimatedNavV2, onSave }: Props) {
+  const [date, setDate] = useState(defaultEntryDate);
   const [actualInput, setActualInput] = useState('');
   const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -48,6 +68,7 @@ export default function ActualNavEntry({ fundId, estimatedNav, onSave }: Props) 
         date,
         actualNav: actual,
         estimatedNav: parseFloat(estimatedNav.toFixed(2)),
+        estimatedNavV2: estimatedNavV2 != null ? parseFloat(estimatedNavV2.toFixed(2)) : null,
         fundId,
       });
       setActualInput('');

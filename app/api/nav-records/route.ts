@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { fund_id, date, actual_nav, estimated_nav } = body;
+  const { fund_id, date, actual_nav, estimated_nav, estimated_nav_v2 } = body;
 
   if (!fund_id || !date || actual_nav == null) {
     return NextResponse.json({ error: 'fund_id, date, and actual_nav required' }, { status: 400 });
@@ -25,7 +25,10 @@ export async function POST(req: NextRequest) {
 
   const { data, error } = await supabase
     .from('nav_records')
-    .upsert({ fund_id, date, actual_nav, estimated_nav }, { onConflict: 'fund_id,date' })
+    .upsert(
+      { fund_id, date, actual_nav, estimated_nav, estimated_nav_v2 },
+      { onConflict: 'fund_id,date' }
+    )
     .select()
     .single();
 

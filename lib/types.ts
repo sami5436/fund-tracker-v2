@@ -34,12 +34,15 @@ export interface FundConfig {
   totalTop10Weight: number;
   defaultNav: number;
   navStorageKey: string;
+  // ETF ticker used to model the unobserved residual (1 - totalTop10Weight) for the v2 estimator.
+  residualProxy?: string;
 }
 
 export interface NavRecord {
   date: string;       // YYYY-MM-DD
   actualNav: number;
   estimatedNav: number;
+  estimatedNavV2?: number | null;
   fundId: string;
 }
 
@@ -50,8 +53,11 @@ export interface NavRow {
   date: string;
   actual_nav: number;
   estimated_nav: number | null;
+  estimated_nav_v2: number | null;
   diff: number | null;
   diff_pct: number | null;
+  diff_v2: number | null;
+  diff_pct_v2: number | null;
   created_at: string;
   updated_at: string;
 }

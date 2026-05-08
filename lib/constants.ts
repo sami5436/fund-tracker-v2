@@ -9,6 +9,7 @@ export const FUNDS: FundConfig[] = [
     defaultNav: 73.81,
     navStorageKey: 'fund_nav_lgrrx',
     totalTop10Weight: 64.85,
+    residualProxy: 'IWF',
     holdings: [
       { ticker: 'NVDA',  name: 'NVIDIA',    weight: 11.75 },
       { ticker: 'META',  name: 'Meta',       weight: 7.92  },

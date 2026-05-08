@@ -31,7 +31,7 @@ npm run lint     # ESLint
 | Fund | Top 10 Coverage | Default NAV |
 |------|----------------|-------------|
 | LGRRX (Loomis Sayles Large Cap Growth, Class D) | 64.57% | $73.81 |
-| NT Collective S&P500 Index Fund - Lending | 38.55% | $65.93 |
+| NT Collective S&P500 Index Fund - Lending | 36.32% | $65.93 |
 
 ## Structure
 

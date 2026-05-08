@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import useSWR from 'swr';
 import type { FundConfig, StockQuote, HoldingWithData, TickerSeries, NavRecord, NavRow } from '@/lib/types';
 import HoldingsTable from './HoldingsTable';
@@ -11,6 +11,7 @@ import NavHistory from './NavHistory';
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
+// v1: scale top-10 weighted change up to 100% (assumes residual moves like top-10)
 function calculateFundChange(
   holdings: FundConfig['holdings'],
   quotes: StockQuote[],
@@ -27,6 +28,26 @@ function calculateFundChange(
   if (!contributions.length) return 0;
   const weightedSum = contributions.reduce((a, b) => a + b, 0);
   return (weightedSum / totalWeight) * 100;
+}
+
+// v2: top-10 contribution + (1 - top10) × proxy ETF change
+function calculateFundChangeV2(
+  holdings: FundConfig['holdings'],
+  quotes: StockQuote[],
+  totalWeight: number,
+  proxyTicker: string
+): number | null {
+  const proxyQuote = quotes.find((q) => q.ticker === proxyTicker);
+  if (proxyQuote?.changePct == null) return null;
+
+  const top10Contribution = holdings.reduce((sum, h) => {
+    const q = quotes.find((q) => q.ticker === h.ticker);
+    if (q?.changePct == null) return sum;
+    return sum + (q.changePct * h.weight) / 100;
+  }, 0);
+
+  const residualWeight = 1 - totalWeight / 100;
+  return top10Contribution + residualWeight * proxyQuote.changePct;
 }
 
 function RefreshIcon({ spinning }: { spinning: boolean }) {
@@ -48,7 +69,12 @@ function RefreshIcon({ spinning }: { spinning: boolean }) {
 }
 
 export default function FundView({ fund }: { fund: FundConfig }) {
-  const tickers = fund.holdings.map((h) => h.ticker).join(',');
+  const holdingTickers = fund.holdings.map((h) => h.ticker);
+  const quoteTickers = fund.residualProxy
+    ? [...holdingTickers, fund.residualProxy]
+    : holdingTickers;
+  const tickers = quoteTickers.join(',');
+  const seriesTickers = holdingTickers.join(',');
 
   const { data: quotes, mutate, isLoading } = useSWR<StockQuote[]>(
     `/api/stocks?tickers=${tickers}`,
@@ -57,7 +83,7 @@ export default function FundView({ fund }: { fund: FundConfig }) {
   );
 
   const { data: series, mutate: mutateSeries } = useSWR<TickerSeries[]>(
-    `/api/stocks/series?tickers=${tickers}`,
+    `/api/stocks/series?tickers=${seriesTickers}`,
     fetcher,
     { refreshInterval: 120_000, revalidateOnFocus: false }
   );
@@ -70,9 +96,17 @@ export default function FundView({ fund }: { fund: FundConfig }) {
 
   const [nav, setNav] = useState(fund.defaultNav);
 
-  useEffect(() => {
-    if (navRows && navRows.length > 0) setNav(Number(navRows[0].actual_nav));
+  // Header + baseline: most recent entry strictly before today's CST date.
+  // (So all of Thursday → Wednesday's row, even if Thursday is already logged.)
+  const mostRecentRow = useMemo(() => {
+    if (!navRows || navRows.length === 0) return undefined;
+    const todayCST = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Chicago' });
+    return navRows.find((r) => r.date < todayCST);
   }, [navRows]);
+
+  useEffect(() => {
+    if (mostRecentRow) setNav(Number(mostRecentRow.actual_nav));
+  }, [mostRecentRow]);
 
   const saveRecord = useCallback(
     async (record: NavRecord) => {
@@ -84,6 +118,7 @@ export default function FundView({ fund }: { fund: FundConfig }) {
           date: record.date,
           actual_nav: record.actualNav,
           estimated_nav: record.estimatedNav,
+          estimated_nav_v2: record.estimatedNavV2 ?? null,
         }),
       });
       if (!res.ok) {
@@ -111,6 +146,13 @@ export default function FundView({ fund }: { fund: FundConfig }) {
   const isPositive = fundChange > 0;
   const isNegative = fundChange < 0;
 
+  const fundChangeV2 = quotes && fund.residualProxy
+    ? calculateFundChangeV2(fund.holdings, quotes, fund.totalTop10Weight, fund.residualProxy)
+    : null;
+  const estimatedNavV2 = fundChangeV2 != null ? nav * (1 + fundChangeV2 / 100) : null;
+  const isPositiveV2 = fundChangeV2 != null && fundChangeV2 > 0;
+  const isNegativeV2 = fundChangeV2 != null && fundChangeV2 < 0;
+
   const holdingsWithData: HoldingWithData[] = fund.holdings.map((h) => {
     const q = quotes?.find((q) => q.ticker === h.ticker);
     return {
@@ -120,8 +162,6 @@ export default function FundView({ fund }: { fund: FundConfig }) {
       updatedAt: q?.updatedAt ?? null,
     };
   });
-
-  const mostRecentRow = navRows?.[0];
 
   return (
     <div className="space-y-3">
@@ -150,7 +190,12 @@ export default function FundView({ fund }: { fund: FundConfig }) {
           </div>
         </div>
         <div className="px-4 py-3">
-          <ActualNavEntry fundId={fund.id} estimatedNav={estimatedNav} onSave={saveRecord} />
+          <ActualNavEntry
+            fundId={fund.id}
+            estimatedNav={estimatedNav}
+            estimatedNavV2={estimatedNavV2}
+            onSave={saveRecord}
+          />
         </div>
       </div>
 
@@ -180,6 +225,35 @@ export default function FundView({ fund }: { fund: FundConfig }) {
           </div>
         </div>
       </div>
+
+      {/* Estimated NAV v2 — top-10 + index proxy for residual */}
+      {estimatedNavV2 != null && fundChangeV2 != null && (
+        <div className="bg-white rounded-xl border border-gray-300 border-dashed p-4">
+          <div className="flex items-baseline flex-wrap gap-x-2 gap-y-0.5">
+            <span className="text-3xl font-bold text-gray-900 tabular-nums">
+              ${estimatedNavV2.toFixed(2)}
+            </span>
+            <span className="inline-flex items-center text-[10px] font-semibold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded">
+              v2
+            </span>
+            <span className="text-sm text-gray-400">
+              &mdash; top {fund.holdings.length} + {fund.residualProxy} for residual
+            </span>
+          </div>
+          <div className="flex items-center justify-between mt-1.5">
+            <div
+              className={`flex items-center gap-1.5 text-sm font-semibold ${
+                isPositiveV2 ? 'text-green-600' : isNegativeV2 ? 'text-red-600' : 'text-gray-400'
+              }`}
+            >
+              <span>{isPositiveV2 ? '+' : ''}{fundChangeV2.toFixed(3)}%</span>
+              <span className="text-xs font-normal text-gray-400">
+                · {(100 - fund.totalTop10Weight).toFixed(2)}% modeled by {fund.residualProxy}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Refresh */}
       <button
@@ -234,6 +308,67 @@ export default function FundView({ fund }: { fund: FundConfig }) {
         <h2 className="text-sm font-semibold text-gray-900 mb-2">Estimated vs Actual NAV</h2>
         <NavHistory records={navRows} onDelete={deleteRecord} />
       </div>
+
+      {/* Math explainer */}
+      <details className="bg-white rounded-xl border border-gray-200 group">
+        <summary className="px-4 py-3 cursor-pointer text-sm font-medium text-gray-700 select-none flex items-center justify-between hover:bg-gray-50 rounded-xl">
+          <span>How is this calculated?</span>
+          <svg
+            className="w-4 h-4 text-gray-400 transition-transform group-open:rotate-180"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </summary>
+        <div className="px-4 pb-4 text-sm text-gray-600 space-y-3 border-t border-gray-100 pt-3">
+          <p>
+            We can&apos;t see {fund.name}&apos;s full holdings — only the top 10
+            ({fund.totalTop10Weight}% of the fund). The other{' '}
+            <span className="font-semibold">{(100 - fund.totalTop10Weight).toFixed(2)}%</span>{' '}
+            is unknown. So we estimate it.
+          </p>
+
+          <div>
+            <p className="font-semibold text-gray-800 mb-1">Step 1 — Top 10 contribution</p>
+            <p>
+              For each top-10 stock, multiply today&apos;s % change by its weight in the fund, then
+              add them up. (e.g. NVDA up 1% × 11.75% weight = 0.118% of fund move.)
+            </p>
+          </div>
+
+          <div>
+            <p className="font-semibold text-gray-800 mb-1">Step 2 — Fill in the unknown</p>
+            <p className="mb-1">
+              <span className="inline-block px-1.5 py-0.5 mr-1 text-[10px] font-semibold rounded bg-gray-100 text-gray-600">v1</span>
+              Pretend the unknown {(100 - fund.totalTop10Weight).toFixed(2)}% moves the same way as
+              the top 10 — just scale the top-10 change up to 100%.
+            </p>
+            {fund.residualProxy && (
+              <p>
+                <span className="inline-block px-1.5 py-0.5 mr-1 text-[10px] font-semibold rounded bg-blue-50 text-blue-700 border border-blue-200">v2</span>
+                Use {fund.residualProxy} (a Russell 1000 Growth ETF) as a stand-in for the unknown
+                chunk. Take its % change × {(100 - fund.totalTop10Weight).toFixed(2)}% and add to the top-10 contribution.
+              </p>
+            )}
+          </div>
+
+          <div>
+            <p className="font-semibold text-gray-800 mb-1">Step 3 — Apply to yesterday&apos;s NAV</p>
+            <p className="font-mono text-xs bg-gray-50 px-2 py-1.5 rounded border border-gray-100">
+              estimated NAV = yesterday&apos;s actual × (1 + today&apos;s % change)
+            </p>
+          </div>
+
+          <p className="text-xs text-gray-400 pt-1">
+            Prices come from Yahoo Finance and refresh every 60 seconds.
+          </p>
+        </div>
+      </details>
 
       <p className="text-xs text-gray-400 text-center pb-6">
         Estimate only · Not investment advice
