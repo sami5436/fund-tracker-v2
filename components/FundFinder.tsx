@@ -20,7 +20,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import type { FidelityFund } from '@/lib/types';
+import type { FidelityFund, StockQuote } from '@/lib/types';
 import FundDetailsModal from './FundDetailsModal';
 
 const fetcher = (url: string) =>
@@ -176,6 +176,23 @@ export default function FundFinder() {
 
   const filtered = useMemo(() => applyFilters(funds, filters), [funds, filters]);
   const scored = useMemo(() => scoreFunds(filtered, ranked), [filtered, ranked]);
+
+  const quoteKey = useMemo(() => {
+    if (!scored.length) return null;
+    const tickers = Array.from(new Set(scored.map((s) => s.fund.ticker))).sort();
+    return `/api/stocks?tickers=${tickers.join(',')}`;
+  }, [scored]);
+
+  const { data: quotes } = useSWR<StockQuote[]>(quoteKey, fetcher, {
+    refreshInterval: 60_000,
+    revalidateOnFocus: false,
+  });
+
+  const quoteMap = useMemo(() => {
+    const map = new Map<string, StockQuote>();
+    quotes?.forEach((q) => map.set(q.ticker.toUpperCase(), q));
+    return map;
+  }, [quotes]);
 
   // Build an index of every unique (ticker, name) appearing in any fund's top-10,
   // along with how many funds hold it. Used to power autocomplete suggestions.
@@ -514,7 +531,9 @@ export default function FundFinder() {
         )}
 
         <div className="space-y-2">
-          {scored.map(({ fund, score, matches }) => (
+          {scored.map(({ fund, score, matches }) => {
+            const quote = quoteMap.get(fund.ticker.toUpperCase());
+            return (
             <div
               key={fund.ticker}
               className="border border-gray-200 rounded-md px-3 py-2.5"
@@ -537,14 +556,39 @@ export default function FundFinder() {
                     {fund.expenseRatio != null ? `${fund.expenseRatio.toFixed(2)}% exp` : '—'}
                   </p>
                 </div>
-                {ranked.length > 0 && (
-                  <div className="text-right shrink-0">
-                    <div className="text-sm font-bold text-blue-600 tabular-nums">
-                      {score.toFixed(1)}
+                <div className="text-right shrink-0 flex flex-col items-end">
+                  {quote?.price != null ? (
+                    <div className="border border-gray-300 rounded px-1.5 py-0.5 flex flex-col items-end leading-tight">
+                      <div className="text-sm font-semibold text-gray-900 tabular-nums">
+                        ${quote.price.toFixed(2)}
+                      </div>
+                      {quote.changePct != null && (
+                        <div
+                          className={`text-[11px] font-medium tabular-nums ${
+                            quote.changePct > 0
+                              ? 'text-green-600'
+                              : quote.changePct < 0
+                                ? 'text-red-600'
+                                : 'text-gray-500'
+                          }`}
+                        >
+                          {quote.changePct > 0 ? '+' : ''}
+                          {quote.changePct.toFixed(2)}%
+                        </div>
+                      )}
                     </div>
-                    <div className="text-[10px] text-gray-400">score</div>
-                  </div>
-                )}
+                  ) : (
+                    <div className="text-[11px] text-gray-300">—</div>
+                  )}
+                  {ranked.length > 0 && (
+                    <div className="mt-1 leading-tight">
+                      <div className="text-sm font-bold text-blue-600 tabular-nums">
+                        {score.toFixed(1)}
+                      </div>
+                      <div className="text-[10px] text-gray-400">score</div>
+                    </div>
+                  )}
+                </div>
               </div>
 
               {matches.length > 0 && (
@@ -570,7 +614,8 @@ export default function FundFinder() {
                 </svg>
               </button>
             </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
-import type { FidelityFund } from '@/lib/types';
+import type { FidelityFund, StockQuote } from '@/lib/types';
 
 interface HistoryPoint {
   t: number;
@@ -162,6 +162,13 @@ export default function FundDetailsModal({
     { revalidateOnFocus: false, dedupingInterval: 60 * 60 * 1000 }
   );
 
+  const { data: quotes } = useSWR<StockQuote[]>(
+    `/api/stocks?tickers=${fund.ticker}`,
+    fetcher,
+    { refreshInterval: 60_000, revalidateOnFocus: false }
+  );
+  const quote = quotes?.[0];
+
   // Esc key closes; lock body scroll while open.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -202,15 +209,38 @@ export default function FundDetailsModal({
               {fund.family ? ` · ${fund.family}` : ''}
             </p>
           </div>
-          <button
-            onClick={onClose}
-            aria-label="Close"
-            className="shrink-0 text-gray-400 hover:text-gray-700 p-1 -m-1"
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M18 6L6 18" />
-            </svg>
-          </button>
+          <div className="flex items-start gap-3 shrink-0">
+            {quote?.price != null && (
+              <div className="border border-gray-300 rounded px-2 py-0.5 flex flex-col items-end leading-tight">
+                <div className="text-base font-bold text-gray-900 tabular-nums">
+                  ${quote.price.toFixed(2)}
+                </div>
+                {quote.changePct != null && (
+                  <div
+                    className={`text-xs font-medium tabular-nums ${
+                      quote.changePct > 0
+                        ? 'text-green-600'
+                        : quote.changePct < 0
+                          ? 'text-red-600'
+                          : 'text-gray-500'
+                    }`}
+                  >
+                    {quote.changePct > 0 ? '+' : ''}
+                    {quote.changePct.toFixed(2)}%
+                  </div>
+                )}
+              </div>
+            )}
+            <button
+              onClick={onClose}
+              aria-label="Close"
+              className="text-gray-400 hover:text-gray-700 p-1 -m-1"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M18 6L6 18" />
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Body (scrollable) */}
