@@ -46,6 +46,36 @@ export interface NavRecord {
   fundId: string;
 }
 
+export interface FundHolding {
+  ticker: string;
+  name: string;
+  weight: number; // percent (0-100)
+}
+
+export interface FidelityFund {
+  ticker: string;
+  name: string;
+  category: string | null;       // e.g. "Large Growth"
+  family: string | null;         // e.g. "Fidelity Investments"
+  riskRating: number | null;     // Morningstar risk 1-5
+  morningstarRating: number | null; // Morningstar overall 1-5
+  expenseRatio: number | null;   // percent (e.g. 0.46)
+  totalAssets: number | null;    // AUM in USD
+  yield: number | null;          // percent
+  beta: number | null;
+  ytdReturn: number | null;      // percent
+  return1Y: number | null;       // percent (total return, 1 year)
+  return3Y: number | null;       // percent
+  return5Y: number | null;       // percent
+  return10Y: number | null;      // percent
+  low52: number | null;          // 52-week low NAV
+  high52: number | null;         // 52-week high NAV
+  turnover: number | null;       // holdings turnover percent
+  inceptionDate: string | null;  // e.g. "Feb 17, 1988"
+  holdings: FundHolding[];       // top 10
+  fetchedAt: string;             // ISO timestamp
+}
+
 // Shape returned directly from Supabase (snake_case)
 export interface NavRow {
   id: number;

@@ -1,0 +1,4487 @@
+{
+  "generatedAt": "2026-05-16T04:33:42.962Z",
+  "requested": 70,
+  "succeeded": 64,
+  "failed": [
+    "FSESX",
+    "FSNGX",
+    "FSAIX",
+    "FSDCX",
+    "FEXPX",
+    "FLCEX"
+  ],
+  "funds": [
+    {
+      "ticker": "FSELX",
+      "name": "Fidelity Select Semiconductors Portfolio",
+      "category": "Technology",
+      "family": "Fidelity",
+      "riskRating": 5,
+      "morningstarRating": 5,
+      "expenseRatio": 0.6,
+      "totalAssets": 43110000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 59.22,
+      "return1Y": 131.96,
+      "return3Y": null,
+      "return5Y": 522.11,
+      "return10Y": null,
+      "low52": 29.68,
+      "high52": 65.58,
+      "turnover": 87,
+      "inceptionDate": "Jul 29, 1985",
+      "holdings": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 25.07
+        },
+        {
+          "ticker": "AVGO",
+          "name": "Broadcom Inc.",
+          "weight": 12.94
+        },
+        {
+          "ticker": "MRVL",
+          "name": "Marvell Technology, Inc.",
+          "weight": 11.48
+        },
+        {
+          "ticker": "MPWR",
+          "name": "Monolithic Power Systems, Inc.",
+          "weight": 5.71
+        },
+        {
+          "ticker": "NXPI",
+          "name": "NXP Semiconductors N.V.",
+          "weight": 5.68
+        },
+        {
+          "ticker": "ON",
+          "name": "ON Semiconductor Corporation",
+          "weight": 4.76
+        },
+        {
+          "ticker": "GFS",
+          "name": "GLOBALFOUNDRIES Inc.",
+          "weight": 4.3
+        },
+        {
+          "ticker": "LRCX",
+          "name": "Lam Research Corporation",
+          "weight": 4.23
+        },
+        {
+          "ticker": "ASML",
+          "name": "ASML Holding N.V.",
+          "weight": 4.12
+        },
+        {
+          "ticker": "MU",
+          "name": "Micron Technology, Inc.",
+          "weight": 4.02
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:31:40.186Z"
+    },
+    {
+      "ticker": "FSPTX",
+      "name": "Fidelity Select Technology Portfolio",
+      "category": "Technology",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 5,
+      "expenseRatio": 0.61,
+      "totalAssets": 32100000000,
+      "yield": 5.97,
+      "beta": null,
+      "ytdReturn": 29.99,
+      "return1Y": 63.71,
+      "return3Y": null,
+      "return5Y": 178.61,
+      "return10Y": null,
+      "low52": 34.04,
+      "high52": 52.95,
+      "turnover": 52,
+      "inceptionDate": "Jul 14, 1981",
+      "holdings": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 25.11
+        },
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 12.57
+        },
+        {
+          "ticker": "MRVL",
+          "name": "Marvell Technology, Inc.",
+          "weight": 6.28
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 5.28
+        },
+        {
+          "ticker": "NXPI",
+          "name": "NXP Semiconductors N.V.",
+          "weight": 4.7
+        },
+        {
+          "ticker": "CSCO",
+          "name": "Cisco Systems, Inc.",
+          "weight": 4.42
+        },
+        {
+          "ticker": "ON",
+          "name": "ON Semiconductor Corporation",
+          "weight": 4.31
+        },
+        {
+          "ticker": "GFS",
+          "name": "GLOBALFOUNDRIES Inc.",
+          "weight": 2.91
+        },
+        {
+          "ticker": "WDC",
+          "name": "Western Digital Corporation",
+          "weight": 2.84
+        },
+        {
+          "ticker": "MU",
+          "name": "Micron Technology, Inc.",
+          "weight": 1.99
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:31:42.076Z"
+    },
+    {
+      "ticker": "FSCSX",
+      "name": "Fidelity Select Software and IT Services Portfolio",
+      "category": "Technology",
+      "family": "Fidelity",
+      "riskRating": 2,
+      "morningstarRating": 3,
+      "expenseRatio": 0.61,
+      "totalAssets": 6460000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": -14.15,
+      "return1Y": -11.22,
+      "return3Y": null,
+      "return5Y": 30.29,
+      "return10Y": null,
+      "low52": 16.06,
+      "high52": 29.99,
+      "turnover": 62,
+      "inceptionDate": "Jul 29, 1985",
+      "holdings": [
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 24.87
+        },
+        {
+          "ticker": "CRM",
+          "name": "Salesforce, Inc.",
+          "weight": 4.69
+        },
+        {
+          "ticker": "PLTR",
+          "name": "Palantir Technologies Inc.",
+          "weight": 4.61
+        },
+        {
+          "ticker": "INTU",
+          "name": "Intuit Inc.",
+          "weight": 3.96
+        },
+        {
+          "ticker": "ORCL",
+          "name": "Oracle Corporation",
+          "weight": 3.86
+        },
+        {
+          "ticker": "PANW",
+          "name": "Palo Alto Networks, Inc.",
+          "weight": 3.66
+        },
+        {
+          "ticker": "DDOG",
+          "name": "Datadog, Inc.",
+          "weight": 3.26
+        },
+        {
+          "ticker": "TWLO",
+          "name": "Twilio Inc.",
+          "weight": 3.23
+        },
+        {
+          "ticker": "SNPS",
+          "name": "Synopsys, Inc.",
+          "weight": 3.2
+        },
+        {
+          "ticker": "ADSK",
+          "name": "Autodesk, Inc.",
+          "weight": 2.99
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:31:43.977Z"
+    },
+    {
+      "ticker": "FBSOX",
+      "name": "Fidelity Select Enterprise Technology Services Portfolio",
+      "category": "Technology",
+      "family": "Fidelity",
+      "riskRating": 2,
+      "morningstarRating": 1,
+      "expenseRatio": 0.65,
+      "totalAssets": 966980000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": -13.57,
+      "return1Y": -25.13,
+      "return3Y": null,
+      "return5Y": -28.51,
+      "return10Y": null,
+      "low52": 34.09,
+      "high52": 56.38,
+      "turnover": 57,
+      "inceptionDate": "Feb 4, 1998",
+      "holdings": [
+        {
+          "ticker": "V",
+          "name": "Visa Inc.",
+          "weight": 20.78
+        },
+        {
+          "ticker": "MA",
+          "name": "Mastercard Incorporated",
+          "weight": 18.47
+        },
+        {
+          "ticker": "IBM",
+          "name": "International Business Machines Corporation",
+          "weight": 9.26
+        },
+        {
+          "ticker": "NET",
+          "name": "Cloudflare, Inc.",
+          "weight": 4.82
+        },
+        {
+          "ticker": "ACN",
+          "name": "Accenture plc",
+          "weight": 3.49
+        },
+        {
+          "ticker": "TWLO",
+          "name": "Twilio Inc.",
+          "weight": 3.14
+        },
+        {
+          "ticker": "SNOW",
+          "name": "Snowflake Inc.",
+          "weight": 3.07
+        },
+        {
+          "ticker": "ADP",
+          "name": "Automatic Data Processing, Inc.",
+          "weight": 2.87
+        },
+        {
+          "ticker": "SSNC",
+          "name": "SS&C Technologies Holdings, Inc.",
+          "weight": 2.75
+        },
+        {
+          "ticker": "EXLS",
+          "name": "ExlService Holdings, Inc.",
+          "weight": 2.48
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:31:45.833Z"
+    },
+    {
+      "ticker": "FSPHX",
+      "name": "Fidelity Select Health Care Portfolio",
+      "category": "Health",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 4,
+      "expenseRatio": 0.62,
+      "totalAssets": 5680000000,
+      "yield": 10.24,
+      "beta": null,
+      "ytdReturn": -6.29,
+      "return1Y": 9.15,
+      "return3Y": null,
+      "return5Y": -1.62,
+      "return10Y": null,
+      "low52": 23.45,
+      "high52": 31.44,
+      "turnover": 69,
+      "inceptionDate": "Jul 14, 1981",
+      "holdings": [
+        {
+          "ticker": "DHR",
+          "name": "Danaher Corporation",
+          "weight": 6.76
+        },
+        {
+          "ticker": "LLY",
+          "name": "Eli Lilly and Company",
+          "weight": 6.69
+        },
+        {
+          "ticker": "JNJ",
+          "name": "Johnson & Johnson",
+          "weight": 5.92
+        },
+        {
+          "ticker": "BSX",
+          "name": "Boston Scientific Corporation",
+          "weight": 5.08
+        },
+        {
+          "ticker": "ABBV",
+          "name": "AbbVie Inc.",
+          "weight": 3.61
+        },
+        {
+          "ticker": "ASND",
+          "name": "Ascendis Pharma A/S",
+          "weight": 2.77
+        },
+        {
+          "ticker": "GILD",
+          "name": "Gilead Sciences, Inc.",
+          "weight": 2.61
+        },
+        {
+          "ticker": "MRK",
+          "name": "Merck & Co., Inc.",
+          "weight": 2.5
+        },
+        {
+          "ticker": "EW",
+          "name": "Edwards Lifesciences Corporation",
+          "weight": 2.08
+        },
+        {
+          "ticker": "ARGX",
+          "name": "argenx SE",
+          "weight": 1.97
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:31:47.718Z"
+    },
+    {
+      "ticker": "FBIOX",
+      "name": "Fidelity Select Biotechnology Portfolio",
+      "category": "Health",
+      "family": "Fidelity",
+      "riskRating": 4,
+      "morningstarRating": 3,
+      "expenseRatio": 0.62,
+      "totalAssets": 5150000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 3.25,
+      "return1Y": 59.15,
+      "return3Y": null,
+      "return5Y": 36.4,
+      "return10Y": null,
+      "low52": 16.97,
+      "high52": 26.24,
+      "turnover": 45,
+      "inceptionDate": "Dec 16, 1985",
+      "holdings": [
+        {
+          "ticker": "KRYS",
+          "name": "Krystal Biotech, Inc.",
+          "weight": 8.99
+        },
+        {
+          "ticker": "GILD",
+          "name": "Gilead Sciences, Inc.",
+          "weight": 8.44
+        },
+        {
+          "ticker": "ABBV",
+          "name": "AbbVie Inc.",
+          "weight": 8.01
+        },
+        {
+          "ticker": "AMGN",
+          "name": "Amgen Inc.",
+          "weight": 7.78
+        },
+        {
+          "ticker": "ALNY",
+          "name": "Alnylam Pharmaceuticals, Inc.",
+          "weight": 3.26
+        },
+        {
+          "ticker": "INSM",
+          "name": "Insmed Incorporated",
+          "weight": 3.14
+        },
+        {
+          "ticker": "PRAX",
+          "name": "Praxis Precision Medicines, Inc.",
+          "weight": 2.42
+        },
+        {
+          "ticker": "ASND",
+          "name": "Ascendis Pharma A/S",
+          "weight": 2.21
+        },
+        {
+          "ticker": "ARGX",
+          "name": "argenx SE",
+          "weight": 2.08
+        },
+        {
+          "ticker": "CNTA",
+          "name": "Centessa Pharmaceuticals plc",
+          "weight": 1.64
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:31:49.594Z"
+    },
+    {
+      "ticker": "FPHAX",
+      "name": "Fidelity Select Pharmaceuticals Portfolio",
+      "category": "Health",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 5,
+      "expenseRatio": 0.67,
+      "totalAssets": 1390000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 5.38,
+      "return1Y": 49.25,
+      "return3Y": null,
+      "return5Y": 80.54,
+      "return10Y": null,
+      "low52": 22.95,
+      "high52": 33.4,
+      "turnover": 77,
+      "inceptionDate": "Jun 18, 2001",
+      "holdings": [
+        {
+          "ticker": "LLY",
+          "name": "Eli Lilly and Company",
+          "weight": 24.58
+        },
+        {
+          "ticker": "GSK",
+          "name": "GSK plc",
+          "weight": 9.74
+        },
+        {
+          "ticker": "JNJ",
+          "name": "Johnson & Johnson",
+          "weight": 6.5
+        },
+        {
+          "ticker": "MRK",
+          "name": "Merck & Co., Inc.",
+          "weight": 5.5
+        },
+        {
+          "ticker": "GILD",
+          "name": "Gilead Sciences, Inc.",
+          "weight": 4.45
+        },
+        {
+          "ticker": "ELAN",
+          "name": "Elanco Animal Health Incorporated",
+          "weight": 4.09
+        },
+        {
+          "ticker": "JAZZ",
+          "name": "Jazz Pharmaceuticals plc",
+          "weight": 3.28
+        },
+        {
+          "ticker": "LEGN",
+          "name": "Legend Biotech Corporation",
+          "weight": 3.25
+        },
+        {
+          "ticker": "RPRX",
+          "name": "Royalty Pharma plc",
+          "weight": 2.46
+        },
+        {
+          "ticker": "MRNA",
+          "name": "Moderna, Inc.",
+          "weight": 1.83
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:31:51.442Z"
+    },
+    {
+      "ticker": "FSMEX",
+      "name": "Fidelity Select Medical Technology and Devices Portfolio",
+      "category": "Health",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 4,
+      "expenseRatio": 0.62,
+      "totalAssets": 3020000000,
+      "yield": 10.66,
+      "beta": null,
+      "ytdReturn": -22.93,
+      "return1Y": -17.38,
+      "return3Y": null,
+      "return5Y": -11.69,
+      "return10Y": null,
+      "low52": 40.4,
+      "high52": 65.58,
+      "turnover": 54,
+      "inceptionDate": "Apr 28, 1998",
+      "holdings": [
+        {
+          "ticker": "DHR",
+          "name": "Danaher Corporation",
+          "weight": 14.84
+        },
+        {
+          "ticker": "BSX",
+          "name": "Boston Scientific Corporation",
+          "weight": 10.35
+        },
+        {
+          "ticker": "TMO",
+          "name": "Thermo Fisher Scientific Inc.",
+          "weight": 10.15
+        },
+        {
+          "ticker": "ISRG",
+          "name": "Intuitive Surgical, Inc.",
+          "weight": 8.52
+        },
+        {
+          "ticker": "EW",
+          "name": "Edwards Lifesciences Corporation",
+          "weight": 5.38
+        },
+        {
+          "ticker": "SYK",
+          "name": "Stryker Corporation",
+          "weight": 4.81
+        },
+        {
+          "ticker": "ABT",
+          "name": "Abbott Laboratories",
+          "weight": 4.81
+        },
+        {
+          "ticker": "VEEV",
+          "name": "Veeva Systems Inc.",
+          "weight": 2.71
+        },
+        {
+          "ticker": "TECH",
+          "name": "Bio-Techne Corporation",
+          "weight": 2.42
+        },
+        {
+          "ticker": "PODD",
+          "name": "Insulet Corporation",
+          "weight": 2.33
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:31:53.322Z"
+    },
+    {
+      "ticker": "FSHCX",
+      "name": "Fidelity Select Health Care Services Portfolio",
+      "category": "Health",
+      "family": "Fidelity",
+      "riskRating": 4,
+      "morningstarRating": 2,
+      "expenseRatio": 0.67,
+      "totalAssets": 820540000,
+      "yield": 0.71,
+      "beta": null,
+      "ytdReturn": 6.95,
+      "return1Y": 11.93,
+      "return3Y": null,
+      "return5Y": -6.79,
+      "return10Y": null,
+      "low52": 85.14,
+      "high52": 110.07,
+      "turnover": 71,
+      "inceptionDate": "Jun 30, 1986",
+      "holdings": [
+        {
+          "ticker": "UNH",
+          "name": "UnitedHealth Group Incorporated",
+          "weight": 23.11
+        },
+        {
+          "ticker": "MCK",
+          "name": "McKesson Corporation",
+          "weight": 10.79
+        },
+        {
+          "ticker": "CVS",
+          "name": "CVS Health Corporation",
+          "weight": 10.65
+        },
+        {
+          "ticker": "ELV",
+          "name": "Elevance Health, Inc.",
+          "weight": 7.18
+        },
+        {
+          "ticker": "HCA",
+          "name": "HCA Healthcare, Inc.",
+          "weight": 6.39
+        },
+        {
+          "ticker": "COR",
+          "name": "Cencora, Inc.",
+          "weight": 4.99
+        },
+        {
+          "ticker": "BTSG",
+          "name": "BrightSpring Health Services, Inc.",
+          "weight": 4.48
+        },
+        {
+          "ticker": "ALHC",
+          "name": "Alignment Healthcare, Inc.",
+          "weight": 3.82
+        },
+        {
+          "ticker": "THC",
+          "name": "Tenet Healthcare Corporation",
+          "weight": 3.32
+        },
+        {
+          "ticker": "HUM",
+          "name": "Humana Inc.",
+          "weight": 2.55
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:31:55.161Z"
+    },
+    {
+      "ticker": "FSENX",
+      "name": "Fidelity Select Energy Portfolio",
+      "category": "Equity Energy",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 4,
+      "expenseRatio": 0.65,
+      "totalAssets": 4010000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 36.18,
+      "return1Y": 50.97,
+      "return3Y": null,
+      "return5Y": 181.89,
+      "return10Y": null,
+      "low52": 54.37,
+      "high52": 87.58,
+      "turnover": 14,
+      "inceptionDate": "Jul 14, 1981",
+      "holdings": [
+        {
+          "ticker": "XOM",
+          "name": "Exxon Mobil Corporation",
+          "weight": 24.74
+        },
+        {
+          "ticker": "CVX",
+          "name": "Chevron Corporation",
+          "weight": 11.24
+        },
+        {
+          "ticker": "MPC",
+          "name": "Marathon Petroleum Corporation",
+          "weight": 4.73
+        },
+        {
+          "ticker": "LNG",
+          "name": "Cheniere Energy, Inc.",
+          "weight": 4.01
+        },
+        {
+          "ticker": "FTI",
+          "name": "TechnipFMC plc",
+          "weight": 3.9
+        },
+        {
+          "ticker": "VLO",
+          "name": "Valero Energy Corporation",
+          "weight": 3.84
+        },
+        {
+          "ticker": "NESR",
+          "name": "National Energy Services Reunited Corp.",
+          "weight": 3.55
+        },
+        {
+          "ticker": "ET",
+          "name": "Energy Transfer LP",
+          "weight": 3.48
+        },
+        {
+          "ticker": "BKR",
+          "name": "Baker Hughes Company",
+          "weight": 3.34
+        },
+        {
+          "ticker": "SLB",
+          "name": "SLB N.V.",
+          "weight": 3.3
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:31:57.053Z"
+    },
+    {
+      "ticker": "FNARX",
+      "name": "Fidelity Natural Resources Fund",
+      "category": "Equity Energy",
+      "family": "Fidelity",
+      "riskRating": 2,
+      "morningstarRating": 4,
+      "expenseRatio": 0.69,
+      "totalAssets": 1050000000,
+      "yield": 1.33,
+      "beta": null,
+      "ytdReturn": 27.82,
+      "return1Y": 55.39,
+      "return3Y": null,
+      "return5Y": 162.42,
+      "return10Y": null,
+      "low52": 44.06,
+      "high52": 68.46,
+      "turnover": 81,
+      "inceptionDate": "Mar 3, 1997",
+      "holdings": [
+        {
+          "ticker": "XOM",
+          "name": "Exxon Mobil Corporation",
+          "weight": 19.84
+        },
+        {
+          "ticker": "COP",
+          "name": "ConocoPhillips",
+          "weight": 8.42
+        },
+        {
+          "ticker": "SHEL",
+          "name": "Shell plc",
+          "weight": 5.64
+        },
+        {
+          "ticker": "CVX",
+          "name": "Chevron Corporation",
+          "weight": 4.76
+        },
+        {
+          "ticker": "VLO",
+          "name": "Valero Energy Corporation",
+          "weight": 4.08
+        },
+        {
+          "ticker": "PSX",
+          "name": "Phillips 66",
+          "weight": 3.07
+        },
+        {
+          "ticker": "NEM",
+          "name": "Newmont Corporation",
+          "weight": 2.83
+        },
+        {
+          "ticker": "FCX",
+          "name": "Freeport-McMoRan Inc.",
+          "weight": 1.64
+        },
+        {
+          "ticker": "MLM",
+          "name": "Martin Marietta Materials, Inc.",
+          "weight": 1.41
+        },
+        {
+          "ticker": "SLB",
+          "name": "SLB N.V.",
+          "weight": 1.36
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:00.747Z"
+    },
+    {
+      "ticker": "FSAGX",
+      "name": "Fidelity Select Gold Portfolio",
+      "category": "Equity Precious Metals",
+      "family": "Fidelity",
+      "riskRating": 2,
+      "morningstarRating": 3,
+      "expenseRatio": 0.64,
+      "totalAssets": 4320000000,
+      "yield": 4.76,
+      "beta": null,
+      "ytdReturn": 4.03,
+      "return1Y": 87.94,
+      "return3Y": null,
+      "return5Y": 117.48,
+      "return10Y": null,
+      "low52": 33.71,
+      "high52": 79.83,
+      "turnover": 60,
+      "inceptionDate": "Dec 16, 1985",
+      "holdings": [
+        {
+          "ticker": "NEM",
+          "name": "Newmont Corporation",
+          "weight": 12.23
+        },
+        {
+          "ticker": "CDE",
+          "name": "Coeur Mining, Inc.",
+          "weight": 5.05
+        },
+        {
+          "ticker": "AU",
+          "name": "AngloGold Ashanti plc",
+          "weight": 4.3
+        },
+        {
+          "ticker": "EQX",
+          "name": "Equinox Gold Corp.",
+          "weight": 2.1
+        },
+        {
+          "ticker": "SSRM",
+          "name": "SSR Mining Inc.",
+          "weight": 1.77
+        },
+        {
+          "ticker": "ARIS",
+          "name": "Aris Mining Corporation",
+          "weight": 1.38
+        },
+        {
+          "ticker": "RGLD",
+          "name": "Royal Gold, Inc.",
+          "weight": 0.98
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:02.579Z"
+    },
+    {
+      "ticker": "FSCHX",
+      "name": "Fidelity Select Chemicals Portfolio",
+      "category": "Natural Resources",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 2,
+      "expenseRatio": 0.68,
+      "totalAssets": 456520000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 19.56,
+      "return1Y": 15.44,
+      "return3Y": null,
+      "return5Y": 4.35,
+      "return10Y": null,
+      "low52": 11.57,
+      "high52": 14.41,
+      "turnover": 46,
+      "inceptionDate": "Jul 29, 1985",
+      "holdings": [
+        {
+          "ticker": "LIN",
+          "name": "Linde plc",
+          "weight": 25.09
+        },
+        {
+          "ticker": "SHW",
+          "name": "The Sherwin-Williams Company",
+          "weight": 15.67
+        },
+        {
+          "ticker": "ESI",
+          "name": "Element Solutions Inc",
+          "weight": 6.76
+        },
+        {
+          "ticker": "CTVA",
+          "name": "Corteva, Inc.",
+          "weight": 5.27
+        },
+        {
+          "ticker": "APD",
+          "name": "Air Products and Chemicals, Inc.",
+          "weight": 4.41
+        },
+        {
+          "ticker": "ECL",
+          "name": "Ecolab Inc.",
+          "weight": 4.31
+        },
+        {
+          "ticker": "PPG",
+          "name": "PPG Industries, Inc.",
+          "weight": 4.04
+        },
+        {
+          "ticker": "CF",
+          "name": "CF Industries Holdings, Inc.",
+          "weight": 3.44
+        },
+        {
+          "ticker": "LYB",
+          "name": "LyondellBasell Industries N.V.",
+          "weight": 3.33
+        },
+        {
+          "ticker": "NGVT",
+          "name": "Ingevity Corporation",
+          "weight": 3.24
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:04.516Z"
+    },
+    {
+      "ticker": "FSDPX",
+      "name": "Fidelity Select Materials Portfolio",
+      "category": "Natural Resources",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 3,
+      "expenseRatio": 0.69,
+      "totalAssets": 833900000,
+      "yield": 4.95,
+      "beta": null,
+      "ytdReturn": 16.46,
+      "return1Y": 26.43,
+      "return3Y": null,
+      "return5Y": 18.87,
+      "return10Y": null,
+      "low52": 85.23,
+      "high52": 108.9,
+      "turnover": 56,
+      "inceptionDate": "Sep 29, 1986",
+      "holdings": [
+        {
+          "ticker": "LIN",
+          "name": "Linde plc",
+          "weight": 16.02
+        },
+        {
+          "ticker": "ECL",
+          "name": "Ecolab Inc.",
+          "weight": 6.91
+        },
+        {
+          "ticker": "NEM",
+          "name": "Newmont Corporation",
+          "weight": 5.93
+        },
+        {
+          "ticker": "FCX",
+          "name": "Freeport-McMoRan Inc.",
+          "weight": 5.08
+        },
+        {
+          "ticker": "CTVA",
+          "name": "Corteva, Inc.",
+          "weight": 4.23
+        },
+        {
+          "ticker": "APD",
+          "name": "Air Products and Chemicals, Inc.",
+          "weight": 4.2
+        },
+        {
+          "ticker": "SOLS",
+          "name": "Solstice Advanced Materials, Inc.",
+          "weight": 3.88
+        },
+        {
+          "ticker": "CRH",
+          "name": "CRH plc",
+          "weight": 3.51
+        },
+        {
+          "ticker": "NUE",
+          "name": "Nucor Corporation",
+          "weight": 3.37
+        },
+        {
+          "ticker": "LYB",
+          "name": "LyondellBasell Industries N.V.",
+          "weight": 2.98
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:06.329Z"
+    },
+    {
+      "ticker": "FSUTX",
+      "name": "Fidelity Select Utilities Portfolio",
+      "category": "Utilities",
+      "family": "Fidelity",
+      "riskRating": 5,
+      "morningstarRating": 5,
+      "expenseRatio": 0.64,
+      "totalAssets": 4130000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 4.55,
+      "return1Y": 16.61,
+      "return3Y": null,
+      "return5Y": 79.35,
+      "return10Y": null,
+      "low52": 121.09,
+      "high52": 146.86,
+      "turnover": 76,
+      "inceptionDate": "Dec 10, 1981",
+      "holdings": [
+        {
+          "ticker": "NEE",
+          "name": "NextEra Energy, Inc.",
+          "weight": 13.74
+        },
+        {
+          "ticker": "CEG",
+          "name": "Constellation Energy Corporation",
+          "weight": 7.15
+        },
+        {
+          "ticker": "DUK",
+          "name": "Duke Energy Corporation",
+          "weight": 6.78
+        },
+        {
+          "ticker": "NRG",
+          "name": "NRG Energy, Inc.",
+          "weight": 6.09
+        },
+        {
+          "ticker": "SRE",
+          "name": "Sempra",
+          "weight": 5.8
+        },
+        {
+          "ticker": "ETR",
+          "name": "Entergy Corporation",
+          "weight": 5.25
+        },
+        {
+          "ticker": "VST",
+          "name": "Vistra Corp.",
+          "weight": 4.88
+        },
+        {
+          "ticker": "AEP",
+          "name": "American Electric Power Company, Inc.",
+          "weight": 4.73
+        },
+        {
+          "ticker": "EXC",
+          "name": "Exelon Corporation",
+          "weight": 4.66
+        },
+        {
+          "ticker": "XEL",
+          "name": "Xcel Energy Inc.",
+          "weight": 4.53
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:08.167Z"
+    },
+    {
+      "ticker": "FIDSX",
+      "name": "Fidelity Select Financials Portfolio",
+      "category": "Financial",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 4,
+      "expenseRatio": 0.68,
+      "totalAssets": 828180000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": -3.26,
+      "return1Y": 1.37,
+      "return3Y": null,
+      "return5Y": 43.67,
+      "return10Y": null,
+      "low52": 14.32,
+      "high52": 17.17,
+      "turnover": 37,
+      "inceptionDate": "Dec 10, 1981",
+      "holdings": [
+        {
+          "ticker": "MA",
+          "name": "Mastercard Incorporated",
+          "weight": 8.93
+        },
+        {
+          "ticker": "WFC",
+          "name": "Wells Fargo & Company",
+          "weight": 6.93
+        },
+        {
+          "ticker": "BAC",
+          "name": "Bank of America Corporation",
+          "weight": 6.91
+        },
+        {
+          "ticker": "RGA",
+          "name": "Reinsurance Group of America, Incorporated",
+          "weight": 4.63
+        },
+        {
+          "ticker": "C",
+          "name": "Citigroup Inc.",
+          "weight": 3.94
+        },
+        {
+          "ticker": "STT",
+          "name": "State Street Corporation",
+          "weight": 3.13
+        },
+        {
+          "ticker": "SCHW",
+          "name": "The Charles Schwab Corporation",
+          "weight": 3
+        },
+        {
+          "ticker": "CB",
+          "name": "Chubb Limited",
+          "weight": 2.76
+        },
+        {
+          "ticker": "KKR",
+          "name": "KKR & Co. Inc.",
+          "weight": 2.55
+        },
+        {
+          "ticker": "MS",
+          "name": "Morgan Stanley",
+          "weight": 2.42
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:09.988Z"
+    },
+    {
+      "ticker": "FSRBX",
+      "name": "Fidelity Select Banking Portfolio",
+      "category": "Financial",
+      "family": "Fidelity",
+      "riskRating": 4,
+      "morningstarRating": 3,
+      "expenseRatio": 0.69,
+      "totalAssets": 465930000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 1.47,
+      "return1Y": 13.32,
+      "return3Y": null,
+      "return5Y": 34.21,
+      "return10Y": null,
+      "low52": 29.1,
+      "high52": 37.75,
+      "turnover": 25,
+      "inceptionDate": "Jun 30, 1986",
+      "holdings": [
+        {
+          "ticker": "WFC",
+          "name": "Wells Fargo & Company",
+          "weight": 8
+        },
+        {
+          "ticker": "BAC",
+          "name": "Bank of America Corporation",
+          "weight": 7.43
+        },
+        {
+          "ticker": "C",
+          "name": "Citigroup Inc.",
+          "weight": 5.85
+        },
+        {
+          "ticker": "TFC",
+          "name": "Truist Financial Corporation",
+          "weight": 5.39
+        },
+        {
+          "ticker": "USB",
+          "name": "U.S. Bancorp",
+          "weight": 5.17
+        },
+        {
+          "ticker": "MTB",
+          "name": "M&T Bank Corporation",
+          "weight": 4.81
+        },
+        {
+          "ticker": "ONB",
+          "name": "Old National Bancorp",
+          "weight": 3.86
+        },
+        {
+          "ticker": "HBAN",
+          "name": "Huntington Bancshares Incorporated",
+          "weight": 3.7
+        },
+        {
+          "ticker": "BOKF",
+          "name": "BOK Financial Corporation",
+          "weight": 3.68
+        },
+        {
+          "ticker": "EBC",
+          "name": "Eastern Bankshares, Inc.",
+          "weight": 3.35
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:11.847Z"
+    },
+    {
+      "ticker": "FSLBX",
+      "name": "Fidelity Select Brokerage and Investment Management Portfolio",
+      "category": "Financial",
+      "family": "Fidelity",
+      "riskRating": 4,
+      "morningstarRating": 4,
+      "expenseRatio": 0.66,
+      "totalAssets": 978570000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": -9.63,
+      "return1Y": -5.15,
+      "return3Y": null,
+      "return5Y": 57.3,
+      "return10Y": null,
+      "low52": 154.08,
+      "high52": 205.82,
+      "turnover": 10,
+      "inceptionDate": "Jul 29, 1985",
+      "holdings": [
+        {
+          "ticker": "SCHW",
+          "name": "The Charles Schwab Corporation",
+          "weight": 8.3
+        },
+        {
+          "ticker": "MCO",
+          "name": "Moody's Corporation",
+          "weight": 7.57
+        },
+        {
+          "ticker": "APO",
+          "name": "Apollo Global Management, Inc.",
+          "weight": 6.45
+        },
+        {
+          "ticker": "ICE",
+          "name": "Intercontinental Exchange, Inc.",
+          "weight": 5.76
+        },
+        {
+          "ticker": "KKR",
+          "name": "KKR & Co. Inc.",
+          "weight": 5.72
+        },
+        {
+          "ticker": "SPGI",
+          "name": "S&P Global Inc.",
+          "weight": 4.26
+        },
+        {
+          "ticker": "OWL",
+          "name": "Blue Owl Capital Inc.",
+          "weight": 4.15
+        },
+        {
+          "ticker": "ARES",
+          "name": "Ares Management Corporation",
+          "weight": 4.13
+        },
+        {
+          "ticker": "BX",
+          "name": "Blackstone Inc.",
+          "weight": 3.87
+        },
+        {
+          "ticker": "AMP",
+          "name": "Ameriprise Financial, Inc.",
+          "weight": 3.79
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:13.720Z"
+    },
+    {
+      "ticker": "FSPCX",
+      "name": "Fidelity Select Insurance Portfolio",
+      "category": "Financial",
+      "family": "Fidelity",
+      "riskRating": 1,
+      "morningstarRating": 4,
+      "expenseRatio": 0.68,
+      "totalAssets": 617400000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": -4.16,
+      "return1Y": -4.73,
+      "return3Y": null,
+      "return5Y": 56.39,
+      "return10Y": null,
+      "low52": 83.89,
+      "high52": 97.3,
+      "turnover": 48,
+      "inceptionDate": "Dec 16, 1985",
+      "holdings": [
+        {
+          "ticker": "CB",
+          "name": "Chubb Limited",
+          "weight": 13.69
+        },
+        {
+          "ticker": "PGR",
+          "name": "The Progressive Corporation",
+          "weight": 9.15
+        },
+        {
+          "ticker": "AJG",
+          "name": "Arthur J. Gallagher & Co.",
+          "weight": 7.65
+        },
+        {
+          "ticker": "HIG",
+          "name": "The Hartford Insurance Group, Inc.",
+          "weight": 6.65
+        },
+        {
+          "ticker": "RGA",
+          "name": "Reinsurance Group of America, Incorporated",
+          "weight": 6.37
+        },
+        {
+          "ticker": "TRV",
+          "name": "The Travelers Companies, Inc.",
+          "weight": 5.17
+        },
+        {
+          "ticker": "ACGL",
+          "name": "Arch Capital Group Ltd.",
+          "weight": 4.86
+        },
+        {
+          "ticker": "AFG",
+          "name": "American Financial Group, Inc.",
+          "weight": 4.79
+        },
+        {
+          "ticker": "AON",
+          "name": "Aon plc",
+          "weight": 4.69
+        },
+        {
+          "ticker": "MET",
+          "name": "MetLife, Inc.",
+          "weight": 4.48
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:15.535Z"
+    },
+    {
+      "ticker": "FRESX",
+      "name": "Fidelity Real Estate Investment Portfolio",
+      "category": "Real Estate",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 3,
+      "expenseRatio": 0.72,
+      "totalAssets": 3270000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 10.68,
+      "return1Y": 12.84,
+      "return3Y": null,
+      "return5Y": 24.58,
+      "return10Y": null,
+      "low52": 37.49,
+      "high52": 42.8,
+      "turnover": 35,
+      "inceptionDate": "Nov 17, 1986",
+      "holdings": [
+        {
+          "ticker": "EQIX",
+          "name": "Equinix, Inc.",
+          "weight": 9.83
+        },
+        {
+          "ticker": "PLD",
+          "name": "Prologis, Inc.",
+          "weight": 9.71
+        },
+        {
+          "ticker": "WELL",
+          "name": "Welltower Inc.",
+          "weight": 8.69
+        },
+        {
+          "ticker": "AMT",
+          "name": "American Tower Corporation",
+          "weight": 8.08
+        },
+        {
+          "ticker": "DLR",
+          "name": "Digital Realty Trust, Inc.",
+          "weight": 4.35
+        },
+        {
+          "ticker": "KIM",
+          "name": "Kimco Realty Corporation",
+          "weight": 4.27
+        },
+        {
+          "ticker": "NNN",
+          "name": "NNN REIT, Inc.",
+          "weight": 4.15
+        },
+        {
+          "ticker": "PSA",
+          "name": "Public Storage",
+          "weight": 3.57
+        },
+        {
+          "ticker": "VTR",
+          "name": "Ventas, Inc.",
+          "weight": 3.28
+        },
+        {
+          "ticker": "UDR",
+          "name": "UDR, Inc.",
+          "weight": 3.18
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:17.365Z"
+    },
+    {
+      "ticker": "FSDAX",
+      "name": "Fidelity Select Defense and Aerospace Portfolio",
+      "category": "Industrials",
+      "family": "Fidelity",
+      "riskRating": 4,
+      "morningstarRating": 5,
+      "expenseRatio": 0.63,
+      "totalAssets": 3700000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 0.68,
+      "return1Y": 27.34,
+      "return3Y": null,
+      "return5Y": 97.24,
+      "return10Y": null,
+      "low52": 21.21,
+      "high52": 29.75,
+      "turnover": 18,
+      "inceptionDate": "May 8, 1984",
+      "holdings": [
+        {
+          "ticker": "GE",
+          "name": "GE Aerospace",
+          "weight": 21.22
+        },
+        {
+          "ticker": "RTX",
+          "name": "RTX Corporation",
+          "weight": 15.16
+        },
+        {
+          "ticker": "BA",
+          "name": "The Boeing Company",
+          "weight": 10.92
+        },
+        {
+          "ticker": "HWM",
+          "name": "Howmet Aerospace Inc.",
+          "weight": 4.9
+        },
+        {
+          "ticker": "GD",
+          "name": "General Dynamics Corporation",
+          "weight": 4.5
+        },
+        {
+          "ticker": "HEI.A",
+          "name": "HEICO Corporation",
+          "weight": 4.14
+        },
+        {
+          "ticker": "CW",
+          "name": "Curtiss-Wright Corporation",
+          "weight": 3.5
+        },
+        {
+          "ticker": "CRS",
+          "name": "Carpenter Technology Corporation",
+          "weight": 3.09
+        },
+        {
+          "ticker": "WWD",
+          "name": "Woodward, Inc.",
+          "weight": 2.91
+        },
+        {
+          "ticker": "HII",
+          "name": "Huntington Ingalls Industries, Inc.",
+          "weight": 2.4
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:19.196Z"
+    },
+    {
+      "ticker": "FCYIX",
+      "name": "Fidelity Industrials Portfolio",
+      "category": "Industrials",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 4,
+      "expenseRatio": 0.69,
+      "totalAssets": 836520000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 20.43,
+      "return1Y": 15.72,
+      "return3Y": null,
+      "return5Y": 110.22,
+      "return10Y": null,
+      "low52": 34.25,
+      "high52": 49.05,
+      "turnover": null,
+      "inceptionDate": "Mar 3, 1997",
+      "holdings": [
+        {
+          "ticker": "GE",
+          "name": "GE Aerospace",
+          "weight": 8.68
+        },
+        {
+          "ticker": "GEV",
+          "name": "GE Vernova Inc.",
+          "weight": 6.32
+        },
+        {
+          "ticker": "HWM",
+          "name": "Howmet Aerospace Inc.",
+          "weight": 6.12
+        },
+        {
+          "ticker": "BA",
+          "name": "The Boeing Company",
+          "weight": 4.65
+        },
+        {
+          "ticker": "PH",
+          "name": "Parker-Hannifin Corporation",
+          "weight": 4.19
+        },
+        {
+          "ticker": "TT",
+          "name": "Trane Technologies plc",
+          "weight": 4.13
+        },
+        {
+          "ticker": "ETN",
+          "name": "Eaton Corporation plc",
+          "weight": 4
+        },
+        {
+          "ticker": "IR",
+          "name": "Ingersoll Rand Inc.",
+          "weight": 2.96
+        },
+        {
+          "ticker": "ITT",
+          "name": "ITT Inc.",
+          "weight": 2.96
+        },
+        {
+          "ticker": "DE",
+          "name": "Deere & Company",
+          "weight": 2.69
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:21.006Z"
+    },
+    {
+      "ticker": "FSRFX",
+      "name": "Fidelity Select Transportation Portfolio",
+      "category": "Industrials",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 2,
+      "expenseRatio": 0.68,
+      "totalAssets": 499340000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 9.46,
+      "return1Y": 21.81,
+      "return3Y": null,
+      "return5Y": 38.14,
+      "return10Y": null,
+      "low52": 97.5,
+      "high52": 123.83,
+      "turnover": 40,
+      "inceptionDate": "Sep 29, 1986",
+      "holdings": [
+        {
+          "ticker": "UBER",
+          "name": "Uber Technologies, Inc.",
+          "weight": 12.48
+        },
+        {
+          "ticker": "UNP",
+          "name": "Union Pacific Corporation",
+          "weight": 10.34
+        },
+        {
+          "ticker": "UPS",
+          "name": "United Parcel Service, Inc.",
+          "weight": 8.36
+        },
+        {
+          "ticker": "DAL",
+          "name": "Delta Air Lines, Inc.",
+          "weight": 8.09
+        },
+        {
+          "ticker": "FDX",
+          "name": "FedEx Corporation",
+          "weight": 7.08
+        },
+        {
+          "ticker": "ODFL",
+          "name": "Old Dominion Freight Line, Inc.",
+          "weight": 6.55
+        },
+        {
+          "ticker": "CSX",
+          "name": "CSX Corporation",
+          "weight": 5.35
+        },
+        {
+          "ticker": "UAL",
+          "name": "United Airlines Holdings, Inc.",
+          "weight": 5.27
+        },
+        {
+          "ticker": "XPO",
+          "name": "XPO, Inc.",
+          "weight": 4.55
+        },
+        {
+          "ticker": "CHRW",
+          "name": "C.H. Robinson Worldwide, Inc.",
+          "weight": 4.02
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:23.797Z"
+    },
+    {
+      "ticker": "FSAVX",
+      "name": "Fidelity Select Automotive Portfolio",
+      "category": "Consumer Cyclical",
+      "family": "Fidelity",
+      "riskRating": 4,
+      "morningstarRating": 3,
+      "expenseRatio": 0.78,
+      "totalAssets": 60870000,
+      "yield": 14.64,
+      "beta": null,
+      "ytdReturn": -1.76,
+      "return1Y": 0.76,
+      "return3Y": null,
+      "return5Y": 12.48,
+      "return10Y": null,
+      "low52": 53.87,
+      "high52": 66.6,
+      "turnover": 112,
+      "inceptionDate": "Jun 30, 1986",
+      "holdings": [
+        {
+          "ticker": "GM",
+          "name": "General Motors Company",
+          "weight": 13.16
+        },
+        {
+          "ticker": "ORLY",
+          "name": "O'Reilly Automotive, Inc.",
+          "weight": 12.75
+        },
+        {
+          "ticker": "TM",
+          "name": "Toyota Motor Corporation",
+          "weight": 11.54
+        },
+        {
+          "ticker": "TSLA",
+          "name": "Tesla, Inc.",
+          "weight": 9.21
+        },
+        {
+          "ticker": "AZO",
+          "name": "AutoZone, Inc.",
+          "weight": 5.94
+        },
+        {
+          "ticker": "CVNA",
+          "name": "Carvana Co.",
+          "weight": 5
+        },
+        {
+          "ticker": "DAN",
+          "name": "Dana Incorporated",
+          "weight": 3.85
+        },
+        {
+          "ticker": "F",
+          "name": "Ford Motor Company",
+          "weight": 3.66
+        },
+        {
+          "ticker": "RIVN",
+          "name": "Rivian Automotive, Inc.",
+          "weight": 3.22
+        },
+        {
+          "ticker": "CPRT",
+          "name": "Copart, Inc.",
+          "weight": 3.07
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:25.645Z"
+    },
+    {
+      "ticker": "FSHOX",
+      "name": "Fidelity Select Construction and Housing Portfolio",
+      "category": "Consumer Cyclical",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 5,
+      "expenseRatio": 0.68,
+      "totalAssets": 707220000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 6.33,
+      "return1Y": 11.79,
+      "return3Y": null,
+      "return5Y": 56.42,
+      "return10Y": null,
+      "low52": 113.53,
+      "high52": 139.54,
+      "turnover": 16,
+      "inceptionDate": "Sep 29, 1986",
+      "holdings": [
+        {
+          "ticker": "HD",
+          "name": "The Home Depot, Inc.",
+          "weight": 15.44
+        },
+        {
+          "ticker": "LOW",
+          "name": "Lowe's Companies, Inc.",
+          "weight": 13.34
+        },
+        {
+          "ticker": "JCI",
+          "name": "Johnson Controls International plc",
+          "weight": 6.67
+        },
+        {
+          "ticker": "TT",
+          "name": "Trane Technologies plc",
+          "weight": 5.94
+        },
+        {
+          "ticker": "PWR",
+          "name": "Quanta Services, Inc.",
+          "weight": 5.49
+        },
+        {
+          "ticker": "CRH",
+          "name": "CRH plc",
+          "weight": 4.39
+        },
+        {
+          "ticker": "MLM",
+          "name": "Martin Marietta Materials, Inc.",
+          "weight": 4.13
+        },
+        {
+          "ticker": "FIX",
+          "name": "Comfort Systems USA, Inc.",
+          "weight": 3.89
+        },
+        {
+          "ticker": "INVH",
+          "name": "Invitation Homes Inc.",
+          "weight": 2.64
+        },
+        {
+          "ticker": "EME",
+          "name": "EMCOR Group, Inc.",
+          "weight": 2.47
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:27.468Z"
+    },
+    {
+      "ticker": "FBMPX",
+      "name": "Fidelity Select Communication Services Portfolio",
+      "category": "Communications",
+      "family": "Fidelity",
+      "riskRating": 4,
+      "morningstarRating": 5,
+      "expenseRatio": 0.64,
+      "totalAssets": 2760000000,
+      "yield": 7.43,
+      "beta": null,
+      "ytdReturn": 10.92,
+      "return1Y": 43.68,
+      "return3Y": null,
+      "return5Y": 101.88,
+      "return10Y": null,
+      "low52": 112,
+      "high52": 148.3,
+      "turnover": 147,
+      "inceptionDate": "Jun 30, 1986",
+      "holdings": [
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "weight": 25.18
+        },
+        {
+          "ticker": "META",
+          "name": "Meta Platforms, Inc.",
+          "weight": 23.38
+        },
+        {
+          "ticker": "T",
+          "name": "AT&T Inc.",
+          "weight": 6.51
+        },
+        {
+          "ticker": "VZ",
+          "name": "Verizon Communications Inc.",
+          "weight": 6.01
+        },
+        {
+          "ticker": "SATS",
+          "name": "EchoStar Corporation",
+          "weight": 4.46
+        },
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 2.77
+        },
+        {
+          "ticker": "TSM",
+          "name": "Taiwan Semiconductor Manufacturing Company Limited",
+          "weight": 2.54
+        },
+        {
+          "ticker": "TTWO",
+          "name": "Take-Two Interactive Software, Inc.",
+          "weight": 2.5
+        },
+        {
+          "ticker": "LYV",
+          "name": "Live Nation Entertainment, Inc.",
+          "weight": 2.18
+        },
+        {
+          "ticker": "RBLX",
+          "name": "Roblox Corporation",
+          "weight": 2.09
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:30.208Z"
+    },
+    {
+      "ticker": "FSTCX",
+      "name": "Fidelity Select Telecommunications Portfolio",
+      "category": "Communications",
+      "family": "Fidelity",
+      "riskRating": 1,
+      "morningstarRating": 3,
+      "expenseRatio": 0.74,
+      "totalAssets": 248200000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 17.53,
+      "return1Y": 26.58,
+      "return3Y": null,
+      "return5Y": 24.49,
+      "return10Y": null,
+      "low52": 56.14,
+      "high52": 69.73,
+      "turnover": 65,
+      "inceptionDate": "Jul 29, 1985",
+      "holdings": [
+        {
+          "ticker": "T",
+          "name": "AT&T Inc.",
+          "weight": 23.55
+        },
+        {
+          "ticker": "VZ",
+          "name": "Verizon Communications Inc.",
+          "weight": 21.52
+        },
+        {
+          "ticker": "TMUS",
+          "name": "T-Mobile US, Inc.",
+          "weight": 6.36
+        },
+        {
+          "ticker": "GSAT",
+          "name": "Globalstar, Inc.",
+          "weight": 6.09
+        },
+        {
+          "ticker": "ASTS",
+          "name": "AST SpaceMobile, Inc.",
+          "weight": 5.42
+        },
+        {
+          "ticker": "LUMN",
+          "name": "Lumen Technologies, Inc.",
+          "weight": 5.31
+        },
+        {
+          "ticker": "IRDM",
+          "name": "Iridium Communications Inc.",
+          "weight": 4.68
+        },
+        {
+          "ticker": "LILAK",
+          "name": "Liberty Latin America Ltd.",
+          "weight": 3.43
+        },
+        {
+          "ticker": "UNIT",
+          "name": "Uniti Group Inc.",
+          "weight": 3.42
+        },
+        {
+          "ticker": "TDS",
+          "name": "Telephone and Data Systems, Inc.",
+          "weight": 3.41
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:32.069Z"
+    },
+    {
+      "ticker": "FWRLX",
+      "name": "Fidelity Select Wireless Portfolio",
+      "category": "Communications",
+      "family": "Fidelity",
+      "riskRating": 1,
+      "morningstarRating": 3,
+      "expenseRatio": 0.71,
+      "totalAssets": 336150000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 23.69,
+      "return1Y": 27.33,
+      "return3Y": null,
+      "return5Y": 37.74,
+      "return10Y": null,
+      "low52": 11.45,
+      "high52": 14.82,
+      "turnover": 58,
+      "inceptionDate": "Sep 21, 2000",
+      "holdings": [
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 14.78
+        },
+        {
+          "ticker": "T",
+          "name": "AT&T Inc.",
+          "weight": 7.76
+        },
+        {
+          "ticker": "TMUS",
+          "name": "T-Mobile US, Inc.",
+          "weight": 7.26
+        },
+        {
+          "ticker": "MRVL",
+          "name": "Marvell Technology, Inc.",
+          "weight": 6.51
+        },
+        {
+          "ticker": "VZ",
+          "name": "Verizon Communications Inc.",
+          "weight": 6.26
+        },
+        {
+          "ticker": "MSI",
+          "name": "Motorola Solutions, Inc.",
+          "weight": 5.66
+        },
+        {
+          "ticker": "QCOM",
+          "name": "QUALCOMM Incorporated",
+          "weight": 5.28
+        },
+        {
+          "ticker": "NOK",
+          "name": "Nokia Oyj",
+          "weight": 3.81
+        },
+        {
+          "ticker": "AMT",
+          "name": "American Tower Corporation",
+          "weight": 3.4
+        },
+        {
+          "ticker": "ASTS",
+          "name": "AST SpaceMobile, Inc.",
+          "weight": 2.85
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:33.919Z"
+    },
+    {
+      "ticker": "FDFAX",
+      "name": "Fidelity Select Consumer Staples Portfolio",
+      "category": "Consumer Defensive",
+      "family": "Fidelity",
+      "riskRating": 4,
+      "morningstarRating": 3,
+      "expenseRatio": 0.68,
+      "totalAssets": 1230000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 10.12,
+      "return1Y": 9.29,
+      "return3Y": null,
+      "return5Y": 17.98,
+      "return10Y": null,
+      "low52": 82.18,
+      "high52": 95.91,
+      "turnover": 52,
+      "inceptionDate": "Jul 29, 1985",
+      "holdings": [
+        {
+          "ticker": "KO",
+          "name": "The Coca-Cola Company",
+          "weight": 14.15
+        },
+        {
+          "ticker": "PG",
+          "name": "The Procter & Gamble Company",
+          "weight": 10.58
+        },
+        {
+          "ticker": "COST",
+          "name": "Costco Wholesale Corporation",
+          "weight": 9.26
+        },
+        {
+          "ticker": "WMT",
+          "name": "Walmart Inc.",
+          "weight": 7.8
+        },
+        {
+          "ticker": "KDP",
+          "name": "Keurig Dr Pepper Inc.",
+          "weight": 6.98
+        },
+        {
+          "ticker": "KVUE",
+          "name": "Kenvue Inc.",
+          "weight": 4.6
+        },
+        {
+          "ticker": "MDLZ",
+          "name": "Mondelez International, Inc.",
+          "weight": 4.51
+        },
+        {
+          "ticker": "TGT",
+          "name": "Target Corporation",
+          "weight": 3.92
+        },
+        {
+          "ticker": "PM",
+          "name": "Philip Morris International Inc.",
+          "weight": 2.61
+        },
+        {
+          "ticker": "STZ",
+          "name": "Constellation Brands, Inc.",
+          "weight": 2.4
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:35.722Z"
+    },
+    {
+      "ticker": "FSRPX",
+      "name": "Fidelity Select Retailing Portfolio",
+      "category": "Consumer Cyclical",
+      "family": "Fidelity",
+      "riskRating": 2,
+      "morningstarRating": 5,
+      "expenseRatio": 0.63,
+      "totalAssets": 2430000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 3.02,
+      "return1Y": -3.2,
+      "return3Y": null,
+      "return5Y": 9.31,
+      "return10Y": null,
+      "low52": 16.96,
+      "high52": 20.63,
+      "turnover": 46,
+      "inceptionDate": "Dec 16, 1985",
+      "holdings": [
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 25.15
+        },
+        {
+          "ticker": "WMT",
+          "name": "Walmart Inc.",
+          "weight": 11.15
+        },
+        {
+          "ticker": "COST",
+          "name": "Costco Wholesale Corporation",
+          "weight": 7.09
+        },
+        {
+          "ticker": "LOW",
+          "name": "Lowe's Companies, Inc.",
+          "weight": 6.45
+        },
+        {
+          "ticker": "TJX",
+          "name": "The TJX Companies, Inc.",
+          "weight": 3.38
+        },
+        {
+          "ticker": "ROST",
+          "name": "Ross Stores, Inc.",
+          "weight": 3.31
+        },
+        {
+          "ticker": "ORLY",
+          "name": "O'Reilly Automotive, Inc.",
+          "weight": 3.09
+        },
+        {
+          "ticker": "DLTR",
+          "name": "Dollar Tree, Inc.",
+          "weight": 2.72
+        },
+        {
+          "ticker": "MELI",
+          "name": "MercadoLibre, Inc.",
+          "weight": 2.65
+        },
+        {
+          "ticker": "TGT",
+          "name": "Target Corporation",
+          "weight": 2.64
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:37.525Z"
+    },
+    {
+      "ticker": "FSCPX",
+      "name": "Fidelity Select Consumer Discretionary Portfolio",
+      "category": "Consumer Cyclical",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 4,
+      "expenseRatio": 0.69,
+      "totalAssets": 909900000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": -0.32,
+      "return1Y": 11.3,
+      "return3Y": null,
+      "return5Y": 27.6,
+      "return10Y": null,
+      "low52": 61.3,
+      "high52": 72.97,
+      "turnover": 21,
+      "inceptionDate": "Jun 29, 1990",
+      "holdings": [
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 26.36
+        },
+        {
+          "ticker": "TSLA",
+          "name": "Tesla, Inc.",
+          "weight": 15.66
+        },
+        {
+          "ticker": "LOW",
+          "name": "Lowe's Companies, Inc.",
+          "weight": 4.39
+        },
+        {
+          "ticker": "HD",
+          "name": "The Home Depot, Inc.",
+          "weight": 4.29
+        },
+        {
+          "ticker": "TJX",
+          "name": "The TJX Companies, Inc.",
+          "weight": 3.54
+        },
+        {
+          "ticker": "MCD",
+          "name": "McDonald's Corporation",
+          "weight": 3.36
+        },
+        {
+          "ticker": "HLT",
+          "name": "Hilton Worldwide Holdings Inc.",
+          "weight": 3
+        },
+        {
+          "ticker": "ROST",
+          "name": "Ross Stores, Inc.",
+          "weight": 2.39
+        },
+        {
+          "ticker": "SGI",
+          "name": "Somnigroup International Inc.",
+          "weight": 2.27
+        },
+        {
+          "ticker": "DKS",
+          "name": "DICK'S Sporting Goods, Inc.",
+          "weight": 1.91
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:39.324Z"
+    },
+    {
+      "ticker": "FDLSX",
+      "name": "Fidelity Select Leisure Portfolio",
+      "category": "Consumer Cyclical",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 4,
+      "expenseRatio": 0.68,
+      "totalAssets": 493050000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": -10.5,
+      "return1Y": -20.25,
+      "return3Y": null,
+      "return5Y": 16.76,
+      "return10Y": null,
+      "low52": 14.95,
+      "high52": 21.67,
+      "turnover": 65,
+      "inceptionDate": "May 8, 1984",
+      "holdings": [
+        {
+          "ticker": "HLT",
+          "name": "Hilton Worldwide Holdings Inc.",
+          "weight": 10.41
+        },
+        {
+          "ticker": "BKNG",
+          "name": "Booking Holdings Inc.",
+          "weight": 10.03
+        },
+        {
+          "ticker": "MCD",
+          "name": "McDonald's Corporation",
+          "weight": 8.38
+        },
+        {
+          "ticker": "SBUX",
+          "name": "Starbucks Corporation",
+          "weight": 7.82
+        },
+        {
+          "ticker": "EXPE",
+          "name": "Expedia Group, Inc.",
+          "weight": 6.13
+        },
+        {
+          "ticker": "CCL",
+          "name": "Carnival Corporation & plc",
+          "weight": 5.56
+        },
+        {
+          "ticker": "YUM",
+          "name": "Yum! Brands, Inc.",
+          "weight": 4.92
+        },
+        {
+          "ticker": "ABNB",
+          "name": "Airbnb, Inc.",
+          "weight": 4.61
+        },
+        {
+          "ticker": "CMG",
+          "name": "Chipotle Mexican Grill, Inc.",
+          "weight": 4.58
+        },
+        {
+          "ticker": "WYNN",
+          "name": "Wynn Resorts, Limited",
+          "weight": 4.39
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:41.116Z"
+    },
+    {
+      "ticker": "FSLEX",
+      "name": "Fidelity Environment and Alternative Energy Fund",
+      "category": "Industrials",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 3,
+      "expenseRatio": 0.68,
+      "totalAssets": 672990000,
+      "yield": 1.6,
+      "beta": null,
+      "ytdReturn": 11.88,
+      "return1Y": 31.19,
+      "return3Y": null,
+      "return5Y": 71.46,
+      "return10Y": null,
+      "low52": 39.93,
+      "high52": 53.21,
+      "turnover": 50,
+      "inceptionDate": "Jun 29, 1989",
+      "holdings": [
+        {
+          "ticker": "TSLA",
+          "name": "Tesla, Inc.",
+          "weight": 8.34
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 7.14
+        },
+        {
+          "ticker": "CSCO",
+          "name": "Cisco Systems, Inc.",
+          "weight": 4.18
+        },
+        {
+          "ticker": "LIN",
+          "name": "Linde plc",
+          "weight": 3.69
+        },
+        {
+          "ticker": "NEE",
+          "name": "NextEra Energy, Inc.",
+          "weight": 3.67
+        },
+        {
+          "ticker": "PLD",
+          "name": "Prologis, Inc.",
+          "weight": 3.59
+        },
+        {
+          "ticker": "ETN",
+          "name": "Eaton Corporation plc",
+          "weight": 3.57
+        },
+        {
+          "ticker": "IBM",
+          "name": "International Business Machines Corporation",
+          "weight": 3.39
+        },
+        {
+          "ticker": "ANET",
+          "name": "Arista Networks, Inc.",
+          "weight": 3.32
+        },
+        {
+          "ticker": "ADI",
+          "name": "Analog Devices, Inc.",
+          "weight": 3.27
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:42.932Z"
+    },
+    {
+      "ticker": "FCNTX",
+      "name": "Fidelity Contrafund",
+      "category": "Large Growth",
+      "family": "Fidelity",
+      "riskRating": 2,
+      "morningstarRating": 5,
+      "expenseRatio": 0.74,
+      "totalAssets": 172670000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 6.15,
+      "return1Y": 24.16,
+      "return3Y": null,
+      "return5Y": 100.44,
+      "return10Y": null,
+      "low52": 21.44,
+      "high52": 26.17,
+      "turnover": 29,
+      "inceptionDate": "May 17, 1967",
+      "holdings": [
+        {
+          "ticker": "META",
+          "name": "Meta Platforms, Inc.",
+          "weight": 10.29
+        },
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 9.42
+        },
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 5.73
+        },
+        {
+          "ticker": "BRK.A",
+          "name": "Berkshire Hathaway Inc.",
+          "weight": 4.13
+        },
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "weight": 3.89
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 2.97
+        },
+        {
+          "ticker": "GOOG",
+          "name": "Alphabet Inc.",
+          "weight": 2.41
+        },
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 2.34
+        },
+        {
+          "ticker": "APH",
+          "name": "Amphenol Corporation",
+          "weight": 2.07
+        },
+        {
+          "ticker": "AVGO",
+          "name": "Broadcom Inc.",
+          "weight": 1.87
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:44.734Z"
+    },
+    {
+      "ticker": "FBGRX",
+      "name": "Fidelity Blue Chip Growth Fund",
+      "category": "Large Growth",
+      "family": "Fidelity",
+      "riskRating": 4,
+      "morningstarRating": 5,
+      "expenseRatio": 0.69,
+      "totalAssets": 95320000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 13,
+      "return1Y": 40.09,
+      "return3Y": null,
+      "return5Y": 115.13,
+      "return10Y": null,
+      "low52": 214.29,
+      "high52": 306.72,
+      "turnover": 34,
+      "inceptionDate": "Dec 31, 1987",
+      "holdings": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 15.43
+        },
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 10.24
+        },
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "weight": 7.72
+        },
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 7.57
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 5.27
+        },
+        {
+          "ticker": "META",
+          "name": "Meta Platforms, Inc.",
+          "weight": 4.13
+        },
+        {
+          "ticker": "AVGO",
+          "name": "Broadcom Inc.",
+          "weight": 3.33
+        },
+        {
+          "ticker": "NFLX",
+          "name": "Netflix, Inc.",
+          "weight": 2.56
+        },
+        {
+          "ticker": "LLY",
+          "name": "Eli Lilly and Company",
+          "weight": 2.49
+        },
+        {
+          "ticker": "MRVL",
+          "name": "Marvell Technology, Inc.",
+          "weight": 2.17
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:46.537Z"
+    },
+    {
+      "ticker": "FMAGX",
+      "name": "Fidelity Magellan Fund",
+      "category": "Large Growth",
+      "family": "Fidelity",
+      "riskRating": 2,
+      "morningstarRating": 3,
+      "expenseRatio": 0.47,
+      "totalAssets": 37100000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 5.23,
+      "return1Y": 11.3,
+      "return3Y": null,
+      "return5Y": 81.1,
+      "return10Y": null,
+      "low52": 13.38,
+      "high52": 16.27,
+      "turnover": 49,
+      "inceptionDate": "May 2, 1963",
+      "holdings": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 10.66
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 7.13
+        },
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 5.77
+        },
+        {
+          "ticker": "AVGO",
+          "name": "Broadcom Inc.",
+          "weight": 4.77
+        },
+        {
+          "ticker": "META",
+          "name": "Meta Platforms, Inc.",
+          "weight": 3.99
+        },
+        {
+          "ticker": "JPM",
+          "name": "JPMorgan Chase & Co.",
+          "weight": 2.51
+        },
+        {
+          "ticker": "TSM",
+          "name": "Taiwan Semiconductor Manufacturing Company Limited",
+          "weight": 2.22
+        },
+        {
+          "ticker": "NFLX",
+          "name": "Netflix, Inc.",
+          "weight": 2.07
+        },
+        {
+          "ticker": "V",
+          "name": "Visa Inc.",
+          "weight": 2.02
+        },
+        {
+          "ticker": "KLAC",
+          "name": "KLA Corporation",
+          "weight": 1.98
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:48.356Z"
+    },
+    {
+      "ticker": "FDGRX",
+      "name": "Fidelity Growth Company Fund",
+      "category": "Large Growth",
+      "family": "Fidelity",
+      "riskRating": 4,
+      "morningstarRating": 5,
+      "expenseRatio": 0.69,
+      "totalAssets": 90680000000,
+      "yield": 4.18,
+      "beta": null,
+      "ytdReturn": 19.51,
+      "return1Y": 46.39,
+      "return3Y": null,
+      "return5Y": 106.77,
+      "return10Y": null,
+      "low52": 38.31,
+      "high52": 58.21,
+      "turnover": 16,
+      "inceptionDate": "Jan 17, 1983",
+      "holdings": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 16.23
+        },
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 7.67
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 6.01
+        },
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 5
+        },
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "weight": 4.18
+        },
+        {
+          "ticker": "CIEN",
+          "name": "Ciena Corporation",
+          "weight": 3.37
+        },
+        {
+          "ticker": "META",
+          "name": "Meta Platforms, Inc.",
+          "weight": 3.2
+        },
+        {
+          "ticker": "SNDK",
+          "name": "Sandisk Corporation",
+          "weight": 2.81
+        },
+        {
+          "ticker": "GOOG",
+          "name": "Alphabet Inc.",
+          "weight": 2.75
+        },
+        {
+          "ticker": "LLY",
+          "name": "Eli Lilly and Company",
+          "weight": 2.25
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:50.169Z"
+    },
+    {
+      "ticker": "FLPSX",
+      "name": "Fidelity Low-Priced Stock Fund",
+      "category": "World Small/Mid Stock",
+      "family": "Fidelity",
+      "riskRating": 1,
+      "morningstarRating": 5,
+      "expenseRatio": 0.92,
+      "totalAssets": 23820000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 5.92,
+      "return1Y": 17.87,
+      "return3Y": null,
+      "return5Y": 41.95,
+      "return10Y": null,
+      "low52": 39.53,
+      "high52": 46.5,
+      "turnover": 22,
+      "inceptionDate": "Dec 27, 1989",
+      "holdings": [
+        {
+          "ticker": "WFC",
+          "name": "Wells Fargo & Company",
+          "weight": 1.3
+        },
+        {
+          "ticker": "PCG",
+          "name": "PG&E Corporation",
+          "weight": 1.23
+        },
+        {
+          "ticker": "OVV",
+          "name": "Ovintiv Inc.",
+          "weight": 1.1
+        },
+        {
+          "ticker": "PRMB",
+          "name": "Primo Brands Corporation",
+          "weight": 1
+        },
+        {
+          "ticker": "SNX",
+          "name": "TD SYNNEX Corporation",
+          "weight": 0.89
+        },
+        {
+          "ticker": "PFGC",
+          "name": "Performance Food Group Company",
+          "weight": 0.82
+        },
+        {
+          "ticker": "SLGN",
+          "name": "Silgan Holdings Inc.",
+          "weight": 0.78
+        },
+        {
+          "ticker": "VNT",
+          "name": "Vontier Corporation",
+          "weight": 0.75
+        },
+        {
+          "ticker": "STT",
+          "name": "State Street Corporation",
+          "weight": 0.72
+        },
+        {
+          "ticker": "ELAN",
+          "name": "Elanco Animal Health Incorporated",
+          "weight": 0.71
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:51.988Z"
+    },
+    {
+      "ticker": "FDCAX",
+      "name": "Fidelity Capital Appreciation Fund",
+      "category": "Large Growth",
+      "family": "Fidelity",
+      "riskRating": 2,
+      "morningstarRating": 4,
+      "expenseRatio": 0.66,
+      "totalAssets": 7620000000,
+      "yield": 6.94,
+      "beta": null,
+      "ytdReturn": 15.65,
+      "return1Y": 34.9,
+      "return3Y": null,
+      "return5Y": 95.73,
+      "return10Y": null,
+      "low52": 42.17,
+      "high52": 53.37,
+      "turnover": 84,
+      "inceptionDate": "Nov 26, 1986",
+      "holdings": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 8.24
+        },
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 5.64
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 3.65
+        },
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "weight": 3.63
+        },
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 3.41
+        },
+        {
+          "ticker": "META",
+          "name": "Meta Platforms, Inc.",
+          "weight": 2.94
+        },
+        {
+          "ticker": "GOOG",
+          "name": "Alphabet Inc.",
+          "weight": 2.33
+        },
+        {
+          "ticker": "WDC",
+          "name": "Western Digital Corporation",
+          "weight": 2.15
+        },
+        {
+          "ticker": "ALSN",
+          "name": "Allison Transmission Holdings, Inc.",
+          "weight": 1.93
+        },
+        {
+          "ticker": "BA",
+          "name": "The Boeing Company",
+          "weight": 1.88
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:53.799Z"
+    },
+    {
+      "ticker": "FDEQX",
+      "name": "Fidelity Disciplined Equity Fund",
+      "category": "Large Growth",
+      "family": "Fidelity",
+      "riskRating": 2,
+      "morningstarRating": 3,
+      "expenseRatio": 0.66,
+      "totalAssets": 2280000000,
+      "yield": 7.26,
+      "beta": null,
+      "ytdReturn": 12.76,
+      "return1Y": 30.77,
+      "return3Y": null,
+      "return5Y": 87.22,
+      "return10Y": null,
+      "low52": 65.62,
+      "high52": 81.63,
+      "turnover": 53,
+      "inceptionDate": "Dec 28, 1988",
+      "holdings": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 9.64
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 4.67
+        },
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 4.6
+        },
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "weight": 3.98
+        },
+        {
+          "ticker": "GOOG",
+          "name": "Alphabet Inc.",
+          "weight": 3.35
+        },
+        {
+          "ticker": "META",
+          "name": "Meta Platforms, Inc.",
+          "weight": 3.24
+        },
+        {
+          "ticker": "AVGO",
+          "name": "Broadcom Inc.",
+          "weight": 3.15
+        },
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 2.62
+        },
+        {
+          "ticker": "GE",
+          "name": "GE Aerospace",
+          "weight": 2.45
+        },
+        {
+          "ticker": "LLY",
+          "name": "Eli Lilly and Company",
+          "weight": 2.4
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:55.601Z"
+    },
+    {
+      "ticker": "FDGFX",
+      "name": "Fidelity Dividend Growth Fund",
+      "category": "Large Blend",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 4,
+      "expenseRatio": 0.58,
+      "totalAssets": 11420000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 14.96,
+      "return1Y": 39.01,
+      "return3Y": null,
+      "return5Y": 103.43,
+      "return10Y": null,
+      "low52": 38.39,
+      "high52": 49.74,
+      "turnover": 81,
+      "inceptionDate": "Apr 27, 1993",
+      "holdings": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 8.32
+        },
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "weight": 6.36
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 3.72
+        },
+        {
+          "ticker": "META",
+          "name": "Meta Platforms, Inc.",
+          "weight": 3.16
+        },
+        {
+          "ticker": "BA",
+          "name": "The Boeing Company",
+          "weight": 2.58
+        },
+        {
+          "ticker": "WDC",
+          "name": "Western Digital Corporation",
+          "weight": 2.23
+        },
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 2.03
+        },
+        {
+          "ticker": "ALSN",
+          "name": "Allison Transmission Holdings, Inc.",
+          "weight": 1.98
+        },
+        {
+          "ticker": "XOM",
+          "name": "Exxon Mobil Corporation",
+          "weight": 1.96
+        },
+        {
+          "ticker": "STX",
+          "name": "Seagate Technology Holdings plc",
+          "weight": 1.91
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:57.393Z"
+    },
+    {
+      "ticker": "FFIDX",
+      "name": "Fidelity Fund",
+      "category": "Large Growth",
+      "family": "Fidelity",
+      "riskRating": 2,
+      "morningstarRating": 3,
+      "expenseRatio": 0.43,
+      "totalAssets": 9090000000,
+      "yield": 1.23,
+      "beta": null,
+      "ytdReturn": 3.93,
+      "return1Y": 25.11,
+      "return3Y": null,
+      "return5Y": 87.91,
+      "return10Y": null,
+      "low52": 93.14,
+      "high52": 116.72,
+      "turnover": 31,
+      "inceptionDate": "Apr 30, 1930",
+      "holdings": [
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "weight": 9.39
+        },
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 9.14
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 6.07
+        },
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 5.2
+        },
+        {
+          "ticker": "META",
+          "name": "Meta Platforms, Inc.",
+          "weight": 4.81
+        },
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 4.24
+        },
+        {
+          "ticker": "KO",
+          "name": "The Coca-Cola Company",
+          "weight": 3.5
+        },
+        {
+          "ticker": "BAC",
+          "name": "Bank of America Corporation",
+          "weight": 2.99
+        },
+        {
+          "ticker": "MA",
+          "name": "Mastercard Incorporated",
+          "weight": 2.98
+        },
+        {
+          "ticker": "WFC",
+          "name": "Wells Fargo & Company",
+          "weight": 2.81
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:32:59.255Z"
+    },
+    {
+      "ticker": "FDSSX",
+      "name": "Fidelity Stock Selector Fund",
+      "category": "Large Blend",
+      "family": "Fidelity",
+      "riskRating": 4,
+      "morningstarRating": 3,
+      "expenseRatio": 0.44,
+      "totalAssets": 10180000000,
+      "yield": 4.25,
+      "beta": null,
+      "ytdReturn": 14.38,
+      "return1Y": 37.37,
+      "return3Y": null,
+      "return5Y": 84.49,
+      "return10Y": null,
+      "low52": 77.08,
+      "high52": 102.72,
+      "turnover": 13,
+      "inceptionDate": "Sep 28, 1990",
+      "holdings": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 8.3
+        },
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "weight": 6.74
+        },
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 6.15
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 4.5
+        },
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 4.08
+        },
+        {
+          "ticker": "META",
+          "name": "Meta Platforms, Inc.",
+          "weight": 2.37
+        },
+        {
+          "ticker": "AVGO",
+          "name": "Broadcom Inc.",
+          "weight": 2.23
+        },
+        {
+          "ticker": "MA",
+          "name": "Mastercard Incorporated",
+          "weight": 1.88
+        },
+        {
+          "ticker": "XOM",
+          "name": "Exxon Mobil Corporation",
+          "weight": 1.69
+        },
+        {
+          "ticker": "TSLA",
+          "name": "Tesla, Inc.",
+          "weight": 1.69
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:33:01.093Z"
+    },
+    {
+      "ticker": "FLCSX",
+      "name": "Fidelity Large Cap Stock Fund",
+      "category": "Large Blend",
+      "family": "Fidelity",
+      "riskRating": 4,
+      "morningstarRating": 5,
+      "expenseRatio": 0.79,
+      "totalAssets": 10160000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 9.11,
+      "return1Y": 33.44,
+      "return3Y": null,
+      "return5Y": 110.25,
+      "return10Y": null,
+      "low52": 56.47,
+      "high52": 70.8,
+      "turnover": 17,
+      "inceptionDate": "Jun 22, 1995",
+      "holdings": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 7.59
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 4.7
+        },
+        {
+          "ticker": "BA",
+          "name": "The Boeing Company",
+          "weight": 4.54
+        },
+        {
+          "ticker": "XOM",
+          "name": "Exxon Mobil Corporation",
+          "weight": 4.44
+        },
+        {
+          "ticker": "WFC",
+          "name": "Wells Fargo & Company",
+          "weight": 4.15
+        },
+        {
+          "ticker": "GE",
+          "name": "GE Aerospace",
+          "weight": 3.94
+        },
+        {
+          "ticker": "GEV",
+          "name": "GE Vernova Inc.",
+          "weight": 3.93
+        },
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "weight": 3.09
+        },
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 3.04
+        },
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 2.88
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:33:03.852Z"
+    },
+    {
+      "ticker": "FOCPX",
+      "name": "Fidelity OTC Portfolio",
+      "category": "Large Growth",
+      "family": "Fidelity",
+      "riskRating": 4,
+      "morningstarRating": 5,
+      "expenseRatio": 0.79,
+      "totalAssets": 40370000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 21.79,
+      "return1Y": 55.69,
+      "return3Y": null,
+      "return5Y": 137.74,
+      "return10Y": null,
+      "low52": 20.11,
+      "high52": 30.21,
+      "turnover": 53,
+      "inceptionDate": "Dec 31, 1984",
+      "holdings": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 14.15
+        },
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 10.56
+        },
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "weight": 8.99
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 6.06
+        },
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 5.92
+        },
+        {
+          "ticker": "GOOG",
+          "name": "Alphabet Inc.",
+          "weight": 4.3
+        },
+        {
+          "ticker": "META",
+          "name": "Meta Platforms, Inc.",
+          "weight": 4.06
+        },
+        {
+          "ticker": "TSM",
+          "name": "Taiwan Semiconductor Manufacturing Company Limited",
+          "weight": 2.91
+        },
+        {
+          "ticker": "AVGO",
+          "name": "Broadcom Inc.",
+          "weight": 2.53
+        },
+        {
+          "ticker": "MU",
+          "name": "Micron Technology, Inc.",
+          "weight": 1.74
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:33:05.823Z"
+    },
+    {
+      "ticker": "FTRNX",
+      "name": "Fidelity Trend Fund",
+      "category": "Large Growth",
+      "family": "Fidelity",
+      "riskRating": 4,
+      "morningstarRating": 4,
+      "expenseRatio": 0.74,
+      "totalAssets": 4630000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 14.27,
+      "return1Y": 35.56,
+      "return3Y": null,
+      "return5Y": 112.27,
+      "return10Y": null,
+      "low52": 171.32,
+      "high52": 229.81,
+      "turnover": 60,
+      "inceptionDate": "Jun 16, 1958",
+      "holdings": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 12.82
+        },
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 8.28
+        },
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "weight": 5.7
+        },
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 3.91
+        },
+        {
+          "ticker": "AVGO",
+          "name": "Broadcom Inc.",
+          "weight": 3.9
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 3.69
+        },
+        {
+          "ticker": "TSLA",
+          "name": "Tesla, Inc.",
+          "weight": 2.98
+        },
+        {
+          "ticker": "META",
+          "name": "Meta Platforms, Inc.",
+          "weight": 2.92
+        },
+        {
+          "ticker": "STRL",
+          "name": "Sterling Infrastructure, Inc.",
+          "weight": 2.42
+        },
+        {
+          "ticker": "HWM",
+          "name": "Howmet Aerospace Inc.",
+          "weight": 2.36
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:33:07.636Z"
+    },
+    {
+      "ticker": "FSCRX",
+      "name": "Fidelity Small Cap Discovery Fund",
+      "category": "Small Blend",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 3,
+      "expenseRatio": 1.03,
+      "totalAssets": 2210000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 11.38,
+      "return1Y": 25.24,
+      "return3Y": null,
+      "return5Y": 39.85,
+      "return10Y": null,
+      "low52": 22.21,
+      "high52": 26.92,
+      "turnover": 67,
+      "inceptionDate": "Sep 26, 2000",
+      "holdings": [
+        {
+          "ticker": "G",
+          "name": "Genpact Limited",
+          "weight": 4.11
+        },
+        {
+          "ticker": "SANM",
+          "name": "Sanmina Corporation",
+          "weight": 3.07
+        },
+        {
+          "ticker": "ONB",
+          "name": "Old National Bancorp",
+          "weight": 2.79
+        },
+        {
+          "ticker": "IESC",
+          "name": "IES Holdings, Inc.",
+          "weight": 2.63
+        },
+        {
+          "ticker": "LAUR",
+          "name": "Laureate Education, Inc.",
+          "weight": 2.6
+        },
+        {
+          "ticker": "BRC",
+          "name": "Brady Corporation",
+          "weight": 2.59
+        },
+        {
+          "ticker": "ASO",
+          "name": "Academy Sports and Outdoors, Inc.",
+          "weight": 2.46
+        },
+        {
+          "ticker": "LNTH",
+          "name": "Lantheus Holdings, Inc.",
+          "weight": 2.35
+        },
+        {
+          "ticker": "FN",
+          "name": "Fabrinet",
+          "weight": 2.26
+        },
+        {
+          "ticker": "MMS",
+          "name": "Maximus, Inc.",
+          "weight": 1.9
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:33:09.455Z"
+    },
+    {
+      "ticker": "FCPGX",
+      "name": "Fidelity Small Cap Growth Fund",
+      "category": "Small Growth",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 5,
+      "expenseRatio": 1.05,
+      "totalAssets": 8430000000,
+      "yield": 1.35,
+      "beta": null,
+      "ytdReturn": 18.16,
+      "return1Y": 40.05,
+      "return3Y": null,
+      "return5Y": 51.53,
+      "return10Y": null,
+      "low52": 31.08,
+      "high52": 41.35,
+      "turnover": 77,
+      "inceptionDate": "Nov 3, 2004",
+      "holdings": [
+        {
+          "ticker": "BE",
+          "name": "Bloom Energy Corporation",
+          "weight": 1.95
+        },
+        {
+          "ticker": "FN",
+          "name": "Fabrinet",
+          "weight": 1.69
+        },
+        {
+          "ticker": "NXT",
+          "name": "Nextpower Inc.",
+          "weight": 1.36
+        },
+        {
+          "ticker": "AEIS",
+          "name": "Advanced Energy Industries, Inc.",
+          "weight": 1.31
+        },
+        {
+          "ticker": "BTSG",
+          "name": "BrightSpring Health Services, Inc.",
+          "weight": 1.27
+        },
+        {
+          "ticker": "COGT",
+          "name": "Cogent Biosciences, Inc.",
+          "weight": 1.24
+        },
+        {
+          "ticker": "ENSG",
+          "name": "The Ensign Group, Inc.",
+          "weight": 1.22
+        },
+        {
+          "ticker": "MTSI",
+          "name": "MACOM Technology Solutions Holdings, Inc.",
+          "weight": 1.2
+        },
+        {
+          "ticker": "OSIS",
+          "name": "OSI Systems, Inc.",
+          "weight": 1.19
+        },
+        {
+          "ticker": "TMDX",
+          "name": "TransMedics Group, Inc.",
+          "weight": 1.06
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:33:11.263Z"
+    },
+    {
+      "ticker": "FSLCX",
+      "name": "Fidelity Small Cap Stock Fund",
+      "category": "Small Blend",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 3,
+      "expenseRatio": 0.84,
+      "totalAssets": 1290000000,
+      "yield": 6.11,
+      "beta": null,
+      "ytdReturn": 14.69,
+      "return1Y": 31.17,
+      "return3Y": null,
+      "return5Y": 41.92,
+      "return10Y": null,
+      "low52": 17.48,
+      "high52": 21.16,
+      "turnover": 124,
+      "inceptionDate": "Mar 12, 1998",
+      "holdings": [
+        {
+          "ticker": "LOPE",
+          "name": "Grand Canyon Education, Inc.",
+          "weight": 3.65
+        },
+        {
+          "ticker": "FN",
+          "name": "Fabrinet",
+          "weight": 2.25
+        },
+        {
+          "ticker": "SANM",
+          "name": "Sanmina Corporation",
+          "weight": 2.23
+        },
+        {
+          "ticker": "PRM",
+          "name": "Perimeter Solutions, Inc.",
+          "weight": 2.03
+        },
+        {
+          "ticker": "LAUR",
+          "name": "Laureate Education, Inc.",
+          "weight": 1.84
+        },
+        {
+          "ticker": "CBZ",
+          "name": "CBIZ, Inc.",
+          "weight": 1.84
+        },
+        {
+          "ticker": "PFGC",
+          "name": "Performance Food Group Company",
+          "weight": 1.81
+        },
+        {
+          "ticker": "HRI",
+          "name": "Herc Holdings Inc.",
+          "weight": 1.76
+        },
+        {
+          "ticker": "VVX",
+          "name": "V2X, Inc.",
+          "weight": 1.74
+        },
+        {
+          "ticker": "PRI",
+          "name": "Primerica, Inc.",
+          "weight": 1.67
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:33:13.192Z"
+    },
+    {
+      "ticker": "FXAIX",
+      "name": "Fidelity 500 Index Fund",
+      "category": "Large Blend",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 4,
+      "expenseRatio": 0.015,
+      "totalAssets": 791700000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 8.69,
+      "return1Y": 27.29,
+      "return3Y": null,
+      "return5Y": 90.71,
+      "return10Y": null,
+      "low52": 201.83,
+      "high52": 260.83,
+      "turnover": 3,
+      "inceptionDate": "Feb 17, 1988",
+      "holdings": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 7.57
+        },
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 6.66
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 4.91
+        },
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 3.63
+        },
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "weight": 2.99
+        },
+        {
+          "ticker": "AVGO",
+          "name": "Broadcom Inc.",
+          "weight": 2.62
+        },
+        {
+          "ticker": "GOOG",
+          "name": "Alphabet Inc.",
+          "weight": 2.4
+        },
+        {
+          "ticker": "META",
+          "name": "Meta Platforms, Inc.",
+          "weight": 2.24
+        },
+        {
+          "ticker": "TSLA",
+          "name": "Tesla, Inc.",
+          "weight": 1.87
+        },
+        {
+          "ticker": "BRK.B",
+          "name": "Berkshire Hathaway Inc.",
+          "weight": 1.57
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:33:15.194Z"
+    },
+    {
+      "ticker": "FNILX",
+      "name": "Fidelity ZERO Large Cap Index Fund",
+      "category": "Large Blend",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 4,
+      "expenseRatio": 0,
+      "totalAssets": 17510000000,
+      "yield": 0.94,
+      "beta": null,
+      "ytdReturn": 8.24,
+      "return1Y": 26.68,
+      "return3Y": null,
+      "return5Y": 89.33,
+      "return10Y": null,
+      "low52": 20.75,
+      "high52": 26.75,
+      "turnover": 3,
+      "inceptionDate": "Sep 13, 2018",
+      "holdings": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 7.51
+        },
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 6.64
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 4.87
+        },
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 3.59
+        },
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "weight": 2.96
+        },
+        {
+          "ticker": "AVGO",
+          "name": "Broadcom Inc.",
+          "weight": 2.59
+        },
+        {
+          "ticker": "GOOG",
+          "name": "Alphabet Inc.",
+          "weight": 2.36
+        },
+        {
+          "ticker": "META",
+          "name": "Meta Platforms, Inc.",
+          "weight": 2.21
+        },
+        {
+          "ticker": "TSLA",
+          "name": "Tesla, Inc.",
+          "weight": 1.85
+        },
+        {
+          "ticker": "BRK.B",
+          "name": "Berkshire Hathaway Inc.",
+          "weight": 1.56
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:33:17.220Z"
+    },
+    {
+      "ticker": "FZROX",
+      "name": "Fidelity ZERO Total Market Index Fund",
+      "category": "Large Blend",
+      "family": "Fidelity",
+      "riskRating": 4,
+      "morningstarRating": 3,
+      "expenseRatio": 0,
+      "totalAssets": 36260000000,
+      "yield": 0.94,
+      "beta": null,
+      "ytdReturn": 8.55,
+      "return1Y": 26.89,
+      "return3Y": null,
+      "return5Y": 82.41,
+      "return10Y": null,
+      "low52": 20.11,
+      "high52": 26,
+      "turnover": 3,
+      "inceptionDate": "Aug 2, 2018",
+      "holdings": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 6.72
+        },
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 5.94
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 4.36
+        },
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 3.21
+        },
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "weight": 2.65
+        },
+        {
+          "ticker": "AVGO",
+          "name": "Broadcom Inc.",
+          "weight": 2.32
+        },
+        {
+          "ticker": "GOOG",
+          "name": "Alphabet Inc.",
+          "weight": 2.11
+        },
+        {
+          "ticker": "META",
+          "name": "Meta Platforms, Inc.",
+          "weight": 1.98
+        },
+        {
+          "ticker": "TSLA",
+          "name": "Tesla, Inc.",
+          "weight": 1.66
+        },
+        {
+          "ticker": "BRK.B",
+          "name": "Berkshire Hathaway Inc.",
+          "weight": 1.39
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:33:19.224Z"
+    },
+    {
+      "ticker": "FZIPX",
+      "name": "Fidelity ZERO Extended Market Index Fund",
+      "category": "Small Blend",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 3,
+      "expenseRatio": 0,
+      "totalAssets": 2420000000,
+      "yield": 1.11,
+      "beta": null,
+      "ytdReturn": 10.77,
+      "return1Y": 27.84,
+      "return3Y": null,
+      "return5Y": 40.25,
+      "return10Y": null,
+      "low52": 12.98,
+      "high52": 17.32,
+      "turnover": 13,
+      "inceptionDate": "Sep 13, 2018",
+      "holdings": [
+        {
+          "ticker": "SNDK",
+          "name": "Sandisk Corporation",
+          "weight": 1.31
+        },
+        {
+          "ticker": "CIEN",
+          "name": "Ciena Corporation",
+          "weight": 0.81
+        },
+        {
+          "ticker": "LITE",
+          "name": "Lumentum Holdings Inc.",
+          "weight": 0.74
+        },
+        {
+          "ticker": "FIX",
+          "name": "Comfort Systems USA, Inc.",
+          "weight": 0.72
+        },
+        {
+          "ticker": "AU",
+          "name": "AngloGold Ashanti plc",
+          "weight": 0.61
+        },
+        {
+          "ticker": "COHR",
+          "name": "Coherent Corp.",
+          "weight": 0.56
+        },
+        {
+          "ticker": "EME",
+          "name": "EMCOR Group, Inc.",
+          "weight": 0.49
+        },
+        {
+          "ticker": "RKLB",
+          "name": "Rocket Lab Corporation",
+          "weight": 0.45
+        },
+        {
+          "ticker": "BE",
+          "name": "Bloom Energy Corporation",
+          "weight": 0.44
+        },
+        {
+          "ticker": "TPR",
+          "name": "Tapestry, Inc.",
+          "weight": 0.43
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:33:21.195Z"
+    },
+    {
+      "ticker": "FZILX",
+      "name": "Fidelity ZERO International Index Fund",
+      "category": "Foreign Large Blend",
+      "family": "Fidelity",
+      "riskRating": 2,
+      "morningstarRating": 3,
+      "expenseRatio": 0,
+      "totalAssets": 10840000000,
+      "yield": 2.38,
+      "beta": null,
+      "ytdReturn": 10.66,
+      "return1Y": 31.22,
+      "return3Y": null,
+      "return5Y": 53.83,
+      "return10Y": null,
+      "low52": 12.85,
+      "high52": 16.77,
+      "turnover": 3,
+      "inceptionDate": "Aug 2, 2018",
+      "holdings": [],
+      "fetchedAt": "2026-05-16T04:33:23.070Z"
+    },
+    {
+      "ticker": "FSKAX",
+      "name": "Fidelity Total Market Index Fund",
+      "category": "Large Blend",
+      "family": "Fidelity",
+      "riskRating": 4,
+      "morningstarRating": 3,
+      "expenseRatio": 0.015,
+      "totalAssets": 131690000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 8.61,
+      "return1Y": 26.78,
+      "return3Y": null,
+      "return5Y": 80.76,
+      "return10Y": null,
+      "low52": 159.06,
+      "high52": 205.41,
+      "turnover": 3,
+      "inceptionDate": "Nov 5, 1997",
+      "holdings": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 6.7
+        },
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 5.89
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 4.35
+        },
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 3.22
+        },
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "weight": 2.65
+        },
+        {
+          "ticker": "AVGO",
+          "name": "Broadcom Inc.",
+          "weight": 2.32
+        },
+        {
+          "ticker": "GOOG",
+          "name": "Alphabet Inc.",
+          "weight": 2.12
+        },
+        {
+          "ticker": "META",
+          "name": "Meta Platforms, Inc.",
+          "weight": 1.98
+        },
+        {
+          "ticker": "TSLA",
+          "name": "Tesla, Inc.",
+          "weight": 1.65
+        },
+        {
+          "ticker": "BRK.B",
+          "name": "Berkshire Hathaway Inc.",
+          "weight": 1.39
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:33:24.991Z"
+    },
+    {
+      "ticker": "FSPSX",
+      "name": "Fidelity International Index Fund",
+      "category": "Foreign Large Blend",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 3,
+      "expenseRatio": 0.035,
+      "totalAssets": 81530000000,
+      "yield": 2.93,
+      "beta": null,
+      "ytdReturn": 6.12,
+      "return1Y": 22.85,
+      "return3Y": null,
+      "return5Y": 51.25,
+      "return10Y": null,
+      "low52": 54.78,
+      "high52": 66.88,
+      "turnover": 4,
+      "inceptionDate": "Nov 5, 1997",
+      "holdings": [],
+      "fetchedAt": "2026-05-16T04:33:26.872Z"
+    },
+    {
+      "ticker": "FSPGX",
+      "name": "Fidelity Large Cap Growth Index Fund",
+      "category": "Large Growth",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 4,
+      "expenseRatio": 0.035,
+      "totalAssets": 44110000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 5.32,
+      "return1Y": 25.19,
+      "return3Y": null,
+      "return5Y": 105.39,
+      "return10Y": null,
+      "low52": 38.18,
+      "high52": 49.31,
+      "turnover": 9,
+      "inceptionDate": "Jun 7, 2016",
+      "holdings": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 12.91
+        },
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 11.63
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 8.82
+        },
+        {
+          "ticker": "AVGO",
+          "name": "Broadcom Inc.",
+          "weight": 4.79
+        },
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 4.65
+        },
+        {
+          "ticker": "TSLA",
+          "name": "Tesla, Inc.",
+          "weight": 3.55
+        },
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "weight": 3.53
+        },
+        {
+          "ticker": "META",
+          "name": "Meta Platforms, Inc.",
+          "weight": 3.45
+        },
+        {
+          "ticker": "GOOG",
+          "name": "Alphabet Inc.",
+          "weight": 2.87
+        },
+        {
+          "ticker": "LLY",
+          "name": "Eli Lilly and Company",
+          "weight": 2.66
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:33:29.005Z"
+    },
+    {
+      "ticker": "FSMDX",
+      "name": "Fidelity Mid Cap Index Fund",
+      "category": "Mid-Cap Blend",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 4,
+      "expenseRatio": 0.025,
+      "totalAssets": 50040000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": 8.02,
+      "return1Y": 17.66,
+      "return3Y": null,
+      "return5Y": 45.26,
+      "return10Y": null,
+      "low52": 33.64,
+      "high52": 40.83,
+      "turnover": 15,
+      "inceptionDate": "Sep 8, 2011",
+      "holdings": [
+        {
+          "ticker": "GLW",
+          "name": "Corning Incorporated",
+          "weight": 0.84
+        },
+        {
+          "ticker": "VRT",
+          "name": "Vertiv Holdings Co",
+          "weight": 0.75
+        },
+        {
+          "ticker": "HWM",
+          "name": "Howmet Aerospace Inc.",
+          "weight": 0.73
+        },
+        {
+          "ticker": "WDC",
+          "name": "Western Digital Corporation",
+          "weight": 0.73
+        },
+        {
+          "ticker": "SNDK",
+          "name": "Sandisk Corporation",
+          "weight": 0.72
+        },
+        {
+          "ticker": "BK",
+          "name": "The Bank of New York Mellon Corporation",
+          "weight": 0.65
+        },
+        {
+          "ticker": "PWR",
+          "name": "Quanta Services, Inc.",
+          "weight": 0.64
+        },
+        {
+          "ticker": "VLO",
+          "name": "Valero Energy Corporation",
+          "weight": 0.59
+        },
+        {
+          "ticker": "CMI",
+          "name": "Cummins Inc.",
+          "weight": 0.59
+        },
+        {
+          "ticker": "MPC",
+          "name": "Marathon Petroleum Corporation",
+          "weight": 0.58
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:33:30.959Z"
+    },
+    {
+      "ticker": "FSSNX",
+      "name": "Fidelity Small Cap Index Fund",
+      "category": "Small Blend",
+      "family": "Fidelity",
+      "riskRating": 4,
+      "morningstarRating": 3,
+      "expenseRatio": 0.025,
+      "totalAssets": 32560000000.000004,
+      "yield": 0.94,
+      "beta": null,
+      "ytdReturn": 13.03,
+      "return1Y": 35.94,
+      "return3Y": null,
+      "return5Y": 35.16,
+      "return10Y": null,
+      "low52": 25.46,
+      "high52": 36.11,
+      "turnover": 14,
+      "inceptionDate": "Sep 8, 2011",
+      "holdings": [
+        {
+          "ticker": "BE",
+          "name": "Bloom Energy Corporation",
+          "weight": 1.11
+        },
+        {
+          "ticker": "FN",
+          "name": "Fabrinet",
+          "weight": 0.64
+        },
+        {
+          "ticker": "CDE",
+          "name": "Coeur Mining, Inc.",
+          "weight": 0.57
+        },
+        {
+          "ticker": "CRDO",
+          "name": "Credo Technology Group Holding Ltd",
+          "weight": 0.56
+        },
+        {
+          "ticker": "HL",
+          "name": "Hecla Mining Company",
+          "weight": 0.52
+        },
+        {
+          "ticker": "SATS",
+          "name": "EchoStar Corporation",
+          "weight": 0.51
+        },
+        {
+          "ticker": "NXT",
+          "name": "Nextpower Inc.",
+          "weight": 0.5
+        },
+        {
+          "ticker": "KTOS",
+          "name": "Kratos Defense & Security Solutions, Inc.",
+          "weight": 0.47
+        },
+        {
+          "ticker": "IONQ",
+          "name": "IonQ, Inc.",
+          "weight": 0.42
+        },
+        {
+          "ticker": "STRL",
+          "name": "Sterling Infrastructure, Inc.",
+          "weight": 0.42
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:33:32.883Z"
+    },
+    {
+      "ticker": "FTIHX",
+      "name": "Fidelity Total International Index Fund",
+      "category": "Foreign Large Blend",
+      "family": "Fidelity",
+      "riskRating": 2,
+      "morningstarRating": 3,
+      "expenseRatio": 0.06,
+      "totalAssets": 23550000000,
+      "yield": 2.49,
+      "beta": null,
+      "ytdReturn": 10.28,
+      "return1Y": 30.5,
+      "return3Y": null,
+      "return5Y": 49.8,
+      "return10Y": null,
+      "low52": 15.15,
+      "high52": 19.63,
+      "turnover": 4,
+      "inceptionDate": "Jun 7, 2016",
+      "holdings": [
+        {
+          "ticker": "SHOP",
+          "name": "Shopify Inc.",
+          "weight": 0.55
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:33:34.748Z"
+    },
+    {
+      "ticker": "FNCMX",
+      "name": "Fidelity NASDAQ Composite Index Fund",
+      "category": "Large Growth",
+      "family": "Fidelity",
+      "riskRating": 4,
+      "morningstarRating": 4,
+      "expenseRatio": 0.29,
+      "totalAssets": 25690000000,
+      "yield": 0.46,
+      "beta": null,
+      "ytdReturn": 13.03,
+      "return1Y": 37.82,
+      "return3Y": null,
+      "return5Y": 102.33,
+      "return10Y": null,
+      "low52": 238.02,
+      "high52": 338.55,
+      "turnover": 4,
+      "inceptionDate": "Sep 25, 2003",
+      "holdings": [
+        {
+          "ticker": "NVDA",
+          "name": "NVIDIA Corporation",
+          "weight": 11.53
+        },
+        {
+          "ticker": "AAPL",
+          "name": "Apple Inc.",
+          "weight": 10.14
+        },
+        {
+          "ticker": "MSFT",
+          "name": "Microsoft Corporation",
+          "weight": 7.48
+        },
+        {
+          "ticker": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "weight": 6.08
+        },
+        {
+          "ticker": "GOOGL",
+          "name": "Alphabet Inc.",
+          "weight": 4.56
+        },
+        {
+          "ticker": "GOOG",
+          "name": "Alphabet Inc.",
+          "weight": 4.24
+        },
+        {
+          "ticker": "AVGO",
+          "name": "Broadcom Inc.",
+          "weight": 3.99
+        },
+        {
+          "ticker": "TSLA",
+          "name": "Tesla, Inc.",
+          "weight": 3.8
+        },
+        {
+          "ticker": "META",
+          "name": "Meta Platforms, Inc.",
+          "weight": 3.4
+        },
+        {
+          "ticker": "WMT",
+          "name": "Walmart Inc.",
+          "weight": 2.7
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:33:36.608Z"
+    },
+    {
+      "ticker": "FXNAX",
+      "name": "Fidelity U.S. Bond Index Fund",
+      "category": "Intermediate Core Bond",
+      "family": "Fidelity",
+      "riskRating": 3,
+      "morningstarRating": 3,
+      "expenseRatio": 0.025,
+      "totalAssets": 68000000000,
+      "yield": null,
+      "beta": null,
+      "ytdReturn": -0.79,
+      "return1Y": 4.95,
+      "return3Y": null,
+      "return5Y": -0.67,
+      "return10Y": null,
+      "low52": 10.2,
+      "high52": 10.69,
+      "turnover": 45,
+      "inceptionDate": "Mar 8, 1990",
+      "holdings": [],
+      "fetchedAt": "2026-05-16T04:33:38.416Z"
+    },
+    {
+      "ticker": "FSGGX",
+      "name": "Fidelity Global ex U.S. Index Fund",
+      "category": "Foreign Large Blend",
+      "family": "Fidelity",
+      "riskRating": 2,
+      "morningstarRating": 3,
+      "expenseRatio": 0.055,
+      "totalAssets": 18820000000,
+      "yield": 2.42,
+      "beta": null,
+      "ytdReturn": 10.24,
+      "return1Y": 30.22,
+      "return3Y": null,
+      "return5Y": 51.11,
+      "return10Y": null,
+      "low52": 16.34,
+      "high52": 21.17,
+      "turnover": 6,
+      "inceptionDate": "Sep 8, 2011",
+      "holdings": [],
+      "fetchedAt": "2026-05-16T04:33:40.222Z"
+    },
+    {
+      "ticker": "FSMAX",
+      "name": "Fidelity Extended Market Index Fund",
+      "category": "Mid-Cap Blend",
+      "family": "Fidelity",
+      "riskRating": 5,
+      "morningstarRating": 3,
+      "expenseRatio": 0.035,
+      "totalAssets": 42330000000,
+      "yield": 0.52,
+      "beta": null,
+      "ytdReturn": 7.75,
+      "return1Y": 22.81,
+      "return3Y": null,
+      "return5Y": 34.24,
+      "return10Y": null,
+      "low52": 86.76,
+      "high52": 112.16,
+      "turnover": 23,
+      "inceptionDate": "Nov 5, 1997",
+      "holdings": [
+        {
+          "ticker": "MRVL",
+          "name": "Marvell Technology, Inc.",
+          "weight": 1.18
+        },
+        {
+          "ticker": "NET",
+          "name": "Cloudflare, Inc.",
+          "weight": 0.9
+        },
+        {
+          "ticker": "LNG",
+          "name": "Cheniere Energy, Inc.",
+          "weight": 0.84
+        },
+        {
+          "ticker": "SNOW",
+          "name": "Snowflake Inc.",
+          "weight": 0.71
+        },
+        {
+          "ticker": "FERG",
+          "name": "Ferguson Enterprises Inc.",
+          "weight": 0.62
+        },
+        {
+          "ticker": "ALNY",
+          "name": "Alnylam Pharmaceuticals, Inc.",
+          "weight": 0.6
+        },
+        {
+          "ticker": "MSTR",
+          "name": "Strategy Inc",
+          "weight": 0.54
+        },
+        {
+          "ticker": "RBLX",
+          "name": "Roblox Corporation",
+          "weight": 0.51
+        },
+        {
+          "ticker": "BE",
+          "name": "Bloom Energy Corporation",
+          "weight": 0.48
+        },
+        {
+          "ticker": "INSM",
+          "name": "Insmed Incorporated",
+          "weight": 0.48
+        }
+      ],
+      "fetchedAt": "2026-05-16T04:33:42.052Z"
+    }
+  ]
+}

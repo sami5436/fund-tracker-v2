@@ -1,5 +1,88 @@
 import type { FundConfig } from './types';
 
+// Curated seed list of Fidelity fund tickers for the Fund Finder.
+// Metadata, holdings, ratings, expense ratio, etc. are fetched live from Yahoo
+// Finance via /api/funds and cached server-side for 24h.
+// Add new tickers here — no other code changes required.
+export const FIDELITY_FUND_TICKERS: string[] = [
+  // Fidelity Select sector funds
+  'FSELX', // Semiconductors
+  'FSPTX', // Technology
+  'FSCSX', // Software & IT Services
+  'FBSOX', // IT Services
+  'FSPHX', // Health Care
+  'FBIOX', // Biotechnology
+  'FPHAX', // Pharmaceuticals
+  'FSMEX', // Medical Tech & Devices
+  'FSHCX', // Health Care Services
+  'FSENX', // Energy
+  'FSESX', // Energy Service
+  'FSNGX', // Natural Gas
+  'FNARX', // Natural Resources
+  'FSAGX', // Gold
+  'FSCHX', // Chemicals
+  'FSDPX', // Materials
+  'FSUTX', // Utilities
+  'FIDSX', // Financial Services
+  'FSRBX', // Banking
+  'FSLBX', // Brokerage & Investment Management
+  'FSPCX', // Insurance
+  'FRESX', // Real Estate
+  'FSDAX', // Defense & Aerospace
+  'FCYIX', // Industrials
+  'FSAIX', // Air Transportation
+  'FSRFX', // Transportation
+  'FSAVX', // Automotive
+  'FSHOX', // Construction & Housing
+  'FSDCX', // Communications Equipment
+  'FBMPX', // Communications
+  'FSTCX', // Telecommunications
+  'FWRLX', // Wireless
+  'FDFAX', // Consumer Staples
+  'FSRPX', // Retailing
+  'FSCPX', // Consumer Discretionary
+  'FDLSX', // Leisure
+  'FSLEX', // Environment & Alternative Energy
+
+  // Broad active funds
+  'FCNTX', // Contrafund
+  'FBGRX', // Blue Chip Growth
+  'FMAGX', // Magellan
+  'FDGRX', // Growth Company
+  'FLPSX', // Low-Priced Stock
+  'FDCAX', // Capital Appreciation
+  'FDEQX', // Disciplined Equity
+  'FDGFX', // Dividend Growth
+  'FFIDX', // Fidelity Fund
+  'FDSSX', // Stock Selector All Cap
+  'FEXPX', // Export and Multinational
+  'FLCSX', // Large Cap Stock
+  'FOCPX', // OTC Portfolio
+  'FTRNX', // Trend Fund
+  'FSCRX', // Small Cap Discovery
+  'FCPGX', // Small Cap Growth
+  'FSLCX', // Small Cap Stock
+
+  // Index / passive
+  'FXAIX', // 500 Index
+  'FNILX', // ZERO Large Cap
+  'FZROX', // ZERO Total Market
+  'FZIPX', // ZERO Extended Market
+  'FZILX', // ZERO International
+  'FSKAX', // Total Market Index
+  'FSPSX', // International Index
+  'FSPGX', // Large Cap Growth Index
+  'FSMDX', // Mid Cap Index
+  'FSSNX', // Small Cap Index
+  'FTIHX', // Total International Index
+  'FNCMX', // Nasdaq Composite Index
+  'FXNAX', // U.S. Bond Index
+  'FSGGX', // Global ex U.S. Index
+  'FSMAX', // Extended Market Index
+  'FLCEX', // Large Cap Core Enhanced
+];
+
+
 export const FUNDS: FundConfig[] = [
   {
     id: 'lgrrx',
