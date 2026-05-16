@@ -2,25 +2,8 @@
 
 import { useMemo, useState } from 'react';
 import useSWR from 'swr';
-import {
-  DndContext,
-  closestCenter,
-  PointerSensor,
-  TouchSensor,
-  KeyboardSensor,
-  useSensor,
-  useSensors,
-  type DragEndEvent,
-} from '@dnd-kit/core';
-import {
-  SortableContext,
-  arrayMove,
-  sortableKeyboardCoordinates,
-  useSortable,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
 import type { FidelityFund, StockQuote } from '@/lib/types';
+import { POPULAR_TICKERS } from '@/lib/popular-tickers';
 import FundDetailsModal from './FundDetailsModal';
 
 const fetcher = (url: string) =>
@@ -93,45 +76,47 @@ function formatAum(n: number | null): string {
   return `$${n.toFixed(0)}`;
 }
 
-function SortableTickerRow({
+function TickerRow({
   ticker,
   rank,
+  isFirst,
+  isLast,
+  onMoveUp,
+  onMoveDown,
   onRemove,
 }: {
   ticker: string;
   rank: number;
+  isFirst: boolean;
+  isLast: boolean;
+  onMoveUp: () => void;
+  onMoveDown: () => void;
   onRemove: () => void;
 }) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
-    useSortable({ id: ticker });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.5 : 1,
-  };
-
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      className="flex items-center gap-2 bg-white border border-gray-200 rounded-md px-3 py-2 touch-none"
-    >
-      <button
-        {...attributes}
-        {...listeners}
-        className="text-gray-400 hover:text-gray-600 cursor-grab active:cursor-grabbing touch-none"
-        aria-label="Drag to reorder"
-      >
-        <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
-          <circle cx="7" cy="5" r="1.5" />
-          <circle cx="7" cy="10" r="1.5" />
-          <circle cx="7" cy="15" r="1.5" />
-          <circle cx="13" cy="5" r="1.5" />
-          <circle cx="13" cy="10" r="1.5" />
-          <circle cx="13" cy="15" r="1.5" />
-        </svg>
-      </button>
+    <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-md px-3 py-2">
+      <div className="flex flex-col">
+        <button
+          onClick={onMoveUp}
+          disabled={isFirst}
+          className="text-gray-400 hover:text-gray-700 disabled:text-gray-200 disabled:cursor-not-allowed leading-none"
+          aria-label={`Move ${ticker} up`}
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+          </svg>
+        </button>
+        <button
+          onClick={onMoveDown}
+          disabled={isLast}
+          className="text-gray-400 hover:text-gray-700 disabled:text-gray-200 disabled:cursor-not-allowed leading-none"
+          aria-label={`Move ${ticker} down`}
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+      </div>
       <span className="text-xs font-semibold text-gray-400 w-5 tabular-nums">#{rank}</span>
       <span className="font-mono text-sm font-semibold text-gray-900 flex-1">{ticker}</span>
       <button
@@ -159,12 +144,6 @@ export default function FundFinder() {
   const [detailsFund, setDetailsFund] = useState<FidelityFund | null>(null);
   const [suggestionsOpen, setSuggestionsOpen] = useState(false);
   const [highlightedIdx, setHighlightedIdx] = useState(0);
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 4 } }),
-    useSensor(TouchSensor, { activationConstraint: { delay: 150, tolerance: 6 } }),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
-  );
 
   const funds = data?.funds ?? [];
 
@@ -194,8 +173,9 @@ export default function FundFinder() {
     return map;
   }, [quotes]);
 
-  // Build an index of every unique (ticker, name) appearing in any fund's top-10,
-  // along with how many funds hold it. Used to power autocomplete suggestions.
+  // Build an index of every unique (ticker, name) — merging fund top-10 holdings
+  // with a curated list of popular tickers so company-name search works even
+  // for stocks that don't appear in any fund's top-10 yet.
   const tickerIndex = useMemo(() => {
     const map = new Map<string, { ticker: string; name: string; fundCount: number }>();
     funds.forEach((f) => {
@@ -211,6 +191,15 @@ export default function FundFinder() {
         }
       });
     });
+    POPULAR_TICKERS.forEach((p) => {
+      const key = p.ticker.toUpperCase();
+      if (!map.has(key)) {
+        map.set(key, { ticker: key, name: p.name, fundCount: 0 });
+      } else {
+        const existing = map.get(key)!;
+        if (existing.name.length < p.name.length) existing.name = p.name;
+      }
+    });
     return Array.from(map.values()).sort((a, b) => b.fundCount - a.fundCount);
   }, [funds]);
 
@@ -218,15 +207,25 @@ export default function FundFinder() {
     const q = input.trim().toUpperCase();
     if (!q) return [];
     const exclude = new Set(ranked);
-    const prefix: typeof tickerIndex = [];
-    const nameMatch: typeof tickerIndex = [];
+    const tickerPrefix: typeof tickerIndex = [];
+    const nameWordPrefix: typeof tickerIndex = [];
+    const nameSubstr: typeof tickerIndex = [];
     for (const t of tickerIndex) {
       if (exclude.has(t.ticker)) continue;
-      if (t.ticker.startsWith(q)) prefix.push(t);
-      else if (t.name.toUpperCase().includes(q)) nameMatch.push(t);
-      if (prefix.length >= 8) break;
+      const upperName = t.name.toUpperCase();
+      if (t.ticker.startsWith(q)) {
+        tickerPrefix.push(t);
+        continue;
+      }
+      // Match query against any word in the name (e.g., "APPLE" → "Apple Inc.").
+      const words = upperName.split(/[\s,.()&]+/).filter(Boolean);
+      if (words.some((w) => w.startsWith(q))) {
+        nameWordPrefix.push(t);
+      } else if (upperName.includes(q)) {
+        nameSubstr.push(t);
+      }
     }
-    return [...prefix, ...nameMatch].slice(0, 8);
+    return [...tickerPrefix, ...nameWordPrefix, ...nameSubstr].slice(0, 8);
   }, [input, tickerIndex, ranked]);
 
   function addTicker(tickerOverride?: string) {
@@ -246,14 +245,13 @@ export default function FundFinder() {
     setRanked((prev) => prev.filter((x) => x !== t));
   }
 
-  function onDragEnd(event: DragEndEvent) {
-    const { active, over } = event;
-    if (!over || active.id === over.id) return;
+  function moveTicker(idx: number, delta: -1 | 1) {
     setRanked((items) => {
-      const oldIdx = items.indexOf(String(active.id));
-      const newIdx = items.indexOf(String(over.id));
-      if (oldIdx < 0 || newIdx < 0) return items;
-      return arrayMove(items, oldIdx, newIdx);
+      const target = idx + delta;
+      if (target < 0 || target >= items.length) return items;
+      const next = items.slice();
+      [next[idx], next[target]] = [next[target], next[idx]];
+      return next;
     });
   }
 
@@ -274,7 +272,7 @@ export default function FundFinder() {
       <section className="bg-white border border-gray-200 rounded-lg p-4">
         <div className="flex items-baseline justify-between mb-2">
           <h2 className="text-sm font-semibold text-gray-900">Priority Holdings</h2>
-          <span className="text-xs text-gray-400">drag to reorder</span>
+          <span className="text-xs text-gray-400">use ▲▼ to reorder</span>
         </div>
         <p className="text-xs text-gray-500 mb-3">
           Add tickers you want funds to hold. Top of list = highest weight in scoring.
@@ -356,20 +354,20 @@ export default function FundFinder() {
         {ranked.length === 0 ? (
           <p className="text-xs text-gray-400 italic py-2">No tickers added yet.</p>
         ) : (
-          <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-            <SortableContext items={ranked} strategy={verticalListSortingStrategy}>
-              <div className="space-y-1.5">
-                {ranked.map((t, i) => (
-                  <SortableTickerRow
-                    key={t}
-                    ticker={t}
-                    rank={i + 1}
-                    onRemove={() => removeTicker(t)}
-                  />
-                ))}
-              </div>
-            </SortableContext>
-          </DndContext>
+          <div className="space-y-1.5">
+            {ranked.map((t, i) => (
+              <TickerRow
+                key={t}
+                ticker={t}
+                rank={i + 1}
+                isFirst={i === 0}
+                isLast={i === ranked.length - 1}
+                onMoveUp={() => moveTicker(i, -1)}
+                onMoveDown={() => moveTicker(i, 1)}
+                onRemove={() => removeTicker(t)}
+              />
+            ))}
+          </div>
         )}
       </section>
 
