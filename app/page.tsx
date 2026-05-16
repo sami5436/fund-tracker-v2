@@ -5,12 +5,15 @@ import useSWR from 'swr';
 import { FUNDS } from '@/lib/constants';
 import type { StockQuote } from '@/lib/types';
 import FundView from '@/components/FundView';
+import FundFinder from '@/components/FundFinder';
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
+const FINDER_ID = 'finder';
+
 export default function Home() {
-  const [activeId, setActiveId] = useState(FUNDS[0].id);
-  const activeFund = FUNDS.find((f) => f.id === activeId)!;
+  const [activeId, setActiveId] = useState<string>(FUNDS[0].id);
+  const activeFund = FUNDS.find((f) => f.id === activeId);
   const [clock, setClock] = useState('');
 
   const { data: spyData } = useSWR<StockQuote[]>(
@@ -87,20 +90,46 @@ export default function Home() {
                 {fund.name}
               </button>
             ))}
+            <button
+              onClick={() => setActiveId(FINDER_ID)}
+              className={`px-4 py-3 min-h-[44px] text-sm font-medium border-b-2 transition-colors touch-manipulation ${
+                activeId === FINDER_ID
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Fund Finder
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Fund name subheader */}
-      <div className="max-w-xl mx-auto px-4 pt-5 pb-1">
-        <p className="font-semibold text-gray-800 text-base">{activeFund.fullName}</p>
-        <p className="text-xs text-gray-400 mt-0.5">{activeFund.subtitle}</p>
-      </div>
+      {activeFund ? (
+        <>
+          {/* Fund name subheader */}
+          <div className="max-w-xl mx-auto px-4 pt-5 pb-1">
+            <p className="font-semibold text-gray-800 text-base">{activeFund.fullName}</p>
+            <p className="text-xs text-gray-400 mt-0.5">{activeFund.subtitle}</p>
+          </div>
 
-      {/* Main content */}
-      <div className="max-w-xl mx-auto px-4 py-4">
-        <FundView key={activeFund.id} fund={activeFund} />
-      </div>
+          {/* Main content */}
+          <div className="max-w-xl mx-auto px-4 py-4">
+            <FundView key={activeFund.id} fund={activeFund} />
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="max-w-xl mx-auto px-4 pt-5 pb-1">
+            <p className="font-semibold text-gray-800 text-base">Fidelity Fund Finder</p>
+            <p className="text-xs text-gray-400 mt-0.5">
+              Rank tickers, filter by category/risk/rating, find funds that match.
+            </p>
+          </div>
+          <div className="max-w-xl mx-auto px-4 py-4">
+            <FundFinder />
+          </div>
+        </>
+      )}
     </div>
   );
 }
