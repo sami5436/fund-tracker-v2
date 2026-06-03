@@ -89,7 +89,7 @@ export default function FundView({ fund }: { fund: FundConfig }) {
     ? Array.from(new Set([...holdingTickers, fund.residualProxy, ...proxyExclusionTickers]))
     : holdingTickers;
   const tickers = quoteTickers.join(',');
-  const seriesTickers = holdingTickers.join(',');
+  const seriesTickers = quoteTickers.join(',');
 
   const { data: quotes, mutate, isLoading } = useSWR<StockQuote[]>(
     `/api/stocks?tickers=${tickers}`,
@@ -329,6 +329,8 @@ export default function FundView({ fund }: { fund: FundConfig }) {
           series={series}
           officialNav={nav}
           totalTop10Weight={fund.totalTop10Weight}
+          residualProxy={fund.residualProxy}
+          proxyExclusionHoldings={fund.proxyExclusionHoldings}
         />
       )}
 

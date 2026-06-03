@@ -8,6 +8,8 @@ interface Props {
   series: TickerSeries[];
   officialNav: number;
   totalTop10Weight: number;
+  residualProxy?: string;
+  proxyExclusionHoldings?: Holding[];
 }
 
 interface Point {
@@ -20,7 +22,9 @@ function buildNavSeries(
   holdings: Holding[],
   series: TickerSeries[],
   officialNav: number,
-  totalTop10Weight: number
+  totalTop10Weight: number,
+  residualProxy?: string,
+  proxyExclusionHoldings?: Holding[]
 ): Point[] {
   // Use the longest timestamp series as the x-axis reference
   const ref = series.reduce(
@@ -40,29 +44,67 @@ function buildNavSeries(
 
   for (let i = 0; i < ref.timestamps.length; i++) {
     const t = ref.timestamps[i];
-    let weightedSum = 0;
 
-    for (const h of holdings) {
-      const s = seriesByTicker.get(h.ticker);
-      if (!s || s.prevClose == null || s.prevClose === 0) continue;
+    function changeForTicker(ticker: string): number | null {
+      const s = seriesByTicker.get(ticker);
+      if (!s || s.prevClose == null || s.prevClose === 0) return null;
 
       // Find close at this timestamp in this ticker's series
       const idx = s.timestamps.indexOf(t);
       let close: number | null = null;
       if (idx !== -1 && s.closes[idx] != null) close = s.closes[idx] as number;
 
-      if (close != null) lastClose.set(h.ticker, close);
+      if (close != null) lastClose.set(ticker, close);
       else {
-        const carry = lastClose.get(h.ticker);
+        const carry = lastClose.get(ticker);
         if (carry != null) close = carry;
       }
 
-      if (close == null) continue;
-      const changePct = ((close - s.prevClose) / s.prevClose) * 100;
-      weightedSum += (changePct * h.weight) / 100;
+      if (close == null) return null;
+      return ((close - s.prevClose) / s.prevClose) * 100;
     }
 
-    const fundChange = (weightedSum / totalTop10Weight) * 100;
+    let fundChange: number | null = null;
+
+    if (residualProxy) {
+      const proxyChangePct = changeForTicker(residualProxy);
+      if (proxyChangePct != null) {
+        let top10Contribution = 0;
+        for (const h of holdings) {
+          const changePct = changeForTicker(h.ticker);
+          if (changePct == null) continue;
+          top10Contribution += (changePct * h.weight) / 100;
+        }
+
+        let residualChangePct = proxyChangePct;
+        if (proxyExclusionHoldings?.length) {
+          let proxyExclusionContribution = 0;
+          for (const h of proxyExclusionHoldings) {
+            const changePct = changeForTicker(h.ticker);
+            if (changePct == null) continue;
+            proxyExclusionContribution += (changePct * h.weight) / 100;
+          }
+          const proxyExclusionWeight = proxyExclusionHoldings.reduce((sum, h) => sum + h.weight, 0) / 100;
+          if (proxyExclusionWeight < 1) {
+            residualChangePct = (proxyChangePct - proxyExclusionContribution) / (1 - proxyExclusionWeight);
+          }
+        }
+
+        const residualWeight = 1 - totalTop10Weight / 100;
+        fundChange = top10Contribution + residualWeight * residualChangePct;
+      }
+    }
+
+    if (fundChange == null) {
+      let weightedSum = 0;
+      for (const h of holdings) {
+        const changePct = changeForTicker(h.ticker);
+        if (changePct == null) continue;
+        weightedSum += (changePct * h.weight) / 100;
+      }
+      fundChange = (weightedSum / totalTop10Weight) * 100;
+    }
+
     const nav = officialNav * (1 + fundChange / 100);
     points.push({ t, nav, changePct: fundChange });
   }
@@ -79,10 +121,24 @@ function formatTime(unixSec: number): string {
   });
 }
 
-export default function NavChart({ holdings, series, officialNav, totalTop10Weight }: Props) {
+export default function NavChart({
+  holdings,
+  series,
+  officialNav,
+  totalTop10Weight,
+  residualProxy,
+  proxyExclusionHoldings,
+}: Props) {
   const points = useMemo(
-    () => buildNavSeries(holdings, series, officialNav, totalTop10Weight),
-    [holdings, series, officialNav, totalTop10Weight]
+    () => buildNavSeries(
+      holdings,
+      series,
+      officialNav,
+      totalTop10Weight,
+      residualProxy,
+      proxyExclusionHoldings
+    ),
+    [holdings, series, officialNav, totalTop10Weight, residualProxy, proxyExclusionHoldings]
   );
 
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
