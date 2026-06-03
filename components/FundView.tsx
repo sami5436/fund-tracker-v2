@@ -30,24 +30,38 @@ function calculateFundChange(
   return (weightedSum / totalWeight) * 100;
 }
 
-// v2: top-10 contribution + (1 - top10) × proxy ETF change
-function calculateFundChangeV2(
-  holdings: FundConfig['holdings'],
-  quotes: StockQuote[],
-  totalWeight: number,
-  proxyTicker: string
-): number | null {
-  const proxyQuote = quotes.find((q) => q.ticker === proxyTicker);
-  if (proxyQuote?.changePct == null) return null;
-
-  const top10Contribution = holdings.reduce((sum, h) => {
+function weightedContribution(holdings: FundConfig['holdings'], quotes: StockQuote[]): number {
+  return holdings.reduce((sum, h) => {
     const q = quotes.find((q) => q.ticker === h.ticker);
     if (q?.changePct == null) return sum;
     return sum + (q.changePct * h.weight) / 100;
   }, 0);
+}
 
+// v2: top-10 contribution + (1 - top10) × proxy ETF change.
+// If proxyExclusionHoldings is configured, first remove that basket from the proxy.
+function calculateFundChangeV2(
+  holdings: FundConfig['holdings'],
+  quotes: StockQuote[],
+  totalWeight: number,
+  proxyTicker: string,
+  proxyExclusionHoldings?: FundConfig['proxyExclusionHoldings']
+): number | null {
+  const proxyQuote = quotes.find((q) => q.ticker === proxyTicker);
+  if (proxyQuote?.changePct == null) return null;
+
+  const top10Contribution = weightedContribution(holdings, quotes);
   const residualWeight = 1 - totalWeight / 100;
-  return top10Contribution + residualWeight * proxyQuote.changePct;
+  let residualChangePct = proxyQuote.changePct;
+
+  if (proxyExclusionHoldings?.length) {
+    const proxyExclusionContribution = weightedContribution(proxyExclusionHoldings, quotes);
+    const proxyExclusionWeight = proxyExclusionHoldings.reduce((sum, h) => sum + h.weight, 0) / 100;
+    if (proxyExclusionWeight >= 1) return null;
+    residualChangePct = (proxyQuote.changePct - proxyExclusionContribution) / (1 - proxyExclusionWeight);
+  }
+
+  return top10Contribution + residualWeight * residualChangePct;
 }
 
 function RefreshIcon({ spinning }: { spinning: boolean }) {
@@ -70,8 +84,9 @@ function RefreshIcon({ spinning }: { spinning: boolean }) {
 
 export default function FundView({ fund }: { fund: FundConfig }) {
   const holdingTickers = fund.holdings.map((h) => h.ticker);
+  const proxyExclusionTickers = fund.proxyExclusionHoldings?.map((h) => h.ticker) ?? [];
   const quoteTickers = fund.residualProxy
-    ? [...holdingTickers, fund.residualProxy]
+    ? Array.from(new Set([...holdingTickers, fund.residualProxy, ...proxyExclusionTickers]))
     : holdingTickers;
   const tickers = quoteTickers.join(',');
   const seriesTickers = holdingTickers.join(',');
@@ -147,7 +162,13 @@ export default function FundView({ fund }: { fund: FundConfig }) {
   const isNegative = fundChange < 0;
 
   const fundChangeV2 = quotes && fund.residualProxy
-    ? calculateFundChangeV2(fund.holdings, quotes, fund.totalTop10Weight, fund.residualProxy)
+    ? calculateFundChangeV2(
+        fund.holdings,
+        quotes,
+        fund.totalTop10Weight,
+        fund.residualProxy,
+        fund.proxyExclusionHoldings
+      )
     : null;
   const estimatedNavV2 = fundChangeV2 != null ? nav * (1 + fundChangeV2 / 100) : null;
   const isPositiveV2 = fundChangeV2 != null && fundChangeV2 > 0;
@@ -237,7 +258,8 @@ export default function FundView({ fund }: { fund: FundConfig }) {
               v2
             </span>
             <span className="text-sm text-gray-400">
-              &mdash; top {fund.holdings.length} + {fund.residualProxy} for residual
+              &mdash; top {fund.holdings.length} + {fund.residualProxy}
+              {fund.proxyExclusionHoldings?.length ? ' ex-direct holdings' : ' for residual'}
             </span>
           </div>
           <div className="flex items-center justify-between mt-1.5">
@@ -249,6 +271,7 @@ export default function FundView({ fund }: { fund: FundConfig }) {
               <span>{isPositiveV2 ? '+' : ''}{fundChangeV2.toFixed(3)}%</span>
               <span className="text-xs font-normal text-gray-400">
                 · {(100 - fund.totalTop10Weight).toFixed(2)}% modeled by {fund.residualProxy}
+                {fund.proxyExclusionHoldings?.length ? ' after removing direct holdings' : ''}
               </span>
             </div>
           </div>
@@ -351,8 +374,10 @@ export default function FundView({ fund }: { fund: FundConfig }) {
             {fund.residualProxy && (
               <p>
                 <span className="inline-block px-1.5 py-0.5 mr-1 text-[10px] font-semibold rounded bg-blue-50 text-blue-700 border border-blue-200">v2</span>
-                Use {fund.residualProxy} as a stand-in for the unknown
-                chunk. Take its % change × {(100 - fund.totalTop10Weight).toFixed(2)}% and add to the top-10 contribution.
+                Use {fund.residualProxy} as a stand-in for the unknown chunk.{' '}
+                {fund.proxyExclusionHoldings?.length
+                  ? `First remove the directly modeled holdings from ${fund.residualProxy}, then take that adjusted % change × ${(100 - fund.totalTop10Weight).toFixed(2)}% and add it to the top-10 contribution.`
+                  : `Take its % change × ${(100 - fund.totalTop10Weight).toFixed(2)}% and add it to the top-10 contribution.`}
               </p>
             )}
           </div>

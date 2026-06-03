@@ -153,7 +153,7 @@ export default function NavHistory({ records, onDelete }: Props) {
                 v1 · proportional
               </th>
               <th className="py-1.5 px-3 text-center text-[10px] font-semibold uppercase tracking-wider text-blue-600 border-l border-gray-200" colSpan={2}>
-                v2 · IWF residual
+                v2 · proxy residual
               </th>
               <th className="py-1.5" />
             </tr>

@@ -115,6 +115,18 @@ export const FUNDS: FundConfig[] = [
     navStorageKey: 'fund_nav_sp500',
     totalTop10Weight: 36.32,
     residualProxy: 'SPY',
+    proxyExclusionHoldings: [
+      { ticker: 'NVDA',  name: 'NVIDIA Corp',        weight: 8.29 },
+      { ticker: 'AAPL',  name: 'Apple Inc',          weight: 7.09 },
+      { ticker: 'MSFT',  name: 'Microsoft Corp',     weight: 5.02 },
+      { ticker: 'AMZN',  name: 'Amazon.com',         weight: 3.84 },
+      { ticker: 'GOOGL', name: 'Alphabet A',         weight: 3.23 },
+      { ticker: 'AVGO',  name: 'Broadcom Inc',       weight: 3.50 },
+      { ticker: 'GOOG',  name: 'Alphabet C',         weight: 2.57 },
+      { ticker: 'META',  name: 'Meta Platforms',     weight: 2.00 },
+      { ticker: 'TSLA',  name: 'Tesla Inc',          weight: 1.82 },
+      { ticker: 'BRK-B', name: 'Berkshire B',        weight: 1.38 },
+    ],
     holdings: [
       { ticker: 'NVDA',  name: 'NVIDIA Corp',        weight: 7.54 },
       { ticker: 'AAPL',  name: 'Apple Inc',          weight: 6.63 },

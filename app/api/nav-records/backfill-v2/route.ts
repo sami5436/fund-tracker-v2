@@ -100,7 +100,11 @@ export async function POST(req: NextRequest) {
   const startUnix = Math.floor(startBuffer.getTime() / 1000);
   const endUnix = Math.floor(endBuffer.getTime() / 1000);
 
-  const tickers = [...fund.holdings.map((h) => h.ticker), fund.residualProxy];
+  const tickers = Array.from(new Set([
+    ...fund.holdings.map((h) => h.ticker),
+    fund.residualProxy,
+    ...(fund.proxyExclusionHoldings?.map((h) => h.ticker) ?? []),
+  ]));
   const closesByTicker = new Map<string, Map<string, number>>();
 
   for (const ticker of tickers) {
@@ -160,7 +164,40 @@ export async function POST(req: NextRequest) {
       results.push({ date, status: 'skipped', reason: `missing close for ${proxyTicker}` });
       continue;
     }
-    const proxyChangePct = ((proxyTodayClose - proxyPrevClose) / proxyPrevClose) * 100;
+    let proxyChangePct = ((proxyTodayClose - proxyPrevClose) / proxyPrevClose) * 100;
+
+    if (fund.proxyExclusionHoldings?.length) {
+      let proxyExclusionContribution = 0;
+      let proxyMissing: string | null = null;
+
+      for (const h of fund.proxyExclusionHoldings) {
+        const map = closesByTicker.get(h.ticker);
+        if (!map) {
+          proxyMissing = h.ticker;
+          break;
+        }
+        const todayClose = map.get(date);
+        const prevClose = prevTradingClose(map, date);
+        if (todayClose == null || prevClose == null || prevClose === 0) {
+          proxyMissing = h.ticker;
+          break;
+        }
+        const changePct = ((todayClose - prevClose) / prevClose) * 100;
+        proxyExclusionContribution += (changePct * h.weight) / 100;
+      }
+
+      if (proxyMissing) {
+        results.push({ date, status: 'skipped', reason: `missing close for ${proxyMissing}` });
+        continue;
+      }
+
+      const proxyExclusionWeight = fund.proxyExclusionHoldings.reduce((sum, h) => sum + h.weight, 0) / 100;
+      if (proxyExclusionWeight >= 1) {
+        results.push({ date, status: 'skipped', reason: 'proxy exclusion weight must be less than 100%' });
+        continue;
+      }
+      proxyChangePct = (proxyChangePct - proxyExclusionContribution) / (1 - proxyExclusionWeight);
+    }
 
     const v2Change = top10Contribution + residualWeight * proxyChangePct;
     const v2Nav = Number(prior.actual_nav) * (1 + v2Change / 100);

@@ -36,6 +36,8 @@ export interface FundConfig {
   navStorageKey: string;
   // ETF ticker used to model the unobserved residual (1 - totalTop10Weight) for the v2 estimator.
   residualProxy?: string;
+  // Optional basket to remove from the proxy before using it for the fund's residual.
+  proxyExclusionHoldings?: Holding[];
 }
 
 export interface NavRecord {
