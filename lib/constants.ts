@@ -114,6 +114,7 @@ export const FUNDS: FundConfig[] = [
     defaultNav: 65.93,
     navStorageKey: 'fund_nav_sp500',
     totalTop10Weight: 36.32,
+    residualProxy: 'SPY',
     holdings: [
       { ticker: 'NVDA',  name: 'NVIDIA Corp',        weight: 7.54 },
       { ticker: 'AAPL',  name: 'Apple Inc',          weight: 6.63 },

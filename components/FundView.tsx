@@ -351,7 +351,7 @@ export default function FundView({ fund }: { fund: FundConfig }) {
             {fund.residualProxy && (
               <p>
                 <span className="inline-block px-1.5 py-0.5 mr-1 text-[10px] font-semibold rounded bg-blue-50 text-blue-700 border border-blue-200">v2</span>
-                Use {fund.residualProxy} (a Russell 1000 Growth ETF) as a stand-in for the unknown
+                Use {fund.residualProxy} as a stand-in for the unknown
                 chunk. Take its % change × {(100 - fund.totalTop10Weight).toFixed(2)}% and add to the top-10 contribution.
               </p>
             )}
