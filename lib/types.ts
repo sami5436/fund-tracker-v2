@@ -34,6 +34,8 @@ export interface FundConfig {
   totalTop10Weight: number;
   defaultNav: number;
   navStorageKey: string;
+  // Public fund ticker used to pull the latest published NAV when available.
+  publicNavTicker?: string;
   // ETF ticker used to model the unobserved residual (1 - totalTop10Weight) for the v2 estimator.
   residualProxy?: string;
   // Optional basket to remove from the proxy before using it for the fund's residual.

@@ -20,9 +20,7 @@ const quoteCache = (globalThis._quoteCache ??= new Map());
 const inFlight = (globalThis._inFlight ??= new Map());
 const CACHE_TTL = 55_000;
 
-// Uses Yahoo Finance v8 chart API — same endpoint as yfinance (Python), no crumb required
-async function fetchQuoteFromChart(ticker: string): Promise<QuoteData> {
-  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1m&range=1d`;
+async function fetchQuoteFromChartUrl(ticker: string, url: string): Promise<QuoteData> {
   const res = await fetch(url, {
     headers: {
       'User-Agent': 'Mozilla/5.0',
@@ -34,11 +32,17 @@ async function fetchQuoteFromChart(ticker: string): Promise<QuoteData> {
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
   const json = await res.json();
-  const meta = json?.chart?.result?.[0]?.meta;
+  const result = json?.chart?.result?.[0];
+  const meta = result?.meta;
   if (!meta) throw new Error('No chart data');
 
-  const price: number | null = meta.regularMarketPrice ?? null;
-  const prevClose: number | null = meta.chartPreviousClose ?? meta.previousClose ?? null;
+  const closes: (number | null)[] = result.indicators?.quote?.[0]?.close ?? [];
+  const lastClose = [...closes].reverse().find((close) => close != null) ?? null;
+  const price: number | null = meta.regularMarketPrice ?? lastClose;
+  const prevClose: number | null =
+    meta.chartPreviousClose ??
+    meta.previousClose ??
+    (closes.length > 1 ? [...closes.slice(0, -1)].reverse().find((close) => close != null) ?? null : null);
   const changePct =
     price !== null && prevClose !== null && prevClose !== 0
       ? ((price - prevClose) / prevClose) * 100
@@ -48,6 +52,24 @@ async function fetchQuoteFromChart(ticker: string): Promise<QuoteData> {
     : null;
 
   return { ticker, price, prevClose, changePct, updatedAt };
+}
+
+// Uses Yahoo Finance v8 chart API — same endpoint as yfinance (Python), no crumb required.
+// Mutual funds often only publish daily NAV, so fall back from intraday to daily bars.
+async function fetchQuoteFromChart(ticker: string): Promise<QuoteData> {
+  const encoded = encodeURIComponent(ticker);
+  try {
+    return await fetchQuoteFromChartUrl(
+      ticker,
+      `https://query1.finance.yahoo.com/v8/finance/chart/${encoded}?interval=1m&range=1d`
+    );
+  } catch (err) {
+    console.error(`[stocks] ${ticker} intraday fallback:`, (err as Error).message);
+    return fetchQuoteFromChartUrl(
+      ticker,
+      `https://query1.finance.yahoo.com/v8/finance/chart/${encoded}?interval=1d&range=5d`
+    );
+  }
 }
 
 async function fetchQuote(ticker: string): Promise<QuoteData> {

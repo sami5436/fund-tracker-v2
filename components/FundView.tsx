@@ -109,6 +109,13 @@ export default function FundView({ fund }: { fund: FundConfig }) {
     { revalidateOnFocus: false }
   );
 
+  const { data: publicNavData } = useSWR<StockQuote[]>(
+    fund.publicNavTicker ? `/api/stocks?tickers=${fund.publicNavTicker}` : null,
+    fetcher,
+    { refreshInterval: 15 * 60_000, revalidateOnFocus: false }
+  );
+  const publicNavQuote = publicNavData?.[0];
+
   const [nav, setNav] = useState(fund.defaultNav);
 
   // Header + baseline: most recent entry strictly before today's CST date.
@@ -120,8 +127,12 @@ export default function FundView({ fund }: { fund: FundConfig }) {
   }, [navRows]);
 
   useEffect(() => {
-    if (mostRecentRow) setNav(Number(mostRecentRow.actual_nav));
-  }, [mostRecentRow]);
+    if (mostRecentRow) {
+      setNav(Number(mostRecentRow.actual_nav));
+    } else if (publicNavQuote?.price != null) {
+      setNav(publicNavQuote.price);
+    }
+  }, [mostRecentRow, publicNavQuote?.price]);
 
   const saveRecord = useCallback(
     async (record: NavRecord) => {
@@ -208,6 +219,23 @@ export default function FundView({ fund }: { fund: FundConfig }) {
                     month: 'long',
                     day: 'numeric',
                   })}
+                </span>
+              </>
+            ) : publicNavQuote?.price != null ? (
+              <>
+                <span className="text-3xl font-bold text-gray-900 tabular-nums">
+                  ${publicNavQuote.price.toFixed(2)}
+                </span>
+                <span className="text-base text-gray-400 ml-2">
+                  — latest published NAV from {fund.publicNavTicker}
+                  {publicNavQuote.updatedAt
+                    ? ` on ${new Date(publicNavQuote.updatedAt).toLocaleDateString('en-US', {
+                        timeZone: 'America/Chicago',
+                        weekday: 'long',
+                        month: 'long',
+                        day: 'numeric',
+                      })}`
+                    : ''}
                 </span>
               </>
             ) : (
