@@ -4,19 +4,17 @@ import type { HoldingWithData } from '@/lib/types';
 
 interface Props {
   holdings: HoldingWithData[];
-  fundChange: number;
   officialNav: number;
   estimatedNav: number;
-  totalTop10Weight: number;
 }
 
-function ContributionBar({ holdings, totalTop10Weight }: { holdings: HoldingWithData[]; totalTop10Weight: number }) {
+function ContributionBar({ holdings }: { holdings: HoldingWithData[] }) {
   const withData = holdings.filter((h) => h.changePct !== null);
   if (!withData.length) return null;
 
   const contributions = withData.map((h) => ({
     ticker: h.ticker,
-    value: (h.changePct! * h.weight) / totalTop10Weight,
+    value: (h.changePct! * h.weight) / 100,
     weight: h.weight,
   }));
 
@@ -71,10 +69,8 @@ function ContributionBar({ holdings, totalTop10Weight }: { holdings: HoldingWith
 
 export default function InsightsPanel({
   holdings,
-  fundChange,
   officialNav,
   estimatedNav,
-  totalTop10Weight,
 }: Props) {
   const withData = holdings.filter((h) => h.changePct !== null);
   const up = withData.filter((h) => h.changePct! > 0);
@@ -84,7 +80,7 @@ export default function InsightsPanel({
   // Weighted contribution per holding
   const contributions = withData.map((h) => ({
     ...h,
-    contribution: (h.changePct! * h.weight) / totalTop10Weight,
+    contribution: (h.changePct! * h.weight) / 100,
   }));
   const topGainer = contributions.reduce<(typeof contributions)[0] | null>(
     (best, c) => (!best || c.contribution > best.contribution ? c : best),
@@ -173,8 +169,8 @@ export default function InsightsPanel({
 
       {/* Contribution waterfall */}
       <div>
-        <p className="text-xs text-gray-400 mb-2">Contribution to fund change</p>
-        <ContributionBar holdings={holdings} totalTop10Weight={totalTop10Weight} />
+        <p className="text-xs text-gray-400 mb-2">Direct holding contribution</p>
+        <ContributionBar holdings={holdings} />
       </div>
     </div>
   );

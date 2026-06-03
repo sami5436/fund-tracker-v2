@@ -171,8 +171,11 @@ export default function FundView({ fund }: { fund: FundConfig }) {
       )
     : null;
   const estimatedNavV2 = fundChangeV2 != null ? nav * (1 + fundChangeV2 / 100) : null;
-  const isPositiveV2 = fundChangeV2 != null && fundChangeV2 > 0;
-  const isNegativeV2 = fundChangeV2 != null && fundChangeV2 < 0;
+  const primaryFundChange = fundChangeV2 ?? fundChange;
+  const primaryEstimatedNav = estimatedNavV2 ?? estimatedNav;
+  const isPrimaryPositive = primaryFundChange > 0;
+  const isPrimaryNegative = primaryFundChange < 0;
+  const usingProxyEstimate = fundChangeV2 != null && estimatedNavV2 != null;
 
   const holdingsWithData: HoldingWithData[] = fund.holdings.map((h) => {
     const q = quotes?.find((q) => q.ticker === h.ticker);
@@ -224,8 +227,13 @@ export default function FundView({ fund }: { fund: FundConfig }) {
       <div className="bg-white rounded-xl border-2 border-gray-900 p-4">
         <div className="flex items-baseline flex-wrap gap-x-2 gap-y-0.5">
           <span className="text-4xl font-bold text-gray-900 tabular-nums">
-            ${estimatedNav.toFixed(2)}
+            ${primaryEstimatedNav.toFixed(2)}
           </span>
+          {usingProxyEstimate && (
+            <span className="inline-flex items-center text-[10px] font-semibold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded">
+              proxy adjusted
+            </span>
+          )}
           <span className="text-base text-gray-400">
             &mdash; estimated from today&apos;s market from {' '}
             {mostRecentRow
@@ -236,42 +244,42 @@ export default function FundView({ fund }: { fund: FundConfig }) {
         <div className="flex items-center justify-between mt-1.5">
           <div
             className={`flex items-center gap-1.5 text-base font-semibold ${
-              isPositive ? 'text-green-600' : isNegative ? 'text-red-600' : 'text-gray-400'
+              isPrimaryPositive ? 'text-green-600' : isPrimaryNegative ? 'text-red-600' : 'text-gray-400'
             }`}
           >
-            <span>{isPositive ? '+' : ''}{fundChange.toFixed(3)}%</span>
+            <span>{isPrimaryPositive ? '+' : ''}{primaryFundChange.toFixed(3)}%</span>
             <span className="text-sm font-normal text-gray-400">
-              · top {fund.holdings.length} holdings
+              {usingProxyEstimate
+                ? `· top ${fund.holdings.length} + ${fund.residualProxy} residual`
+                : `· top ${fund.holdings.length} holdings`}
             </span>
           </div>
         </div>
       </div>
 
-      {/* Estimated NAV v2 — top-10 + index proxy for residual */}
-      {estimatedNavV2 != null && fundChangeV2 != null && (
+      {/* Estimated NAV v1 — proportional top-10 scale, shown as a comparison when proxy estimate exists */}
+      {usingProxyEstimate && (
         <div className="bg-white rounded-xl border border-gray-300 border-dashed p-4">
           <div className="flex items-baseline flex-wrap gap-x-2 gap-y-0.5">
             <span className="text-3xl font-bold text-gray-900 tabular-nums">
-              ${estimatedNavV2.toFixed(2)}
+              ${estimatedNav.toFixed(2)}
             </span>
-            <span className="inline-flex items-center text-[10px] font-semibold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded">
-              v2
+            <span className="inline-flex items-center text-[10px] font-semibold text-gray-600 bg-gray-100 border border-gray-200 px-1.5 py-0.5 rounded">
+              v1
             </span>
             <span className="text-sm text-gray-400">
-              &mdash; top {fund.holdings.length} + {fund.residualProxy}
-              {fund.proxyExclusionHoldings?.length ? ' ex-direct holdings' : ' for residual'}
+              &mdash; proportional top-{fund.holdings.length} scale
             </span>
           </div>
           <div className="flex items-center justify-between mt-1.5">
             <div
               className={`flex items-center gap-1.5 text-sm font-semibold ${
-                isPositiveV2 ? 'text-green-600' : isNegativeV2 ? 'text-red-600' : 'text-gray-400'
+                isPositive ? 'text-green-600' : isNegative ? 'text-red-600' : 'text-gray-400'
               }`}
             >
-              <span>{isPositiveV2 ? '+' : ''}{fundChangeV2.toFixed(3)}%</span>
+              <span>{isPositive ? '+' : ''}{fundChange.toFixed(3)}%</span>
               <span className="text-xs font-normal text-gray-400">
-                · {(100 - fund.totalTop10Weight).toFixed(2)}% modeled by {fund.residualProxy}
-                {fund.proxyExclusionHoldings?.length ? ' after removing direct holdings' : ''}
+                · assumes the unknown {(100 - fund.totalTop10Weight).toFixed(2)}% moves like the top holdings
               </span>
             </div>
           </div>
@@ -309,10 +317,8 @@ export default function FundView({ fund }: { fund: FundConfig }) {
       {quotes && (
         <InsightsPanel
           holdings={holdingsWithData}
-          fundChange={fundChange}
           officialNav={nav}
-          estimatedNav={estimatedNav}
-          totalTop10Weight={fund.totalTop10Weight}
+          estimatedNav={primaryEstimatedNav}
         />
       )}
 
