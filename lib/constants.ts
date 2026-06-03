@@ -150,6 +150,16 @@ export const FUNDS: FundConfig[] = [
     publicNavTicker: 'FSRPX',
     totalTop10Weight: 69.93,
     residualProxy: 'XRT',
+    proxyExclusionHoldings: [
+      { ticker: 'AMZN', name: 'Amazon.com Inc',        weight: 1.672435 },
+      { ticker: 'ROST', name: 'Ross Stores Inc',       weight: 1.458657 },
+      { ticker: 'TGT',  name: 'Target Corp',           weight: 1.438341 },
+      { ticker: 'TJX',  name: 'TJX Companies Inc',     weight: 1.350439 },
+      { ticker: 'DLTR', name: 'Dollar Tree Inc',       weight: 1.339828 },
+      { ticker: 'COST', name: 'Costco Wholesale Corp', weight: 1.334139 },
+      { ticker: 'WMT',  name: 'Walmart Inc',           weight: 1.269121 },
+      { ticker: 'ORLY', name: "O'Reilly Automotive",   weight: 1.266520 },
+    ],
     holdings: [
       { ticker: 'AMZN', name: 'Amazon.com Inc',          weight: 30.01 },
       { ticker: 'WMT',  name: 'Walmart Inc',             weight: 11.10 },
