@@ -21,6 +21,7 @@ function SortIcon({ active, dir }: { active: boolean; dir: 'asc' | 'desc' }) {
 interface Props {
   records: NavRow[] | undefined;
   onDelete: (date: string) => void;
+  proxyOnly?: boolean;
 }
 
 function diffOf(actual: number, est: number | null): number | null {
@@ -54,7 +55,21 @@ function computeMae(rows: NavRow[], pick: (r: NavRow) => number | null): MaeStat
   };
 }
 
-export default function NavHistory({ records, onDelete }: Props) {
+function primaryEstimate(row: NavRow, proxyOnly: boolean): number | null {
+  return proxyOnly ? row.estimated_nav_v2 ?? row.estimated_nav : row.estimated_nav;
+}
+
+function primaryDiff(row: NavRow, proxyOnly: boolean): number | null {
+  return proxyOnly ? row.diff_v2 ?? diffOf(row.actual_nav, row.estimated_nav_v2 ?? row.estimated_nav) : row.diff;
+}
+
+function primaryDiffPct(row: NavRow, proxyOnly: boolean): number | null {
+  return proxyOnly
+    ? row.diff_pct_v2 ?? diffPctOf(row.actual_nav, row.estimated_nav_v2 ?? row.estimated_nav)
+    : row.diff_pct;
+}
+
+export default function NavHistory({ records, onDelete, proxyOnly = false }: Props) {
   const [sortCol, setSortCol] = useState<SortCol>('date');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
 
@@ -83,17 +98,23 @@ export default function NavHistory({ records, onDelete }: Props) {
     );
   }
 
-  const hasV2 = records.some((r) => r.estimated_nav_v2 != null);
+  const hasV2 = !proxyOnly && records.some((r) => r.estimated_nav_v2 != null);
 
   const sorted = [...records].sort((a, b) => {
     let av: number | string | null;
     let bv: number | string | null;
     if (sortCol === 'date') { av = a.date; bv = b.date; }
-    else if (sortCol === 'estimated_nav') { av = a.estimated_nav; bv = b.estimated_nav; }
-    else if (sortCol === 'estimated_nav_v2') { av = a.estimated_nav_v2; bv = b.estimated_nav_v2; }
+    else if (sortCol === 'estimated_nav') { av = primaryEstimate(a, proxyOnly); bv = primaryEstimate(b, proxyOnly); }
+    else if (sortCol === 'estimated_nav_v2') {
+      av = hasV2 ? a.estimated_nav_v2 : primaryEstimate(a, proxyOnly);
+      bv = hasV2 ? b.estimated_nav_v2 : primaryEstimate(b, proxyOnly);
+    }
     else if (sortCol === 'actual_nav') { av = a.actual_nav; bv = b.actual_nav; }
-    else if (sortCol === 'diff_v2') { av = a.diff_v2; bv = b.diff_v2; }
-    else { av = a.diff; bv = b.diff; }
+    else if (sortCol === 'diff_v2') {
+      av = hasV2 ? a.diff_v2 : primaryDiff(a, proxyOnly);
+      bv = hasV2 ? b.diff_v2 : primaryDiff(b, proxyOnly);
+    }
+    else { av = primaryDiff(a, proxyOnly); bv = primaryDiff(b, proxyOnly); }
     if (av === null) return 1;
     if (bv === null) return -1;
     if (av < bv) return sortDir === 'asc' ? -1 : 1;
@@ -101,7 +122,7 @@ export default function NavHistory({ records, onDelete }: Props) {
     return 0;
   });
 
-  const maeV1 = computeMae(records, (r) => r.estimated_nav);
+  const maeV1 = computeMae(records, (r) => primaryEstimate(r, proxyOnly));
   const maeV2 = hasV2 ? computeMae(records, (r) => r.estimated_nav_v2) : null;
 
   function Th({
@@ -170,8 +191,9 @@ export default function NavHistory({ records, onDelete }: Props) {
         </thead>
         <tbody>
           {sorted.map((r) => {
-            const diff = r.diff ?? diffOf(r.actual_nav, r.estimated_nav);
-            const diffPct = r.diff_pct ?? diffPctOf(r.actual_nav, r.estimated_nav);
+            const estimate = primaryEstimate(r, proxyOnly);
+            const diff = primaryDiff(r, proxyOnly) ?? diffOf(r.actual_nav, estimate);
+            const diffPct = primaryDiffPct(r, proxyOnly) ?? diffPctOf(r.actual_nav, estimate);
             const diffV2 = r.diff_v2 ?? diffOf(r.actual_nav, r.estimated_nav_v2);
             const diffPctV2 = r.diff_pct_v2 ?? diffPctOf(r.actual_nav, r.estimated_nav_v2);
             return (
@@ -181,7 +203,7 @@ export default function NavHistory({ records, onDelete }: Props) {
                   ${Number(r.actual_nav).toFixed(2)}
                 </td>
                 <td className={`px-3 py-3.5 text-right tabular-nums text-gray-500 ${hasV2 ? 'border-l border-gray-200' : ''}`}>
-                  {r.estimated_nav != null ? `$${Number(r.estimated_nav).toFixed(2)}` : '—'}
+                  {estimate != null ? `$${Number(estimate).toFixed(2)}` : '—'}
                 </td>
                 <DiffCell diff={diff} diffPct={diffPct} />
                 {hasV2 && (

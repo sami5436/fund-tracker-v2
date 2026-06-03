@@ -176,6 +176,8 @@ export default function FundView({ fund }: { fund: FundConfig }) {
   const isPrimaryPositive = primaryFundChange > 0;
   const isPrimaryNegative = primaryFundChange < 0;
   const usingProxyEstimate = fundChangeV2 != null && estimatedNavV2 != null;
+  const proxyOnly = fund.id === 'sp500';
+  const showLegacyEstimate = usingProxyEstimate && !proxyOnly;
 
   const holdingsWithData: HoldingWithData[] = fund.holdings.map((h) => {
     const q = quotes?.find((q) => q.ticker === h.ticker);
@@ -216,8 +218,8 @@ export default function FundView({ fund }: { fund: FundConfig }) {
         <div className="px-4 py-3">
           <ActualNavEntry
             fundId={fund.id}
-            estimatedNav={estimatedNav}
-            estimatedNavV2={estimatedNavV2}
+            estimatedNav={proxyOnly ? primaryEstimatedNav : estimatedNav}
+            estimatedNavV2={proxyOnly ? null : estimatedNavV2}
             onSave={saveRecord}
           />
         </div>
@@ -258,7 +260,7 @@ export default function FundView({ fund }: { fund: FundConfig }) {
       </div>
 
       {/* Estimated NAV v1 — proportional top-10 scale, shown as a comparison when proxy estimate exists */}
-      {usingProxyEstimate && (
+      {showLegacyEstimate && (
         <div className="bg-white rounded-xl border border-gray-300 border-dashed p-4">
           <div className="flex items-baseline flex-wrap gap-x-2 gap-y-0.5">
             <span className="text-3xl font-bold text-gray-900 tabular-nums">
@@ -337,7 +339,7 @@ export default function FundView({ fund }: { fund: FundConfig }) {
       {/* Estimated vs actual history */}
       <div>
         <h2 className="text-sm font-semibold text-gray-900 mb-2">Estimated vs Actual NAV</h2>
-        <NavHistory records={navRows} onDelete={deleteRecord} />
+        <NavHistory records={navRows} onDelete={deleteRecord} proxyOnly={proxyOnly} />
       </div>
 
       {/* Math explainer */}
@@ -375,11 +377,22 @@ export default function FundView({ fund }: { fund: FundConfig }) {
           <div>
             <p className="font-semibold text-gray-800 mb-1">Step 2 — Fill in the unknown</p>
             <p className="mb-1">
-              <span className="inline-block px-1.5 py-0.5 mr-1 text-[10px] font-semibold rounded bg-gray-100 text-gray-600">v1</span>
-              Pretend the unknown {(100 - fund.totalTop10Weight).toFixed(2)}% moves the same way as
-              the top 10 — just scale the top-10 change up to 100%.
+              {proxyOnly ? (
+                <>
+                  Use {fund.residualProxy} as a stand-in for the unknown chunk.{' '}
+                  {fund.proxyExclusionHoldings?.length
+                    ? `First remove the directly modeled holdings from ${fund.residualProxy}, then take that adjusted % change × ${(100 - fund.totalTop10Weight).toFixed(2)}% and add it to the top-10 contribution.`
+                    : `Take its % change × ${(100 - fund.totalTop10Weight).toFixed(2)}% and add it to the top-10 contribution.`}
+                </>
+              ) : (
+                <>
+                  <span className="inline-block px-1.5 py-0.5 mr-1 text-[10px] font-semibold rounded bg-gray-100 text-gray-600">v1</span>
+                  Pretend the unknown {(100 - fund.totalTop10Weight).toFixed(2)}% moves the same way as
+                  the top 10 — just scale the top-10 change up to 100%.
+                </>
+              )}
             </p>
-            {fund.residualProxy && (
+            {fund.residualProxy && !proxyOnly && (
               <p>
                 <span className="inline-block px-1.5 py-0.5 mr-1 text-[10px] font-semibold rounded bg-blue-50 text-blue-700 border border-blue-200">v2</span>
                 Use {fund.residualProxy} as a stand-in for the unknown chunk.{' '}
