@@ -7,10 +7,12 @@ import type { StockQuote } from '@/lib/types';
 import { formatSignedDollar } from '@/lib/format';
 import FundView from '@/components/FundView';
 import FundFinder from '@/components/FundFinder';
+import FundCompare from '@/components/FundCompare';
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 const FINDER_ID = 'finder';
+const COMPARE_ID = 'compare';
 
 export default function Home() {
   const [activeId, setActiveId] = useState<string>(FUNDS[0].id);
@@ -80,12 +82,12 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex -mb-px">
+          <div className="flex -mb-px overflow-x-auto">
             {FUNDS.map((fund) => (
               <button
                 key={fund.id}
                 onClick={() => setActiveId(fund.id)}
-                className={`px-4 py-3 min-h-[44px] text-sm font-medium border-b-2 transition-colors touch-manipulation ${
+                className={`px-4 py-3 min-h-[44px] shrink-0 text-sm font-medium border-b-2 transition-colors touch-manipulation ${
                   activeId === fund.id
                     ? 'border-blue-600 text-blue-600'
                     : 'border-transparent text-gray-500 hover:text-gray-700'
@@ -96,13 +98,23 @@ export default function Home() {
             ))}
             <button
               onClick={() => setActiveId(FINDER_ID)}
-              className={`px-4 py-3 min-h-[44px] text-sm font-medium border-b-2 transition-colors touch-manipulation ${
+              className={`px-4 py-3 min-h-[44px] shrink-0 text-sm font-medium border-b-2 transition-colors touch-manipulation ${
                 activeId === FINDER_ID
                   ? 'border-blue-600 text-blue-600'
                   : 'border-transparent text-gray-500 hover:text-gray-700'
               }`}
             >
               Fund Finder
+            </button>
+            <button
+              onClick={() => setActiveId(COMPARE_ID)}
+              className={`px-4 py-3 min-h-[44px] shrink-0 text-sm font-medium border-b-2 transition-colors touch-manipulation ${
+                activeId === COMPARE_ID
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Compare
             </button>
           </div>
         </div>
@@ -119,6 +131,18 @@ export default function Home() {
           {/* Main content */}
           <div className="max-w-xl mx-auto px-4 py-4">
             <FundView key={activeFund.id} fund={activeFund} />
+          </div>
+        </>
+      ) : activeId === COMPARE_ID ? (
+        <>
+          <div className="max-w-6xl mx-auto px-4 pt-5 pb-1">
+            <p className="font-semibold text-gray-800 text-base">Fund Comparison Lab</p>
+            <p className="text-xs text-gray-400 mt-0.5">
+              Compare returns, crash behavior, correlation, and long-range outcomes.
+            </p>
+          </div>
+          <div className="max-w-6xl mx-auto px-4 py-4">
+            <FundCompare />
           </div>
         </>
       ) : (
