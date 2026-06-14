@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState } from 'react';
 import type { Holding, TickerSeries } from '@/lib/types';
+import { formatSignedDollar } from '@/lib/format';
 
 interface Props {
   holdings: Holding[];
@@ -179,8 +180,6 @@ export default function NavChart({
   const areaPath = `${linePath} L ${xFor(points.length - 1).toFixed(2)} ${H - PAD_B} L ${xFor(0).toFixed(2)} ${H - PAD_B} Z`;
 
   const last = points[points.length - 1];
-  const first = points[0];
-  const dayChange = last.nav - first.nav;
   const isUp = last.nav >= officialNav;
   const color = isUp ? '#22c55e' : '#ef4444';
   const fillColor = isUp ? 'rgba(34,197,94,0.10)' : 'rgba(239,68,68,0.10)';
@@ -228,7 +227,7 @@ export default function NavChart({
             {displayed.changePct.toFixed(3)}%
           </p>
           <p className="text-xs text-gray-400 tabular-nums">
-            {dayChange >= 0 ? '+' : ''}${dayChange.toFixed(2)} today
+            {formatSignedDollar(displayed.nav - officialNav)} vs official
           </p>
         </div>
       </div>

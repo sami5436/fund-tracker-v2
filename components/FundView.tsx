@@ -8,6 +8,7 @@ import InsightsPanel from './InsightsPanel';
 import NavChart from './NavChart';
 import ActualNavEntry from './ActualNavEntry';
 import NavHistory from './NavHistory';
+import { formatSignedDollar } from '@/lib/format';
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -184,6 +185,8 @@ export default function FundView({ fund }: { fund: FundConfig }) {
   const estimatedNavV2 = fundChangeV2 != null ? nav * (1 + fundChangeV2 / 100) : null;
   const primaryFundChange = fundChangeV2 ?? fundChange;
   const primaryEstimatedNav = estimatedNavV2 ?? estimatedNav;
+  const primaryDollarChange = primaryEstimatedNav - nav;
+  const legacyDollarChange = estimatedNav - nav;
   const isPrimaryPositive = primaryFundChange > 0;
   const isPrimaryNegative = primaryFundChange < 0;
   const usingProxyEstimate = fundChangeV2 != null && estimatedNavV2 != null;
@@ -195,6 +198,7 @@ export default function FundView({ fund }: { fund: FundConfig }) {
     return {
       ...h,
       price: q?.price ?? null,
+      prevClose: q?.prevClose ?? null,
       changePct: q?.changePct ?? null,
       updatedAt: q?.updatedAt ?? null,
     };
@@ -277,7 +281,10 @@ export default function FundView({ fund }: { fund: FundConfig }) {
               isPrimaryPositive ? 'text-green-600' : isPrimaryNegative ? 'text-red-600' : 'text-gray-400'
             }`}
           >
-            <span>{isPrimaryPositive ? '+' : ''}{primaryFundChange.toFixed(3)}%</span>
+            <span>{formatSignedDollar(primaryDollarChange)}</span>
+            <span className="text-sm font-normal">
+              ({isPrimaryPositive ? '+' : ''}{primaryFundChange.toFixed(3)}%)
+            </span>
             <span className="text-sm font-normal text-gray-400">
               {usingProxyEstimate
                 ? `· top ${fund.holdings.length} + ${fund.residualProxy} residual`
@@ -307,7 +314,10 @@ export default function FundView({ fund }: { fund: FundConfig }) {
                 isPositive ? 'text-green-600' : isNegative ? 'text-red-600' : 'text-gray-400'
               }`}
             >
-              <span>{isPositive ? '+' : ''}{fundChange.toFixed(3)}%</span>
+              <span>{formatSignedDollar(legacyDollarChange)}</span>
+              <span className="text-xs font-normal">
+                ({isPositive ? '+' : ''}{fundChange.toFixed(3)}%)
+              </span>
               <span className="text-xs font-normal text-gray-400">
                 · assumes the unknown {(100 - fund.totalTop10Weight).toFixed(2)}% moves like the top holdings
               </span>

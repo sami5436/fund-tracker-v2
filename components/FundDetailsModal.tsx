@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import type { FidelityFund, StockQuote } from '@/lib/types';
+import { formatSignedDollar } from '@/lib/format';
 
 interface HistoryPoint {
   t: number;
@@ -225,8 +226,11 @@ export default function FundDetailsModal({
                           : 'text-gray-500'
                     }`}
                   >
-                    {quote.changePct > 0 ? '+' : ''}
-                    {quote.changePct.toFixed(2)}%
+                    {quote.prevClose != null && (
+                      <>{formatSignedDollar(quote.price - quote.prevClose)} </>
+                    )}
+                    ({quote.changePct > 0 ? '+' : ''}
+                    {quote.changePct.toFixed(2)}%)
                   </div>
                 )}
               </div>

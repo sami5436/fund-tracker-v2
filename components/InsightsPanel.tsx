@@ -1,6 +1,7 @@
 'use client';
 
 import type { HoldingWithData } from '@/lib/types';
+import { formatSignedDollar } from '@/lib/format';
 
 interface Props {
   holdings: HoldingWithData[];
@@ -8,7 +9,13 @@ interface Props {
   estimatedNav: number;
 }
 
-function ContributionBar({ holdings }: { holdings: HoldingWithData[] }) {
+function ContributionBar({
+  holdings,
+  officialNav,
+}: {
+  holdings: HoldingWithData[];
+  officialNav: number;
+}) {
   const withData = holdings.filter((h) => h.changePct !== null);
   if (!withData.length) return null;
 
@@ -55,10 +62,11 @@ function ContributionBar({ holdings }: { holdings: HoldingWithData[] }) {
                 </>
               )}
             </div>
-            <span
-              className={`w-12 text-left tabular-nums ${isPos ? 'text-green-700' : 'text-red-600'}`}
-            >
-              {isPos ? '+' : ''}{c.value.toFixed(3)}%
+            <span className={`w-24 text-left tabular-nums ${isPos ? 'text-green-700' : 'text-red-600'}`}>
+              {formatSignedDollar((officialNav * c.value) / 100)}
+              <span className="text-[10px] opacity-75 ml-1">
+                ({isPos ? '+' : ''}{c.value.toFixed(3)}%)
+              </span>
             </span>
           </div>
         );
@@ -151,7 +159,8 @@ export default function InsightsPanel({
               <p className="text-xs text-green-600 font-medium">Top contributor</p>
               <p className="text-sm font-bold text-green-700 mt-0.5">{topGainer.ticker}</p>
               <p className="text-xs text-green-600 tabular-nums">
-                +{topGainer.contribution.toFixed(3)}% to NAV
+                {formatSignedDollar((officialNav * topGainer.contribution) / 100)}
+                {' '}({`+${topGainer.contribution.toFixed(3)}%`}) to NAV
               </p>
             </div>
           )}
@@ -160,7 +169,8 @@ export default function InsightsPanel({
               <p className="text-xs text-red-500 font-medium">Top drag</p>
               <p className="text-sm font-bold text-red-600 mt-0.5">{topDrag.ticker}</p>
               <p className="text-xs text-red-500 tabular-nums">
-                {topDrag.contribution.toFixed(3)}% to NAV
+                {formatSignedDollar((officialNav * topDrag.contribution) / 100)}
+                {' '}({topDrag.contribution.toFixed(3)}%) to NAV
               </p>
             </div>
           )}
@@ -170,7 +180,7 @@ export default function InsightsPanel({
       {/* Contribution waterfall */}
       <div>
         <p className="text-xs text-gray-400 mb-2">Direct holding contribution</p>
-        <ContributionBar holdings={holdings} />
+        <ContributionBar holdings={holdings} officialNav={officialNav} />
       </div>
     </div>
   );

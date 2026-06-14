@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import type { HoldingWithData } from '@/lib/types';
+import { formatSignedDollar } from '@/lib/format';
 
 type SortCol = 'ticker' | 'weight' | 'price' | 'changePct';
 
@@ -18,16 +19,28 @@ function SortIcon({ active, dir }: { active: boolean; dir: 'asc' | 'desc' }) {
   );
 }
 
-function ChangeBadge({ value }: { value: number | null }) {
+function ChangeBadge({
+  value,
+  dollarValue,
+}: {
+  value: number | null;
+  dollarValue: number | null;
+}) {
   if (value === null) return <span className="text-gray-300">—</span>;
-  if (value === 0) return <span className="text-gray-400">0.00%</span>;
   return (
     <span
-      className={`inline-block px-2 py-0.5 rounded-md text-xs font-semibold tabular-nums ${
-        value > 0 ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600'
+      className={`inline-flex flex-col items-end px-2 py-1 rounded-md text-xs font-semibold tabular-nums leading-tight ${
+        value > 0
+          ? 'bg-green-50 text-green-700'
+          : value < 0
+            ? 'bg-red-50 text-red-600'
+            : 'bg-gray-50 text-gray-500'
       }`}
     >
-      {value > 0 ? '+' : ''}{value.toFixed(2)}%
+      <span>{dollarValue != null ? formatSignedDollar(dollarValue) : '—'}</span>
+      <span className="text-[10px] font-medium opacity-80">
+        {value > 0 ? '+' : ''}{value.toFixed(2)}%
+      </span>
     </span>
   );
 }
@@ -91,7 +104,12 @@ export default function HoldingsTable({ holdings }: { holdings: HoldingWithData[
                 {h.price !== null ? `$${h.price.toFixed(2)}` : <span className="text-gray-300">—</span>}
               </td>
               <td className="px-3 py-3 text-right">
-                <ChangeBadge value={h.changePct} />
+                <ChangeBadge
+                  value={h.changePct}
+                  dollarValue={
+                    h.price != null && h.prevClose != null ? h.price - h.prevClose : null
+                  }
+                />
               </td>
             </tr>
           ))}

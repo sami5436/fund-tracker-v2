@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import useSWR from 'swr';
 import type { FidelityFund, StockQuote } from '@/lib/types';
+import { formatSignedDollar } from '@/lib/format';
 import { POPULAR_TICKERS } from '@/lib/popular-tickers';
 import FundDetailsModal from './FundDetailsModal';
 
@@ -570,8 +571,11 @@ export default function FundFinder() {
                                 : 'text-gray-500'
                           }`}
                         >
-                          {quote.changePct > 0 ? '+' : ''}
-                          {quote.changePct.toFixed(2)}%
+                          {quote.prevClose != null && (
+                            <>{formatSignedDollar(quote.price - quote.prevClose)} </>
+                          )}
+                          ({quote.changePct > 0 ? '+' : ''}
+                          {quote.changePct.toFixed(2)}%)
                         </div>
                       )}
                     </div>

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import type { NavRow } from '@/lib/types';
+import { formatSignedDollar } from '@/lib/format';
 
 type SortCol = 'date' | 'estimated_nav' | 'estimated_nav_v2' | 'actual_nav' | 'diff' | 'diff_v2';
 
@@ -151,7 +152,7 @@ export default function NavHistory({ records, onDelete, proxyOnly = false }: Pro
       <td className={`px-3 py-3.5 text-right tabular-nums font-semibold ${isPos ? 'text-green-600' : isNeg ? 'text-red-600' : 'text-gray-400'}`}>
         {diff != null ? (
           <>
-            {isPos ? '+' : ''}{Number(diff).toFixed(2)}
+            {formatSignedDollar(Number(diff))}
             {diffPct != null && (
               <span className="text-xs font-normal ml-1 text-gray-500">
                 ({isPos ? '+' : ''}{diffPct.toFixed(2)}%)

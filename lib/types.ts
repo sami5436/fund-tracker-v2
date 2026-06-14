@@ -14,6 +14,7 @@ export interface StockQuote {
 
 export interface HoldingWithData extends Holding {
   price: number | null;
+  prevClose: number | null;
   changePct: number | null;
   updatedAt: string | null;
 }

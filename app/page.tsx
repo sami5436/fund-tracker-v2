@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import { FUNDS } from '@/lib/constants';
 import type { StockQuote } from '@/lib/types';
+import { formatSignedDollar } from '@/lib/format';
 import FundView from '@/components/FundView';
 import FundFinder from '@/components/FundFinder';
 
@@ -68,7 +69,10 @@ export default function Home() {
                         spyUp ? 'text-green-600' : spyDown ? 'text-red-600' : 'text-gray-400'
                       }`}
                     >
-                      {spyUp ? '+' : ''}{spy.changePct.toFixed(2)}%
+                      {spy.prevClose != null && (
+                        <>{formatSignedDollar(spy.price - spy.prevClose)} </>
+                      )}
+                      ({spyUp ? '+' : ''}{spy.changePct.toFixed(2)}%)
                     </span>
                   )}
                 </span>
