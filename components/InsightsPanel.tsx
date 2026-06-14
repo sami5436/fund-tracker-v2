@@ -33,8 +33,8 @@ function ContributionBar({
         const pct = (Math.abs(c.value) / maxAbs) * 100;
         const isPos = c.value >= 0;
         return (
-          <div key={c.ticker} className="flex items-center gap-2 text-xs">
-            <span className="w-10 text-right font-semibold text-gray-600 shrink-0">{c.ticker}</span>
+          <div key={c.ticker} className="flex items-center gap-1.5 text-xs sm:gap-2">
+            <span className="w-9 text-right font-semibold text-gray-600 shrink-0 sm:w-10">{c.ticker}</span>
             <div className="flex-1 flex items-center h-4">
               {isPos ? (
                 <>
@@ -62,9 +62,9 @@ function ContributionBar({
                 </>
               )}
             </div>
-            <span className={`w-24 text-left tabular-nums ${isPos ? 'text-green-700' : 'text-red-600'}`}>
+            <span className={`w-20 shrink-0 text-right tabular-nums sm:w-24 sm:text-left ${isPos ? 'text-green-700' : 'text-red-600'}`}>
               {formatSignedDollar((officialNav * c.value) / 100)}
-              <span className="text-[10px] opacity-75 ml-1">
+              <span className="block text-[10px] opacity-75 sm:ml-1 sm:inline">
                 ({isPos ? '+' : ''}{c.value.toFixed(3)}%)
               </span>
             </span>
@@ -106,7 +106,7 @@ export default function InsightsPanel({
   if (!withData.length) return null;
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-4 space-y-4">
+    <div className="bg-white rounded-xl border border-gray-200 p-3 space-y-4 sm:p-4">
       <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Insights</h2>
 
       {/* NAV delta */}
@@ -153,7 +153,7 @@ export default function InsightsPanel({
 
       {/* Top mover chips */}
       {(topGainer || topDrag) && (
-        <div className="flex gap-2">
+        <div className="grid gap-2 sm:grid-cols-2">
           {topGainer && topGainer.contribution > 0 && (
             <div className="flex-1 bg-green-50 rounded-lg px-3 py-2">
               <p className="text-xs text-green-600 font-medium">Top contributor</p>

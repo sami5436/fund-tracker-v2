@@ -83,14 +83,14 @@ export default function ActualNavEntry({ fundId, estimatedNav, estimatedNavV2, o
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="flex flex-wrap gap-2 items-center">
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-2 sm:flex sm:flex-wrap sm:items-center">
         <input
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent touch-manipulation"
+          className="min-h-[44px] min-w-0 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent touch-manipulation sm:w-auto"
         />
-        <div className="flex items-center gap-1">
+        <div className="flex min-w-0 items-center gap-1">
           <span className="text-gray-400 text-sm">$</span>
           <input
             type="number"
@@ -100,13 +100,13 @@ export default function ActualNavEntry({ fundId, estimatedNav, estimatedNavV2, o
             placeholder="0.00"
             value={actualInput}
             onChange={(e) => setActualInput(e.target.value)}
-            className="w-24 border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="min-h-[44px] min-w-0 w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:w-24"
           />
         </div>
         <button
           type="submit"
           disabled={!actualInput || !!blockReason || status === 'saving'}
-          className="px-4 py-2 min-h-[36px] rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 active:bg-blue-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors touch-manipulation"
+          className="min-h-[44px] w-full rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 active:bg-blue-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors touch-manipulation sm:w-auto"
         >
           {status === 'saving' ? 'Saving…' : 'Save Actual Fund Price'}
         </button>

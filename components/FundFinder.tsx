@@ -95,12 +95,12 @@ function TickerRow({
   onRemove: () => void;
 }) {
   return (
-    <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-md px-3 py-2">
-      <div className="flex flex-col">
+    <div className="flex items-center gap-1.5 bg-white border border-gray-200 rounded-md px-2 py-1.5 sm:gap-2 sm:px-3 sm:py-2">
+      <div className="flex shrink-0">
         <button
           onClick={onMoveUp}
           disabled={isFirst}
-          className="text-gray-400 hover:text-gray-700 disabled:text-gray-200 disabled:cursor-not-allowed leading-none"
+          className="inline-flex min-h-[40px] min-w-[34px] items-center justify-center text-gray-400 hover:text-gray-700 disabled:text-gray-200 disabled:cursor-not-allowed leading-none touch-manipulation"
           aria-label={`Move ${ticker} up`}
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
@@ -110,7 +110,7 @@ function TickerRow({
         <button
           onClick={onMoveDown}
           disabled={isLast}
-          className="text-gray-400 hover:text-gray-700 disabled:text-gray-200 disabled:cursor-not-allowed leading-none"
+          className="inline-flex min-h-[40px] min-w-[34px] items-center justify-center text-gray-400 hover:text-gray-700 disabled:text-gray-200 disabled:cursor-not-allowed leading-none touch-manipulation"
           aria-label={`Move ${ticker} down`}
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
@@ -122,7 +122,7 @@ function TickerRow({
       <span className="font-mono text-sm font-semibold text-gray-900 flex-1">{ticker}</span>
       <button
         onClick={onRemove}
-        className="text-gray-400 hover:text-red-500 text-lg leading-none px-1"
+        className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-gray-400 hover:text-red-500 text-xl leading-none touch-manipulation"
         aria-label={`Remove ${ticker}`}
       >
         ×
@@ -270,8 +270,8 @@ export default function FundFinder() {
   return (
     <div className="space-y-4">
       {/* Ticker priority */}
-      <section className="bg-white border border-gray-200 rounded-lg p-4">
-        <div className="flex items-baseline justify-between mb-2">
+      <section className="bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 mb-2">
           <h2 className="text-sm font-semibold text-gray-900">Priority Holdings</h2>
           <span className="text-xs text-gray-400">use ▲▼ to reorder</span>
         </div>
@@ -310,7 +310,7 @@ export default function FundFinder() {
                 }
               }}
               placeholder="Type ticker or name (e.g. NVDA, Apple)"
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono uppercase"
+              className="min-h-[44px] w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono uppercase"
               autoComplete="off"
             />
             {suggestionsOpen && suggestions.length > 0 && (
@@ -324,7 +324,7 @@ export default function FundFinder() {
                         addTicker(s.ticker);
                       }}
                       onMouseEnter={() => setHighlightedIdx(i)}
-                      className={`w-full text-left px-3 py-1.5 flex items-baseline gap-2 ${
+                      className={`min-h-[44px] w-full text-left px-3 py-2 flex items-center gap-2 ${
                         i === highlightedIdx ? 'bg-blue-50' : 'hover:bg-gray-50'
                       }`}
                     >
@@ -346,7 +346,7 @@ export default function FundFinder() {
           <button
             onClick={() => addTicker()}
             disabled={!input.trim()}
-            className="px-4 py-2 text-sm font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="min-h-[44px] shrink-0 px-4 py-2 text-sm font-medium bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed touch-manipulation"
           >
             Add
           </button>
@@ -376,7 +376,7 @@ export default function FundFinder() {
       <section className="bg-white border border-gray-200 rounded-lg">
         <button
           onClick={() => setFiltersOpen((v) => !v)}
-          className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-gray-900"
+          className="min-h-[44px] w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-gray-900 touch-manipulation"
         >
           <span className="flex items-center gap-2">
             Filters
@@ -396,7 +396,7 @@ export default function FundFinder() {
               <select
                 value={filters.category}
                 onChange={(e) => setFilters({ ...filters, category: e.target.value })}
-                className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-md"
+                className="min-h-[44px] w-full px-2 py-1.5 text-sm border border-gray-300 rounded-md"
               >
                 <option value="">Any</option>
                 {categories.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -412,7 +412,7 @@ export default function FundFinder() {
                   <button
                     key={r}
                     onClick={() => setFilters({ ...filters, minRating: r })}
-                    className={`flex-1 py-1 text-xs rounded ${
+                    className={`min-h-[40px] flex-1 py-1 text-xs rounded touch-manipulation ${
                       filters.minRating === r
                         ? 'bg-blue-600 text-white'
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -433,7 +433,7 @@ export default function FundFinder() {
                   <button
                     key={r}
                     onClick={() => setFilters({ ...filters, maxRisk: r })}
-                    className={`flex-1 py-1 text-xs rounded ${
+                    className={`min-h-[40px] flex-1 py-1 text-xs rounded touch-manipulation ${
                       filters.maxRisk === r
                         ? 'bg-blue-600 text-white'
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -461,7 +461,7 @@ export default function FundFinder() {
                     maxExpense: e.target.value === '' ? null : Number(e.target.value),
                   })
                 }
-                className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-md"
+                className="min-h-[44px] w-full px-2 py-1.5 text-sm border border-gray-300 rounded-md"
               />
             </div>
 
@@ -472,7 +472,7 @@ export default function FundFinder() {
               <select
                 value={filters.minAum}
                 onChange={(e) => setFilters({ ...filters, minAum: Number(e.target.value) })}
-                className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded-md"
+                className="min-h-[44px] w-full px-2 py-1.5 text-sm border border-gray-300 rounded-md"
               >
                 <option value={0}>Any size</option>
                 <option value={1e8}>$100M+</option>
@@ -485,7 +485,7 @@ export default function FundFinder() {
             {hasActiveFilters && (
               <button
                 onClick={resetFilters}
-                className="text-xs text-gray-500 hover:text-gray-700 underline"
+                className="min-h-[44px] text-xs text-gray-500 hover:text-gray-700 underline touch-manipulation"
               >
                 Reset filters
               </button>
@@ -495,7 +495,7 @@ export default function FundFinder() {
       </section>
 
       {/* Results */}
-      <section className="bg-white border border-gray-200 rounded-lg p-4">
+      <section className="bg-white border border-gray-200 rounded-lg p-3 sm:p-4">
         <div className="flex items-baseline justify-between mb-3">
           <h2 className="text-sm font-semibold text-gray-900">
             {ranked.length > 0 ? 'Ranked Matches' : 'All Funds'}
@@ -535,7 +535,7 @@ export default function FundFinder() {
             return (
             <div
               key={fund.ticker}
-              className="border border-gray-200 rounded-md px-3 py-2.5"
+              className="border border-gray-200 rounded-md px-3 py-3"
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0 flex-1">
@@ -608,7 +608,7 @@ export default function FundFinder() {
 
               <button
                 onClick={() => setDetailsFund(fund)}
-                className="mt-2 text-xs font-medium text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                className="mt-1 -ml-2 min-h-[44px] px-2 text-xs font-medium text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1 touch-manipulation"
               >
                 View details
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

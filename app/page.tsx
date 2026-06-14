@@ -56,13 +56,17 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50">
       {/* Sticky header + tabs */}
       <div className="sticky top-0 z-10 bg-white border-b border-gray-200">
-        <div className="max-w-xl mx-auto px-4">
-          <div className="pt-5 pb-2 flex items-start justify-between gap-3">
-            <h1 className="text-xl font-bold text-gray-900">Fund Nowcast</h1>
-            <div className="flex flex-col items-end gap-0.5">
-              {clock && <span className="text-xs text-gray-400 tabular-nums">{clock}</span>}
+        <div className="max-w-xl mx-auto px-3 sm:px-4">
+          <div className="flex flex-col gap-2 pb-2 pt-3 sm:flex-row sm:items-start sm:justify-between sm:pt-5">
+            <h1 className="text-xl font-bold text-gray-900 shrink-0">Fund Nowcast</h1>
+            <div className="flex min-w-0 flex-col items-start gap-1 sm:items-end sm:gap-0.5">
+              {clock && (
+                <span className="max-w-full text-xs text-gray-400 tabular-nums">
+                  {clock}
+                </span>
+              )}
               {spy?.price != null && (
-                <span className="inline-flex items-center text-sm tabular-nums border border-gray-200 rounded-md px-2.5 py-1 bg-white">
+                <span className="inline-flex max-w-full flex-wrap items-center text-xs tabular-nums border border-gray-200 rounded-md px-2.5 py-1 bg-white sm:text-sm">
                   <span className="text-gray-500 font-medium">SPY</span>
                   <span className="text-gray-700 ml-1">${spy.price.toFixed(2)}</span>
                   {spy.changePct != null && (
@@ -82,7 +86,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex -mb-px overflow-x-auto">
+          <div className="-mx-3 flex -mb-px overflow-x-auto overscroll-x-contain px-3 hide-scrollbar sm:-mx-4 sm:px-4">
             {FUNDS.map((fund) => (
               <button
                 key={fund.id}
@@ -123,37 +127,37 @@ export default function Home() {
       {activeFund ? (
         <>
           {/* Fund name subheader */}
-          <div className="max-w-xl mx-auto px-4 pt-5 pb-1">
+          <div className="max-w-xl mx-auto px-3 pt-4 pb-1 sm:px-4 sm:pt-5">
             <p className="font-semibold text-gray-800 text-base">{activeFund.fullName}</p>
             <p className="text-xs text-gray-400 mt-0.5">{activeFund.subtitle}</p>
           </div>
 
           {/* Main content */}
-          <div className="max-w-xl mx-auto px-4 py-4">
+          <div className="max-w-xl mx-auto px-3 py-3 sm:px-4 sm:py-4">
             <FundView key={activeFund.id} fund={activeFund} />
           </div>
         </>
       ) : activeId === COMPARE_ID ? (
         <>
-          <div className="max-w-6xl mx-auto px-4 pt-5 pb-1">
+          <div className="max-w-6xl mx-auto px-3 pt-4 pb-1 sm:px-4 sm:pt-5">
             <p className="font-semibold text-gray-800 text-base">Fund Comparison Lab</p>
             <p className="text-xs text-gray-400 mt-0.5">
               Compare returns, crash behavior, correlation, and long-range outcomes.
             </p>
           </div>
-          <div className="max-w-6xl mx-auto px-4 py-4">
+          <div className="max-w-6xl mx-auto px-3 py-3 sm:px-4 sm:py-4">
             <FundCompare />
           </div>
         </>
       ) : (
         <>
-          <div className="max-w-xl mx-auto px-4 pt-5 pb-1">
+          <div className="max-w-xl mx-auto px-3 pt-4 pb-1 sm:px-4 sm:pt-5">
             <p className="font-semibold text-gray-800 text-base">Fidelity Fund Finder</p>
             <p className="text-xs text-gray-400 mt-0.5">
               Rank tickers, filter by category/risk/rating, find funds that match.
             </p>
           </div>
-          <div className="max-w-xl mx-auto px-4 py-4">
+          <div className="max-w-xl mx-auto px-3 py-3 sm:px-4 sm:py-4">
             <FundFinder />
           </div>
         </>

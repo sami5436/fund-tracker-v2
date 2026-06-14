@@ -186,16 +186,16 @@ export default function FundDetailsModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-stretch sm:items-center justify-center bg-black/50 sm:p-4"
+      className="fixed inset-0 z-50 flex items-stretch justify-center bg-black/50 sm:items-center sm:p-4"
       onClick={onClose}
     >
       <div
-        className="bg-white w-full sm:max-w-lg sm:rounded-lg sm:shadow-xl overflow-hidden flex flex-col max-h-screen sm:max-h-[90vh]"
+        className="bg-white w-full h-[100dvh] overflow-hidden flex flex-col sm:h-auto sm:max-h-[90vh] sm:max-w-lg sm:rounded-lg sm:shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header (sticky) */}
-        <div className="flex items-start justify-between gap-3 px-4 py-3 border-b border-gray-200 shrink-0">
-          <div className="min-w-0">
+        <div className="relative flex shrink-0 flex-col gap-2 border-b border-gray-200 px-3 py-3 sm:flex-row sm:items-start sm:justify-between sm:gap-3 sm:px-4">
+          <div className="min-w-0 pr-11 sm:pr-0">
             <div className="flex items-baseline gap-2 flex-wrap">
               <span className="font-mono font-bold text-base text-gray-900">{fund.ticker}</span>
               {fund.morningstarRating != null && (
@@ -210,7 +210,7 @@ export default function FundDetailsModal({
               {fund.family ? ` · ${fund.family}` : ''}
             </p>
           </div>
-          <div className="flex items-start gap-3 shrink-0">
+          <div className="flex w-full items-start justify-end gap-3 sm:w-auto shrink-0">
             {quote?.price != null && (
               <div className="border border-gray-300 rounded px-2 py-0.5 flex flex-col items-end leading-tight">
                 <div className="text-base font-bold text-gray-900 tabular-nums">
@@ -238,7 +238,7 @@ export default function FundDetailsModal({
             <button
               onClick={onClose}
               aria-label="Close"
-              className="text-gray-400 hover:text-gray-700 p-1 -m-1"
+              className="absolute right-2 top-2 inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-gray-400 hover:text-gray-700 touch-manipulation sm:static sm:-m-2"
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M18 6L6 18" />
@@ -250,17 +250,17 @@ export default function FundDetailsModal({
         {/* Body (scrollable) */}
         <div className="overflow-y-auto flex-1 overscroll-contain">
           {/* Growth chart */}
-          <section className="px-4 py-4 border-b border-gray-100">
-            <div className="flex items-baseline justify-between mb-2">
+          <section className="px-3 py-4 border-b border-gray-100 sm:px-4">
+            <div className="flex flex-col gap-2 mb-2 min-[380px]:flex-row min-[380px]:items-center min-[380px]:justify-between">
               <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-500">
                 Growth of $10,000
               </h3>
-              <div className="flex gap-1">
+              <div className="grid grid-cols-4 gap-1">
                 {RANGE_OPTIONS.map((opt) => (
                   <button
                     key={opt.value}
                     onClick={() => setRange(opt.value)}
-                    className={`px-2 py-0.5 text-[11px] font-medium rounded ${
+                    className={`min-h-[40px] min-w-[44px] px-2 py-1 text-[11px] font-medium rounded touch-manipulation ${
                       range === opt.value
                         ? 'bg-blue-600 text-white'
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -286,11 +286,11 @@ export default function FundDetailsModal({
           </section>
 
           {/* Returns */}
-          <section className="px-4 py-4 border-b border-gray-100">
+          <section className="px-3 py-4 border-b border-gray-100 sm:px-4">
             <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-3">
               Returns
             </h3>
-            <div className="grid grid-cols-4 gap-2 text-center">
+            <div className="grid grid-cols-2 gap-2 text-center min-[420px]:grid-cols-4">
               {[
                 { label: 'YTD', value: fund.ytdReturn },
                 { label: '1Y', value: fund.return1Y },
@@ -318,11 +318,11 @@ export default function FundDetailsModal({
           </section>
 
           {/* Key metrics */}
-          <section className="px-4 py-4 border-b border-gray-100">
+          <section className="px-3 py-4 border-b border-gray-100 sm:px-4">
             <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-3">
               Key Metrics
             </h3>
-            <dl className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-sm">
+            <dl className="grid grid-cols-1 gap-x-4 gap-y-2.5 text-sm min-[380px]:grid-cols-2">
               <Stat label="Expense Ratio" value={formatPct(fund.expenseRatio)} />
               <Stat label="Fund Assets" value={formatAum(fund.totalAssets)} />
               <Stat label="Yield" value={formatPct(fund.yield)} />
@@ -347,7 +347,7 @@ export default function FundDetailsModal({
           </section>
 
           {/* Top 10 holdings */}
-          <section className="px-4 py-4">
+          <section className="px-3 py-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:px-4 sm:pb-4">
             <h3 className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-3">
               Top 10 Holdings
             </h3>

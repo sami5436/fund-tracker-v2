@@ -209,14 +209,14 @@ export default function FundView({ fund }: { fund: FundConfig }) {
 
       {/* Official NAV + entry combined */}
       <div className="bg-white rounded-xl border border-gray-200 divide-y divide-gray-100">
-        <div className="px-4 py-3 flex items-center justify-between">
-          <div>
+        <div className="px-3 py-3 sm:px-4">
+          <div className="min-w-0">
             {mostRecentRow ? (
               <>
-                <span className="text-3xl font-bold text-gray-900 tabular-nums">
+                <span className="block text-3xl font-bold text-gray-900 tabular-nums sm:inline">
                   ${Number(mostRecentRow.actual_nav).toFixed(2)}
                 </span>
-                <span className="text-base text-gray-400 ml-2">
+                <span className="mt-1 block text-sm leading-5 text-gray-400 sm:ml-2 sm:mt-0 sm:inline sm:text-base">
                   — last official NAV price from{' '}
                   {new Date(`${mostRecentRow.date}T12:00:00`).toLocaleDateString('en-US', {
                     weekday: 'long',
@@ -227,10 +227,10 @@ export default function FundView({ fund }: { fund: FundConfig }) {
               </>
             ) : publicNavQuote?.price != null ? (
               <>
-                <span className="text-3xl font-bold text-gray-900 tabular-nums">
+                <span className="block text-3xl font-bold text-gray-900 tabular-nums sm:inline">
                   ${publicNavQuote.price.toFixed(2)}
                 </span>
-                <span className="text-base text-gray-400 ml-2">
+                <span className="mt-1 block text-sm leading-5 text-gray-400 sm:ml-2 sm:mt-0 sm:inline sm:text-base">
                   — latest published NAV from {fund.publicNavTicker}
                   {publicNavQuote.updatedAt
                     ? ` on ${new Date(publicNavQuote.updatedAt).toLocaleDateString('en-US', {
@@ -247,7 +247,7 @@ export default function FundView({ fund }: { fund: FundConfig }) {
             )}
           </div>
         </div>
-        <div className="px-4 py-3">
+        <div className="px-3 py-3 sm:px-4">
           <ActualNavEntry
             fundId={fund.id}
             estimatedNav={proxyOnly ? primaryEstimatedNav : estimatedNav}
@@ -258,9 +258,9 @@ export default function FundView({ fund }: { fund: FundConfig }) {
       </div>
 
       {/* Estimated NAV */}
-      <div className="bg-white rounded-xl border-2 border-gray-900 p-4">
+      <div className="bg-white rounded-xl border-2 border-gray-900 p-3 sm:p-4">
         <div className="flex items-baseline flex-wrap gap-x-2 gap-y-0.5">
-          <span className="text-4xl font-bold text-gray-900 tabular-nums">
+          <span className="text-3xl font-bold text-gray-900 tabular-nums sm:text-4xl">
             ${primaryEstimatedNav.toFixed(2)}
           </span>
           {usingProxyEstimate && (
@@ -268,16 +268,16 @@ export default function FundView({ fund }: { fund: FundConfig }) {
               proxy adjusted
             </span>
           )}
-          <span className="text-base text-gray-400">
+          <span className="basis-full text-sm leading-5 text-gray-400 sm:basis-auto sm:text-base">
             &mdash; estimated from today&apos;s market from {' '}
             {mostRecentRow
               ? `$${Number(mostRecentRow.actual_nav).toFixed(2)} on ${new Date(`${mostRecentRow.date}T12:00:00`).toLocaleDateString('en-US', { weekday: 'long' })}`
               : ''}
           </span>
         </div>
-        <div className="flex items-center justify-between mt-1.5">
+        <div className="mt-1.5">
           <div
-            className={`flex items-center gap-1.5 text-base font-semibold ${
+            className={`flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-base font-semibold ${
               isPrimaryPositive ? 'text-green-600' : isPrimaryNegative ? 'text-red-600' : 'text-gray-400'
             }`}
           >
@@ -285,7 +285,7 @@ export default function FundView({ fund }: { fund: FundConfig }) {
             <span className="text-sm font-normal">
               ({isPrimaryPositive ? '+' : ''}{primaryFundChange.toFixed(3)}%)
             </span>
-            <span className="text-sm font-normal text-gray-400">
+            <span className="basis-full text-sm font-normal text-gray-400 sm:basis-auto">
               {usingProxyEstimate
                 ? `· top ${fund.holdings.length} + ${fund.residualProxy} residual`
                 : `· top ${fund.holdings.length} holdings`}
@@ -296,7 +296,7 @@ export default function FundView({ fund }: { fund: FundConfig }) {
 
       {/* Estimated NAV v1 — proportional top-10 scale, shown as a comparison when proxy estimate exists */}
       {showLegacyEstimate && (
-        <div className="bg-white rounded-xl border border-gray-300 border-dashed p-4">
+        <div className="bg-white rounded-xl border border-gray-300 border-dashed p-3 sm:p-4">
           <div className="flex items-baseline flex-wrap gap-x-2 gap-y-0.5">
             <span className="text-3xl font-bold text-gray-900 tabular-nums">
               ${estimatedNav.toFixed(2)}
@@ -308,9 +308,9 @@ export default function FundView({ fund }: { fund: FundConfig }) {
               &mdash; proportional top-{fund.holdings.length} scale
             </span>
           </div>
-          <div className="flex items-center justify-between mt-1.5">
+          <div className="mt-1.5">
             <div
-              className={`flex items-center gap-1.5 text-sm font-semibold ${
+              className={`flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-sm font-semibold ${
                 isPositive ? 'text-green-600' : isNegative ? 'text-red-600' : 'text-gray-400'
               }`}
             >
@@ -318,7 +318,7 @@ export default function FundView({ fund }: { fund: FundConfig }) {
               <span className="text-xs font-normal">
                 ({isPositive ? '+' : ''}{fundChange.toFixed(3)}%)
               </span>
-              <span className="text-xs font-normal text-gray-400">
+              <span className="basis-full text-xs font-normal leading-5 text-gray-400 sm:basis-auto">
                 · assumes the unknown {(100 - fund.totalTop10Weight).toFixed(2)}% moves like the top holdings
               </span>
             </div>
@@ -338,9 +338,9 @@ export default function FundView({ fund }: { fund: FundConfig }) {
 
       {/* Holdings table */}
       <div>
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center justify-between gap-3 mb-2">
           <h2 className="text-sm font-semibold text-gray-900">Top 10 Holdings</h2>
-          <span className="text-xs text-gray-400 bg-gray-100 px-2.5 py-1 rounded-full">
+          <span className="shrink-0 text-xs text-gray-400 bg-gray-100 px-2.5 py-1 rounded-full">
             {fund.totalTop10Weight}% of fund
           </span>
         </div>
@@ -382,7 +382,7 @@ export default function FundView({ fund }: { fund: FundConfig }) {
 
       {/* Math explainer */}
       <details className="bg-white rounded-xl border border-gray-200 group">
-        <summary className="px-4 py-3 cursor-pointer text-sm font-medium text-gray-700 select-none flex items-center justify-between hover:bg-gray-50 rounded-xl">
+        <summary className="min-h-[44px] px-4 py-3 cursor-pointer text-sm font-medium text-gray-700 select-none flex items-center justify-between hover:bg-gray-50 rounded-xl touch-manipulation">
           <span>How is this calculated?</span>
           <svg
             className="w-4 h-4 text-gray-400 transition-transform group-open:rotate-180"

@@ -203,8 +203,8 @@ export default function NavChart({
   );
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-4">
-      <div className="flex items-baseline justify-between mb-2">
+    <div className="bg-white rounded-xl border border-gray-200 p-3 sm:p-4">
+      <div className="mb-2 flex flex-col gap-1 min-[380px]:flex-row min-[380px]:items-end min-[380px]:justify-between">
         <div>
           <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">
             {hoverIdx != null ? formatTime(displayed.t) : 'Intraday Estimate'}
@@ -213,7 +213,7 @@ export default function NavChart({
             ${displayed.nav.toFixed(2)}
           </p>
         </div>
-        <div className="text-right">
+        <div className="text-left min-[380px]:text-right">
           <p
             className={`text-sm font-semibold tabular-nums ${
               displayed.changePct > 0
@@ -296,10 +296,10 @@ export default function NavChart({
         ))}
       </svg>
 
-      <div className="flex justify-between text-xs text-gray-400 mt-1">
+      <div className="grid grid-cols-3 gap-1 text-[10px] text-gray-400 mt-1 sm:text-xs">
         <span>Low ${Math.min(...navs).toFixed(2)}</span>
-        <span className="text-gray-300">· Official ${officialNav.toFixed(2)} ·</span>
-        <span>High ${Math.max(...navs).toFixed(2)}</span>
+        <span className="text-center text-gray-300">Official ${officialNav.toFixed(2)}</span>
+        <span className="text-right">High ${Math.max(...navs).toFixed(2)}</span>
       </div>
     </div>
   );

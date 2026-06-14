@@ -165,7 +165,7 @@ export default function NavHistory({ records, onDelete, proxyOnly = false }: Pro
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-gray-200">
+    <div className="overflow-x-auto overscroll-x-contain rounded-xl border border-gray-200 touch-pan-x">
       <table className="w-full text-sm min-w-[480px]">
         <thead>
           {hasV2 && (
@@ -216,7 +216,7 @@ export default function NavHistory({ records, onDelete, proxyOnly = false }: Pro
                 <td className="px-3 py-3.5">
                   <button
                     onClick={() => onDelete(r.date)}
-                    className="text-gray-300 hover:text-red-400 transition-colors p-1 -m-1 touch-manipulation"
+                    className="-m-2 inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-gray-300 hover:text-red-400 transition-colors touch-manipulation"
                     title="Delete"
                   >
                     <svg viewBox="0 0 12 12" className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round">

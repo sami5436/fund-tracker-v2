@@ -80,7 +80,7 @@ export default function HoldingsTable({ holdings }: { holdings: HoldingWithData[
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-gray-200">
+    <div className="overflow-x-auto overscroll-x-contain rounded-xl border border-gray-200 touch-pan-x">
       <table className="w-full text-sm min-w-[320px]">
         <thead>
           <tr className="bg-gray-50 border-b border-gray-200">
@@ -93,17 +93,17 @@ export default function HoldingsTable({ holdings }: { holdings: HoldingWithData[
         <tbody className="divide-y divide-gray-100 bg-white">
           {sorted.map((h) => (
             <tr key={h.ticker} className="hover:bg-gray-50 transition-colors">
-              <td className="px-3 py-3">
+              <td className="px-2 py-3 sm:px-3">
                 <span className="font-semibold text-gray-900">{h.ticker}</span>
                 <span className="ml-2 text-xs text-gray-400 hidden sm:inline">{h.name}</span>
               </td>
-              <td className="px-3 py-3 text-right text-gray-500 tabular-nums text-xs">
+              <td className="px-2 py-3 text-right text-gray-500 tabular-nums text-xs sm:px-3">
                 {h.weight.toFixed(2)}%
               </td>
-              <td className="px-3 py-3 text-right font-medium text-gray-700 tabular-nums">
+              <td className="px-2 py-3 text-right font-medium text-gray-700 tabular-nums sm:px-3">
                 {h.price !== null ? `$${h.price.toFixed(2)}` : <span className="text-gray-300">—</span>}
               </td>
-              <td className="px-3 py-3 text-right">
+              <td className="px-2 py-3 text-right sm:px-3">
                 <ChangeBadge
                   value={h.changePct}
                   dollarValue={

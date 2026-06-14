@@ -204,18 +204,18 @@ function GrowthChart({
           </text>
         ))}
       </svg>
-      <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+      <div className="mt-4 grid grid-cols-1 gap-2 min-[360px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
         {assets.map((asset, index) => {
           const benchmark = asset.symbol === 'SPY';
           const value = last.values[asset.symbol];
           return (
-            <div key={asset.symbol} className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-              <div className="flex items-center gap-2">
+            <div key={asset.symbol} className="min-w-0 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+              <div className="flex min-w-0 items-center gap-2">
                 <span
                   className="h-2 w-2 rounded-full"
                   style={{ background: assetColor(index, benchmark) }}
                 />
-                <span className="text-xs font-semibold text-slate-600">
+                <span className="min-w-0 truncate text-xs font-semibold text-slate-600">
                   {asset.symbol}{benchmark ? ' benchmark' : ''}
                 </span>
               </div>
@@ -284,7 +284,7 @@ function ProjectionChart({ asset }: { asset: CompareAsset }) {
           $10k
         </text>
       </svg>
-      <div className="mt-3 grid grid-cols-3 gap-2">
+      <div className="mt-3 grid grid-cols-1 gap-2 min-[380px]:grid-cols-3">
         <Metric label="Low path" value={formatMoney(terminal.low)} tone="negative" />
         <Metric label="Median" value={formatMoney(terminal.median)} tone="positive" />
         <Metric label="High path" value={formatMoney(terminal.high)} tone="positive" />
@@ -374,7 +374,7 @@ export default function FundCompare() {
 
   return (
     <div className="space-y-5">
-      <section className="relative overflow-hidden rounded-2xl bg-slate-950 px-5 py-6 text-white shadow-xl shadow-slate-200 sm:px-7">
+      <section className="relative overflow-hidden rounded-2xl bg-slate-950 px-4 py-5 text-white shadow-xl shadow-slate-200 sm:px-7 sm:py-6">
         <div className="absolute -right-20 -top-24 h-64 w-64 rounded-full bg-blue-500/20 blur-3xl" />
         <div className="absolute -bottom-28 left-1/3 h-56 w-56 rounded-full bg-amber-400/10 blur-3xl" />
         <div className="relative">
@@ -393,7 +393,7 @@ export default function FundCompare() {
             {selected.map((symbol, index) => (
               <span
                 key={symbol}
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 py-1.5 pl-2.5 pr-2 text-sm backdrop-blur"
+                className="inline-flex min-h-[40px] items-center gap-2 rounded-full border border-white/15 bg-white/10 py-1.5 pl-2.5 pr-1 text-sm backdrop-blur"
               >
                 <span
                   className="h-2 w-2 rounded-full"
@@ -403,7 +403,7 @@ export default function FundCompare() {
                 <button
                   type="button"
                   onClick={() => setSelected((current) => current.filter((item) => item !== symbol))}
-                  className="rounded-full p-0.5 text-slate-400 transition hover:bg-white/10 hover:text-white"
+                  className="inline-flex min-h-[32px] min-w-[32px] items-center justify-center rounded-full text-slate-400 transition hover:bg-white/10 hover:text-white touch-manipulation"
                   aria-label={`Remove ${symbol}`}
                 >
                   <svg viewBox="0 0 12 12" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2">
@@ -444,7 +444,7 @@ export default function FundCompare() {
                   type="button"
                   disabled={added || selected.length >= MAX_SELECTED}
                   onClick={() => addSymbol(pick.symbol)}
-                  className="rounded-full border border-white/10 px-3 py-1.5 text-xs text-slate-300 transition hover:border-white/30 hover:text-white disabled:opacity-30"
+                  className="min-h-[44px] rounded-full border border-white/10 px-3 py-2 text-xs text-slate-300 transition hover:border-white/30 hover:text-white disabled:opacity-30 touch-manipulation"
                 >
                   <span className="font-semibold">{pick.symbol}</span>
                   <span className="ml-1.5 text-slate-500">{pick.label}</span>
@@ -507,7 +507,7 @@ export default function FundCompare() {
                         {asset.quoteType}
                       </span>
                     </div>
-                    <div className="mt-5 grid grid-cols-3 gap-3">
+                    <div className="mt-5 grid grid-cols-1 gap-3 min-[380px]:grid-cols-3">
                       <Metric
                         label="10y CAGR"
                         value={formatPct(return10)}
@@ -527,14 +527,14 @@ export default function FundCompare() {
           </section>
 
           <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
-            <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-col items-stretch justify-between gap-3 min-[420px]:flex-row min-[420px]:items-center">
               <div>
                 <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400">
                   Wealth path
                 </p>
                 <h3 className="mt-1 text-lg font-bold text-slate-900">$10,000 invested</h3>
               </div>
-              <div className="flex rounded-lg bg-slate-100 p-1">
+              <div className="grid grid-cols-4 rounded-lg bg-slate-100 p-1">
                 {[
                   { label: '1Y', value: 1 },
                   { label: '5Y', value: 5 },
@@ -545,7 +545,7 @@ export default function FundCompare() {
                     key={range.label}
                     type="button"
                     onClick={() => setGrowthYears(range.value)}
-                    className={`rounded-md px-3 py-1.5 text-xs font-semibold transition ${
+                    className={`min-h-[40px] rounded-md px-3 py-1.5 text-xs font-semibold transition touch-manipulation ${
                       growthYears === range.value
                         ? 'bg-white text-slate-900 shadow-sm'
                         : 'text-slate-500 hover:text-slate-800'
@@ -561,13 +561,13 @@ export default function FundCompare() {
             </div>
           </section>
 
-          <div className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
-            <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+          <div className="grid min-w-0 gap-5 lg:grid-cols-[1.05fr_0.95fr]">
+            <section className="min-w-0 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
               <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400">
                 Compounding
               </p>
               <h3 className="mt-1 text-lg font-bold text-slate-900">Annualized total return</h3>
-              <div className="mt-4 overflow-x-auto">
+              <div className="mt-4 max-w-full overflow-x-auto overscroll-x-contain touch-pan-x">
                 <table className="w-full min-w-[480px] text-sm">
                   <thead>
                     <tr className="text-xs text-slate-400">
@@ -615,8 +615,8 @@ export default function FundCompare() {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
-              <div className="flex items-start justify-between gap-3">
+            <section className="min-w-0 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+              <div className="flex flex-col items-stretch justify-between gap-3 sm:flex-row sm:items-start">
                 <div>
                   <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400">
                     Forward range
@@ -626,7 +626,7 @@ export default function FundCompare() {
                 <select
                   value={activeProjection?.symbol ?? ''}
                   onChange={(event) => setProjectionSymbol(event.target.value)}
-                  className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-xs font-semibold text-slate-700"
+                  className="min-h-[44px] rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-xs font-semibold text-slate-700"
                 >
                   {primaryAssets.map((asset) => (
                     <option key={asset.symbol} value={asset.symbol}>{asset.symbol}</option>
@@ -650,7 +650,7 @@ export default function FundCompare() {
             <p className="mt-1 text-xs text-slate-400">
               Worst drawdown observed inside each dated market window.
             </p>
-            <div className="mt-4 overflow-x-auto">
+            <div className="mt-4 max-w-full overflow-x-auto overscroll-x-contain touch-pan-x">
               <table className="w-full min-w-[680px] text-sm">
                 <thead>
                   <tr className="text-xs text-slate-400">
@@ -690,7 +690,7 @@ export default function FundCompare() {
             <p className="mt-1 text-xs text-slate-400">
               Above 0.85 usually means the funds are behaving like the same bet.
             </p>
-            <div className="mt-4 overflow-x-auto">
+            <div className="mt-4 max-w-full overflow-x-auto overscroll-x-contain touch-pan-x">
               <table className="border-separate border-spacing-1 text-xs">
                 <thead>
                   <tr>
